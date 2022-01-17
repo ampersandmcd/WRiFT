@@ -1,0 +1,6 @@
+name: CapstoneExploration
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - flask=1.1.2
