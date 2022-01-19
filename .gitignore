@@ -15,3 +15,6 @@ __pycache__/
 # exclude data files
 *.DS_Store
 *.zip
+
+# exclude notebook checkpoints
+.ipynb_checkpoints/
