@@ -17,3 +17,8 @@ A subdirectory to explore the use of [flask](https://flask.palletsprojects.com/e
   - Opening a powershell/cmd/terminal in `CapstoneExploration/flask`, then
   - Running `flask run`, and
   - Clicking on the localhost link returned by flask to view the webpage.
+
+#### 20 January 2022
+- Created skeleton website, without any styling yet
+  - Added navigation bar to each page that we expect to have, along with the cooresponding pages
+  - Added filler text to each page about what we plan to implement

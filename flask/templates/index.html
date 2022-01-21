@@ -5,7 +5,19 @@
     <title>Home</title>
 </head>
 <body>
-<p>Home page</p>
-<a href="{{url_for('about')}}">About page?</a>
+
+ <nav>
+     <a href="{{url_for('index')}}">Home</a> |
+  <a href="{{url_for('about')}}">About</a> |
+  <a href="{{url_for('contact')}}">Contacts</a> |
+  <a href="{{url_for('problem')}}">The Problem</a> |
+  <a href="{{url_for('solution')}}">Our Solution</a> |
+  <a href="{{url_for('resources')}}">Resources</a>
+</nav>
+
+ <h1>Home</h1>
+<p>Info about the home page will go here. This includes
+    maps, results, selection options, and overlays</p>
+
 </body>
 </html>
