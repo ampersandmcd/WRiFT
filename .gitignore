@@ -1,6 +1,7 @@
 # exclude PyCharm project settings and virtual environments
 .idea/
 .vscode/
+.pytest_cache/
 venv/
 conda/
 
