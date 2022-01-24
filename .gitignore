@@ -3,6 +3,7 @@
 .vscode/
 .pytest_cache/
 venv/
+env/
 conda/
 
 # exclude experiment scripts
@@ -16,6 +17,9 @@ __pycache__/
 # exclude data files
 *.DS_Store
 *.zip
+/data/LF2020_FBFM40_200_CONUS/
+*.geojson
 
 # exclude notebook checkpoints
 .ipynb_checkpoints/
+
