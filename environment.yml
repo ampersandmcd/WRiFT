@@ -7,3 +7,5 @@ dependencies:
   - pandas=1.4
   - matplotlib=3.5
   - plotly=5.5
+  - gdal=3.4.0
+  - libgdal=3.4.0
