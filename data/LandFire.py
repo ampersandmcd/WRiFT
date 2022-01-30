@@ -75,17 +75,15 @@ def printInfo(dataset):
     rows = dataset.RasterYSize
     bands = dataset.RasterCount
 
-    print(F"cols: {cols} rows: {rows} bands: {bands}")
-
     info = gdal.Info(dataset)
     print(info)
+    print(F"cols: {cols} rows: {rows} bands: {bands}")
+
 
 if __name__ == '__main__':
 
     dataset = openRaster()
     legend = openLegend()
-
-    printInfo(dataset)
 
     band = dataset.GetRasterBand(1)
 
@@ -93,4 +91,5 @@ if __name__ == '__main__':
 
     data = band.ReadAsArray(75000, 75000, 1, 1)
 
+    printInfo(dataset)
     print(f"Fuel type at (75000, 75000) = {data[0, 0]}")
