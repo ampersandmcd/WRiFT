@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from flask import current_app as app
 
 
@@ -30,3 +30,11 @@ def resources():
 @app.route("/solution")
 def solution():
     return render_template("solution.html")
+
+@app.route('/prototyping/', methods = ['POST', 'GET'])
+def prototyping():
+    if request.method == 'GET':
+        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST':
+        form_data = request.form
+        return render_template('prototyping.html',form_data = form_data)

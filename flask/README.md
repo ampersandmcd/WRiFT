@@ -11,6 +11,12 @@ A subdirectory to explore the use of [flask](https://flask.palletsprojects.com/e
 
 ## Activity Log
 
+#### 31 January 2022
+- Added example user form for inputting parameters
+- Created prototype page for testing data and such that is not in the nav bar
+- Added handler for the form
+
+
 #### 22 January 2022
 - Restructured flask app files to comply with [standard layout](https://flask.palletsprojects.com/en/2.0.x/tutorial/layout/)
   - `wsgi.py` boots the app
