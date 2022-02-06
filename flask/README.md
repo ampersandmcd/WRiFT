@@ -11,6 +11,14 @@ A subdirectory to explore the use of [flask](https://flask.palletsprojects.com/e
 
 ## Activity Log
 
+#### 6 February 2022
+- Changed most of the inputs page to look like mockups
+- Added sliders and impacts page button
+- Added some slight css to format page
+- No radio buttons added yet, impacts page will need updates
+- Not sure if the baseline section should have its own submission button? Or if clicking the radio button to left will automatically pull data, and then eye button will display that data? Need a way for that button to submit without hitting the run option
+
+
 #### 31 January 2022
 - Added example user form for inputting parameters
 - Created prototype page for testing data and such that is not in the nav bar
