@@ -19,6 +19,7 @@ __pycache__/
 *.zip
 /data/LF2020_FBFM40_200_CONUS/
 *.geojson
+*.nc
 
 # exclude notebook checkpoints
 .ipynb_checkpoints/
