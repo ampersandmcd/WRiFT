@@ -3,14 +3,123 @@
 {% set title = "Home" %}
 
 {% block content %}
+
+
     <h1>Home</h1>
     <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
 <br>
-<p>User Input prototype</p>
-<form action="/prototyping" method = "POST">
-    <p>Name <input type = "text" name = "Name" /></p>
-    <p>City <input type = "text" name = "City" /></p>
-    <p>Country <input type = "text" name = "Country" /></p>
-    <p><input type = "submit" value = "Submit" /></p>
-</form>
+
+<!-- Switch between the inputs and impacts pages with button -->
+<div id="Options" class="Options">
+<p>
+    <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
+    <input id="ImpactsButton" type="button" value="Impacts" onclick="impactsVisible();"/>
+</p>
+</div>
+
+<!-- INPUTS PAGE -->
+<div id="Inputs" class="Inputs">
+    <!-- Start of user form -->
+
+    <!-- Start of baseline section -->
+    <div id="baseline" class="baseline">
+    <p>Baseline </p>
+        </div>
+
+    <form action="/prototyping" method = "POST">
+       <!-- Date information, might not end up having this within the form so it can
+        update as users place dates? May want its own form? Different paths can be taken for this
+        step -->
+       <p>Historical Data <input type = "data" name = "historicalData" placeholder="mm/dd/yyyy"/></p>
+       <p>Climatological Data <input type = "number" name = "climatologicalData" placeholder="mm"/></p>
+
+
+
+        <!-- Adjustments sections with sliders -->
+       <div id="adjustments" class="adjustments">
+    <p>Adjustments</p>
+        </div>
+
+        <!-- Sliders section, can stay in a form since their data isnt needed until run button is hit -->
+       <div class="slidecontainer">
+           <!-- Temperature -->
+            <span id="tempVal"> 0 </span>
+           <span> F</span>
+           <p>Temperature (F): <input type="range" min="-25" max="25" value="0" class="slider"name="tempSlider" id="tempSlider"></p>
+
+           <!-- Humidty -->
+            <span id="humidVal"> 0 </span>
+           <span> %</span>
+           <p>Humidty (%): <input type="range" min="-25" max="25" value="0" class="slider" name="humidtySlider" id="humiditySlider"> </p>
+
+           <!-- Wind speed -->
+            <span id="wndSpdVal"> 0 </span>
+           <span> mph</span>
+           <p>Wind Speed (mph): <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
+
+           <!-- Wind direction -->
+       </div>
+<br>
+            <p><input type = "submit" value = "Run" /></p>
+    </form>
+</div>
+
+<!-- IMPACTS PAGE -->
+<div id="Impacts" class="Impacts">
+    <p>The impacts page</p>
+</div>
+
+
+<!-- Updates the slider values, these can stay in the form since the values are not
+ needed to be grabbed until the user runs the simulation.
+  Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+<script>
+var sliderTemp = document.getElementById("tempSlider");
+var outputTemp = document.getElementById("tempVal");
+outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
+
+var sliderHumid = document.getElementById("humiditySlider");
+var outputHumid = document.getElementById("humidVal");
+outputHumid.innerHTML = sliderHumid.value; // Display the default slider value
+
+var sliderWndSpd = document.getElementById("wndSpdSlider");
+var outputWndSpd = document.getElementById("wndSpdVal");
+outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
+
+
+// Update the current slider value (each time you drag the slider handle)
+sliderTemp.oninput = function() {
+  outputTemp.innerHTML = this.value;
+}
+
+sliderHumid.oninput = function() {
+  outputHumid.innerHTML = this.value;
+}
+
+sliderWndSpd.oninput = function() {
+  outputWndSpd.innerHTML = this.value;
+}
+</script>
+
+<!-- Switches between the inputs and impacts pages -->
+<script>
+    function inputsVisible() {
+            document.getElementById('Inputs').style.display = 'block';
+            document.getElementById('Impacts').style.display = 'none';
+}
+
+function impactsVisible() {
+            document.getElementById('Inputs').style.display = 'none';
+            document.getElementById('Impacts').style.display = 'block';
+}
+</script>
+
+    <div id="chart" class="chart"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graphs = {{graph_json | safe}};
+        Plotly.plot("chart",graphs,{});
+    </script>
 {% endblock %}
+

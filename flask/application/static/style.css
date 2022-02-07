@@ -7,3 +7,74 @@
 .Site-content {
   flex: 1;
 }
+
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 15px;
+  border-radius: 5px;
+  background: white;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: darkred;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: darkred;
+  cursor: pointer;
+}
+
+#Impacts {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Inputs {
+  text-align: right;
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+  width: 40%;
+  margin-right: 0;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+#Options {
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  margin-bottom: 5px;
+  width: 40%;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+#baseline {
+  text-align: center;
+  font-size: 20px;
+}
+
+#adjustments {
+  text-align: center;
+  font-size: 20px;
+}
