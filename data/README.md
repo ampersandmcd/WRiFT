@@ -2,7 +2,7 @@
 
 A subdirectory to explore data acquisition for our modeling.
 ## NetCDF Files
-- Check out the documentation for [netCDF4](https://unidata.github.io/netcdf4-python/) to learn about interfacing with netCDF files in python. 
+- Check out the documentation for [netCDF4](https://unidata.github.io/netcdf4-python/) or [xarray](https://xarray.pydata.org/en/stable/) to learn about interfacing with netCDF files in python. 
 - The [farsite.nc](https://storage.googleapis.com/modeling_data_farsite/farsite.nc) file should contain all static modeling data needed for FARSITE in Santa Clara County.
   - Data is all mapped to the same geospatial grid, with 30x30 m pixels. 
   - Data is organized in 14 bands within the NetCDF, each representing a different variable. Click the links to access a .csv legend for each variable.

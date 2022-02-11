@@ -45,6 +45,38 @@
   margin-right: 0;
   margin-left: auto;
   text-align: right;
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+#Economic {
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Health {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Demographic {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Environment {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
 }
 
 #Inputs {
