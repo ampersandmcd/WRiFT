@@ -20,6 +20,10 @@ A subdirectory to explore data acquisition for our modeling.
     12. US_DEM: Elevation (m)
     13. US_FDIST: Fuel Disturbance [(Qualitative, see legend)](https://www.landfire.gov/CSV/LF_Limited/LF19_FDst_210.csv)
     14. US_SLP: Slope (% change in elevation)
+    
+    
+## Building Footprints
+The footprints for California (in geojson format) are [here](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/California.geojson.zip). Word of warning: this file is about 3.5 GB unzipped. For a smaller set to play with, try [Wyoming](https://usbuildingdata.blob.core.windows.net/usbuildings-v2/Wyoming.geojson.zip). It's about 100 MB.
 
 ## To Do List
 

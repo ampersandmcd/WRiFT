@@ -13,3 +13,4 @@ dependencies:
   - jupyter=1.0
   - netcdf4=1.5
   - rioxarray=0.9
+  - geopy=2.2.0
