@@ -24,6 +24,8 @@
 <!-- Switch between the inputs and impacts pages with button
  UPDATE: to a card and nicer buttons -->
 <div id="UserForm" class="UserForm">
+
+<!-- Top half of the user form, with input and impact buttons -->
 <div id="Options" class="Options">
 <p>
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
@@ -31,8 +33,8 @@
 </p>
 </div>
 
-<!-- Uses Cards to get more modern look -->
-<div class="card text-center" style="width: 23rem;">
+<!-- Uses Bootstrap Cards to get more modern look -->
+<div class="card text-center bg-light border-dark mb-3" style="width: 23rem;">
     <div class="card-body">
 
         <!-- INPUTS PAGE -->
@@ -42,7 +44,7 @@
          the eyes being clicked do not submit the form-->
         <div class="row">
 
-        <!-- The eye buttons, in the left column -->
+        <!-- The eye buttons, in the left column, add a div in order to space out more efficiently-->
         <div class="column left">
 
             <p>
@@ -64,6 +66,7 @@
             <div id="baseline" class="baseline">
                 <h5>Baseline</h5>
             </div>
+
 
             <!-- User Form Begins Here!!! -->
             <form action="/prototyping" method = "POST">
@@ -100,6 +103,13 @@
                 <br>
                 <p><input type = "submit" value = "Run" /></p>
             </form>
+
+        <!-- End of right column -->
+        </div>
+
+        <!-- End of row -->
+        </div>
+
         <!-- End of inputs section -->
         </div>
 
@@ -107,7 +117,7 @@
 
         <!-- IMPACTS PAGE -->
         <div id="Impacts" class="Impacts">
-            <p>The impacts page</p>
+            <h5>Impacts</h5>
             <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
             <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
             <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
@@ -132,10 +142,6 @@
         <!-- End of impacts page -->
         </div>
 
-        <!-- End of right column -->
-        </div>
-        <!-- End of row -->
-        </div>
 
     <!-- End of card body, which includes eye buttons, and form -->
     </div>
