@@ -10,17 +10,6 @@
 <br>
 
 
-<p>
-    <input id="TestButton" type="button" value="Testing" onclick="testsVisible();"/>
-</p>
-
-<script>
-    function testsVisible() {
-        //var graphs = {{graph_json | safe}};
-        //Plotly.newPlot("chart",graphs,{});
-}
-</script>
-
 <div id="page" class="page">
 
 <div id="chart" class="chart"></div>
@@ -32,8 +21,11 @@
     </script>
 
 
-<!-- Switch between the inputs and impacts pages with button -->
+<!-- Switch between the inputs and impacts pages with button
+ UPDATE: to a card and nicer buttons -->
 <div id="UserForm" class="UserForm">
+
+<!-- Top half of the user form, with input and impact buttons -->
 <div id="Options" class="Options">
 <p>
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
@@ -41,80 +33,128 @@
 </p>
 </div>
 
-<!-- INPUTS PAGE -->
-<div id="Inputs" class="Inputs">
-    <!-- Start of user form -->
+<!-- Uses Bootstrap Cards to get more modern look -->
+<div class="card text-center bg-light border-dark mb-3" style="width: 23rem;">
+    <div class="card-body">
 
-    <!-- Start of baseline section -->
-    <div id="baseline" class="baseline">
-    <p>Baseline </p>
+        <!-- INPUTS PAGE -->
+        <div id="Inputs" class="Inputs">
+
+        <!-- Divides the eyes buttons and rest of form into their own columns, so that
+         the eyes being clicked do not submit the form-->
+        <div class="row">
+
+        <!-- The eye buttons, in the left column, add a div in order to space out more efficiently-->
+        <div class="column left">
+
+            <p>
+            <br><br><br><br><br><br><br><br><br><br>
+            <input id="TestButton" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" class="closed" onclick="testsVisible();"/>
+            <br><br><br>
+            <input id="TestButton2" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible2();"/>
+            <br><br><br>
+            <input id="TestButton3" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible3();"/>
+            <br><br><br>
+            <input id="TestButton4" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible4();"/>
+            </p>
         </div>
 
-    <form action="/prototyping" method = "POST">
-       <!-- Date information, might not end up having this within the form so it can
-        update as users place dates? May want its own form? Different paths can be taken for this
-        step -->
-       <p>Historical Data <input type = "data" name = "historicalData" placeholder="mm/dd/yyyy"/></p>
-       <p>Climatological Data <input type = "number" name = "climatologicalData" placeholder="mm"/></p>
+        <div class="column right">
 
 
+            <!-- Start of baseline section -->
+            <div id="baseline" class="baseline">
+                <h5>Baseline</h5>
+            </div>
 
-        <!-- Adjustments sections with sliders -->
-       <div id="adjustments" class="adjustments">
-    <p>Adjustments</p>
+
+            <!-- User Form Begins Here!!! -->
+            <form action="/prototyping" method = "POST">
+
+                <p>Historical Data <input type = "date" name = "historicalData" placeholder="mm/dd/yyyy"/></p>
+                <p>Climatological Data <input type = "text" name = "climatologicalData" placeholder="mm" size="14"/></p>
+
+                <!-- Adjustments sections with sliders -->
+                <div id="adjustments" class="adjustments">
+                    <h5>Adjustments</h5>
+                </div>
+
+                <!-- Sliders section -->
+                <div class="slidecontainer">
+                    <!-- Temperature -->
+                    <span id="tempVal"> 0 </span>
+                    <span> F</span>
+                    <p>Temperature: <input type="range" min="-25" max="25" value="0" class="slider"name="tempSlider" id="tempSlider"></p>
+
+                    <!-- Humidty -->
+                    <span id="humidVal"> 0 </span>
+                    <span> %</span>
+                    <p>Humidty: <input type="range" min="-25" max="25" value="0" class="slider" name="humidtySlider" id="humiditySlider"> </p>
+
+                    <!-- Wind speed -->
+                    <span id="wndSpdVal"> 0 </span>
+                    <span> mph</span>
+                    <p>Wind Speed (mph): <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
+
+                    <!-- Wind direction -->
+
+
+                </div>
+                <br>
+                <p><input type = "submit" value = "Run" /></p>
+            </form>
+
+        <!-- End of right column -->
         </div>
 
-        <!-- Sliders section, can stay in a form since their data isnt needed until run button is hit -->
-       <div class="slidecontainer">
-           <!-- Temperature -->
-            <span id="tempVal"> 0 </span>
-           <span> F</span>
-           <p>Temperature (F): <input type="range" min="-25" max="25" value="0" class="slider"name="tempSlider" id="tempSlider"></p>
+        <!-- End of row -->
+        </div>
 
-           <!-- Humidty -->
-            <span id="humidVal"> 0 </span>
-           <span> %</span>
-           <p>Humidty (%): <input type="range" min="-25" max="25" value="0" class="slider" name="humidtySlider" id="humiditySlider"> </p>
+        <!-- End of inputs section -->
+        </div>
 
-           <!-- Wind speed -->
-            <span id="wndSpdVal"> 0 </span>
-           <span> mph</span>
-           <p>Wind Speed (mph): <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
 
-           <!-- Wind direction -->
-       </div>
-<br>
-            <p><input type = "submit" value = "Run" /></p>
-    </form>
-</div>
 
-<!-- IMPACTS PAGE -->
-<div id="Impacts" class="Impacts">
-    <p>The impacts page</p>
-    <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
-    <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
-    <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
-    <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
+        <!-- IMPACTS PAGE -->
+        <div id="Impacts" class="Impacts">
+            <h5>Impacts</h5>
+            <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
+            <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
+            <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
+            <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
 
-    <div id="Economic" class="Economic">
-        <p>Economic data goes here</p>
+            <div id="Economic" class="Economic">
+                <p>Economic data goes here</p>
+            </div>
+
+            <div id="Health" class="Health">
+                <p>Health data goes here</p>
+            </div>
+
+            <div id="Demographic" class="Demographic">
+                <p>Demographic Data goes here</p>
+            </div>
+
+            <div id="Environment" class="Environment">
+                <p>Environment Data goes here</p>
+            </div>
+
+        <!-- End of impacts page -->
+        </div>
+
+
+    <!-- End of card body, which includes eye buttons, and form -->
     </div>
 
-    <div id="Health" class="Health">
-        <p>Health data goes here</p>
-    </div>
-
-    <div id="Demographic" class="Demographic">
-        <p>Demographic Data goes here</p>
-    </div>
-
-    <div id="Environment" class="Environment">
-        <p>Environment Data goes here</p>
-    </div>
-
+<!-- End of card class -->
 </div>
+
+<!-- End of user form page, which includes impact and inputs buttons -->
 </div>
+
+<!-- End of page -->
 </div>
+
 
 <!-- Updates the slider values, these can stay in the form since the values are not
  needed to be grabbed until the user runs the simulation.
@@ -193,5 +233,54 @@ function impactsVisible() {
 }
 </script>
 
+<!-- Enables and disables visual layers -->
+<script>
+    function testsVisible() {
+        var img = document.getElementById("TestButton");
+        if (img.className == "open") {
+            img.className = "closed";
+            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+        } else {
+            // add plotly changes here
+            // var graphs = {{graph_json | safe}};
+            // Plotly.newPlot("chart",graphs,{});
+            img.className = "open";
+            img.src = "{{url_for('static', filename='openEye.png')}}";
+        }
+    }
+
+    function testsVisible2() {
+        var img = document.getElementById("TestButton2");
+        if (img.className == "open") {
+            img.className = "closed";
+            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+        } else {
+            img.className = "open";
+            img.src = "{{url_for('static', filename='openEye.png')}}";
+        }
+    }
+
+    function testsVisible3() {
+        var img = document.getElementById("TestButton3");
+        if (img.className == "open") {
+            img.className = "closed";
+            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+        } else {
+            img.className = "open";
+            img.src = "{{url_for('static', filename='openEye.png')}}";
+        }
+    }
+
+    function testsVisible4() {
+        var img = document.getElementById("TestButton4");
+        if (img.className == "open") {
+            img.className = "closed";
+            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+        } else {
+            img.className = "open";
+            img.src = "{{url_for('static', filename='openEye.png')}}";
+        }
+    }
+</script>
 {% endblock %}
 
