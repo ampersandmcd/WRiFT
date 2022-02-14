@@ -9,16 +9,28 @@
     <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
 <br>
 
+
+<p>
+    <input id="TestButton" type="button" value="Testing" onclick="testsVisible();"/>
+</p>
+
+<script>
+    function testsVisible() {
+        //var graphs = {{graph_json | safe}};
+        //Plotly.newPlot("chart",graphs,{});
+}
+</script>
+
 <div id="page" class="page">
 
-<div id="chart" class="chart">
+<div id="chart" class="chart"></div>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
         var graphs = {{graph_json | safe}};
         Plotly.plot("chart",graphs,{});
     </script>
-        </div>
+
 
 <!-- Switch between the inputs and impacts pages with button -->
 <div id="UserForm" class="UserForm">
