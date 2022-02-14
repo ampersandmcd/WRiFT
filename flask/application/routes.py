@@ -45,19 +45,8 @@ def index():
     # render plot from converted netcdf
     #
     df = pd.read_csv("application/static/farsite_lonlat_low.csv")
-    fig = px.scatter_mapbox(df, lat="y", lon="x", color="US_DEM", opacity=0.1)
-    fig.update_layout(
-        mapbox_style="white-bg",
-        mapbox_layers=[
-            {
-                "below": 'traces',
-                "sourcetype": "raster",
-                "sourceattribution": "United States Geological Survey",
-                "source": [
-                    "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
-                ]
-            }
-        ])
+    fig = px.scatter_mapbox(df, lat="y", lon="x", color="US_ASP", opacity=0.1)
+    fig.update_layout(mapbox_style="satellite-streets")
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -66,19 +55,8 @@ def index():
     #
     # df = pd.read_csv("application/static/farsite_lonlat_low.csv")
     # layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=3))
-    # layout.update(
-    #     mapbox_style="white-bg",
-    #     mapbox_layers=[
-    #         {
-    #             "below": 'traces',
-    #             "sourcetype": "raster",
-    #             "sourceattribution": "United States Geological Survey",
-    #             "source": [
-    #                 "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}"
-    #             ]
-    #         }
-    #     ]
-    # )
+    # layout.update(mapbox_style="satellite-streets")
+    #
     #
     # # load data
     # data = []
