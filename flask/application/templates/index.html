@@ -9,7 +9,19 @@
     <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
 <br>
 
+<div id="page" class="page">
+
+<div id="chart" class="chart">
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graphs = {{graph_json | safe}};
+        Plotly.plot("chart",graphs,{});
+    </script>
+        </div>
+
 <!-- Switch between the inputs and impacts pages with button -->
+<div id="UserForm" class="UserForm">
 <div id="Options" class="Options">
 <p>
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
@@ -89,7 +101,8 @@
     </div>
 
 </div>
-
+</div>
+</div>
 
 <!-- Updates the slider values, these can stay in the form since the values are not
  needed to be grabbed until the user runs the simulation.
@@ -168,12 +181,5 @@ function impactsVisible() {
 }
 </script>
 
-    <div id="chart" class="chart"></div>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        var graphs = {{graph_json | safe}};
-        Plotly.plot("chart",graphs,{});
-    </script>
 {% endblock %}
 

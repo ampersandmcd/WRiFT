@@ -48,7 +48,7 @@
   background-color: lightgrey;
   padding: 10px;
   border-radius: 25px;
-  width: 40%;
+
   margin-bottom: 10px;
 }
 
@@ -84,7 +84,7 @@
   background-color: lightgrey;
   padding: 10px;
   border-radius: 25px;
-  width: 40%;
+
   margin-right: 0;
   margin-left: auto;
   margin-bottom: 10px;
@@ -96,7 +96,7 @@
   border-radius: 25px;
   text-align: center;
   margin-bottom: 5px;
-  width: 40%;
+
   margin-right: 0;
   margin-left: auto;
 }
@@ -109,4 +109,21 @@
 #adjustments {
   text-align: center;
   font-size: 20px;
+}
+
+#UserForm {
+  width: 23em;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#chart {
+  width: 41em;
+  display: inline-block;
+  overflow: hidden;
+  margin-bottom: 3em;
+}
+
+#page {
+  width: 65em;
 }
