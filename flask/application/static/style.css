@@ -163,3 +163,60 @@
 .right {
   width: 75%;
 }
+
+#endForm {
+  display: inline-block;
+}
+
+.wind-label-col {
+  width: 50%;
+  padding-right: 1em;
+  vertical-align: bottom;
+}
+
+.slider-col {
+  width: 28%;
+}
+
+.run-col {
+  width: 20%;
+}
+
+#north {
+  margin-right: 4.9em;
+}
+
+#south {
+  margin-right: 4.9em;
+}
+
+#slider .rs-border {
+  border-color: darkred;
+}
+
+#slider .rs-handle  {
+    background-color: transparent;
+    border: 8px solid transparent;
+    border-right-color: black;
+    margin: -8px 0 0 -14px !important;
+}
+#slider .rs-handle:before  {
+    display: block;
+    content: " ";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background: black;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 100%;
+}
+#slider .rs-handle:after  {
+    display: block;
+    content: " ";
+    width: 40px;
+    position: absolute;
+    top: -1px;
+    right: 0px;
+    border-top: 4px dotted black;
+}

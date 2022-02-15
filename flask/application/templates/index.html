@@ -4,6 +4,11 @@
 
 {% block content %}
 
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
 
     <h1>Home</h1>
     <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
@@ -94,14 +99,29 @@
                     <!-- Wind speed -->
                     <span id="wndSpdVal"> 0 </span>
                     <span> mph</span>
-                    <p>Wind Speed (mph): <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
+                    <p>Wind Speed: <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
 
-                    <!-- Wind direction -->
+                    </div>
 
-
+                <!-- Wind direction -->
+                <div id="north">
+                    <span>N</span>
                 </div>
-                <br>
-                <p><input type = "submit" value = "Run" /></p>
+                <div class="row">
+                    <div class="column wind-label-col">
+                        <br>
+                        <p>Wind Direction: </p>
+                    </div>
+                    <div class="column slider-col">
+                        <div id="slider"></div>
+                    </div>
+                    <div class="column run-col">
+                        <br>
+                        <br>
+                        <input type="submit" value="Run" /></p>
+                    </div>
+                </div>
+
             </form>
 
         <!-- End of right column -->
@@ -172,7 +192,6 @@ var sliderWndSpd = document.getElementById("wndSpdSlider");
 var outputWndSpd = document.getElementById("wndSpdVal");
 outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
 
-
 // Update the current slider value (each time you drag the slider handle)
 sliderTemp.oninput = function() {
   outputTemp.innerHTML = this.value;
@@ -185,6 +204,8 @@ sliderHumid.oninput = function() {
 sliderWndSpd.oninput = function() {
   outputWndSpd.innerHTML = this.value;
 }
+
+
 </script>
 
 <!-- Switches between the inputs and impacts pages -->
@@ -282,5 +303,19 @@ function impactsVisible() {
         }
     }
 </script>
+
+
+<!-- Circular slider  https://roundsliderui.com/demos.html#customizations -->
+<script>
+$("#slider").roundSlider({
+    sliderType: "default",
+    showTooltip: false,
+    handleShape: "square",
+    handleSize: "0",
+    radius: 40,
+    max: 360
+});
+</script>
+
 {% endblock %}
 
