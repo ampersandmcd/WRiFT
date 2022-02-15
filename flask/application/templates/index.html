@@ -32,14 +32,16 @@
 
 <!-- Top half of the user form, with input and impact buttons -->
 <div id="Options" class="Options">
-<p>
+<div class="card text-center bg-light border-dark mb-3" style="width: 26rem;">
+    <div class="card-body">
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
     <input id="ImpactsButton" type="button" value="Impacts" onclick="impactsVisible();"/>
-</p>
+    </div>
+</div>
 </div>
 
 <!-- Uses Bootstrap Cards to get more modern look -->
-<div class="card text-center bg-light border-dark mb-3" style="width: 23rem;">
+<div class="card text-center bg-light border-dark mb-3" style="width: 26rem;">
     <div class="card-body">
 
         <!-- INPUTS PAGE -->
@@ -53,14 +55,14 @@
         <div class="column left">
 
             <p>
-            <br><br><br><br><br><br><br><br><br><br>
-            <input id="TestButton" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" class="closed" onclick="testsVisible();"/>
+            <br><br><br><br><br><br><br><br>
+            <input id="TestButton" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="25" height="25" class="closed" onclick="testsVisible();"/>
+            <br><br>
+            <input id="TestButton2" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="25" height="25" alue="Testing" onclick="testsVisible2();"/>
             <br><br><br>
-            <input id="TestButton2" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible2();"/>
+            <input id="TestButton3" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="25" height="25" alue="Testing" onclick="testsVisible3();"/>
             <br><br><br>
-            <input id="TestButton3" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible3();"/>
-            <br><br><br>
-            <input id="TestButton4" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible4();"/>
+            <input id="TestButton4" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="25" height="25" alue="Testing" onclick="testsVisible4();"/>
             </p>
         </div>
 
@@ -137,11 +139,13 @@
 
         <!-- IMPACTS PAGE -->
         <div id="Impacts" class="Impacts">
-            <h5>Impacts</h5>
+
+            <div id="impactButtons">
             <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
             <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
             <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
             <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
+            </div>
 
             <div id="Economic" class="Economic">
                 <p>Economic data goes here</p>
@@ -156,7 +160,35 @@
             </div>
 
             <div id="Environment" class="Environment">
-                <p>Environment Data goes here</p>
+                <h5 class="center">Consequences</h5>
+                <div class="row">
+                    <div class="column env-eyes-column">
+
+                    </div>
+                    <div class="column env-title-column">
+                        <p>Acres Burned&nbsp;&nbsp;</p>
+                        <p>Smoke Footprint&nbsp;&nbsp;</p>
+                        <p>Watershed Footprint&nbsp;&nbsp;</p>
+                        <p>CO2e Emissions&nbsp;&nbsp;</p>
+                        <p>PM 2.5 Emissions&nbsp;&nbsp;</p>
+                    </div>
+                    <div class="column env-data-column">
+                        <span class="bolded" id="acresBurned"> 342 </span>
+                        <span class="bolded"> ac</span> <br>
+
+                        <span class="bolded" id="smokeFootprint"> 100 </span>
+                        <span class="bolded"> mi^2</span> <br>
+
+                        <span class="bolded" id="watershedFootprint"> 20 </span>
+                        <span class="bolded"> mi</span> <br>
+
+                        <span class="bolded" id="C02emissions"> 2 </span>
+                        <span class="bolded"> mmt</span> <br>
+
+                        <span class="bolded" id="PMemissions"> 31 </span>
+                        <span class="bolded"> u/gm^3</span> <br>
+                    </div>
+                </div>
             </div>
 
         <!-- End of impacts page -->
