@@ -36,18 +36,18 @@ this button currently can hide the form, but chart size wont get any bigger
  UPDATE: to a card and nicer buttons -->
 <div id="UserForm" class="UserForm">
 
-<!-- Top half of the user form, with input and impact buttons -->
+<!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
 <div id="Options" class="Options">
-<div class="card text-center bg-light border-dark mb-3" style="width: 26rem;">
-    <div class="card-body">
+<div class="card text-center bg-light border-dark mb-3 special-card" >
+    <div class="card-body ">
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
     <input id="ImpactsButton" type="button" value="Impacts" onclick="impactsVisible();"/>
     </div>
 </div>
 </div>
 
-<!-- Uses Bootstrap Cards to get more modern look -->
-<div class="card text-center bg-light border-dark mb-3" style="width: 26rem;">
+<!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
+<div class="card text-center bg-light border-dark mb-3 special-card" >
     <div class="card-body">
 
         <!-- INPUTS PAGE -->
@@ -169,17 +169,21 @@ this button currently can hide the form, but chart size wont get any bigger
             <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
             </div>
 
+
             <div id="Economic" class="Economic">
                 <p>Economic data goes here</p>
             </div>
+
 
             <div id="Health" class="Health">
                 <p>Health data goes here</p>
             </div>
 
+
             <div id="Demographic" class="Demographic">
                 <p>Demographic Data goes here</p>
             </div>
+
 
             <div id="Environment" class="Environment">
                 <h5 class="center">Consequences</h5>
@@ -279,12 +283,14 @@ function formVisible() {
 
         if (button.className == "show") {
             button.className = "hide";
+            //document.getElementById('UserForm').style.width = '0%';
             document.getElementById('UserForm').style.display = 'none';
-            document.getElementById('chart').style.width = '1200px';
+            //document.getElementById('chart').style.width = '100%';
         } else {
             button.className = "show";
+            //document.getElementById('chart').style.width = '60%';
+            //document.getElementById('UserForm').style.width = '39%';
             document.getElementById('UserForm').style.display = 'inline-block';
-            document.getElementById('chart').style.width = '60%';
         }
 }
 </script>
@@ -408,7 +414,8 @@ $("#slider").roundSlider({
     handleShape: "square",
     handleSize: "0",
     radius: 40,
-    max: 360
+    max: 360,
+    startAngle: 90
 });
 </script>
 

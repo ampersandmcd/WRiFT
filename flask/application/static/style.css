@@ -141,7 +141,7 @@
 }
 
 #UserForm {
-  /* min-width: 23em;
+  /* min-width: 26em;
   width: 39%;
   transform: scale(.45);
    */
@@ -151,18 +151,32 @@
   display: inline-block;
   margin-left: .3em;
 
+  /* FOR OVERLAYING MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 26EM
+  position: absolute;
+  top: 9.7em;
+  left: 0em;
+  transform: scale(.8);
+  */
+
 }
 
 #chart {
+  /*
+  width: 60%;
+   */
   width: 60%;
   height: 42em;
-  /* min-width: 41em; */
+  /* min-width: 42em; */
   display: inline-block;
   overflow: hidden;
-  /*position: absolute;
-  top: 20em;
-  left: 8em;
+
+  /* TO OVERLAY MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 100%
+  position: absolute;
+  top: 14em;
+  left: 3em;
+
    */
+
 }
 
 #page {
@@ -290,11 +304,17 @@
 }
 
 #historicalRadio {
-  margin-right: 3.4em;
+  margin-right: 3.35em;
   transform: scale(2);
 }
 
 #climatologicalRadio {
-  margin-right: 3.5em;
+  margin-right: 3.4em;
   transform: scale(2);
+}
+
+.special-card {
+  /* TO MAKE CARD SEE THROUGH UNCOMMENT THIS
+  opacity: .8;
+   */
 }
