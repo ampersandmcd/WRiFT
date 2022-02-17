@@ -143,17 +143,19 @@
 #UserForm {
   /* min-width: 23em;
   width: 39%;
+  transform: scale(.45);
    */
   width: 39%;
-  height: 40em;
+  height: 42em;
   overflow: hidden;
   display: inline-block;
   margin-left: .3em;
+
 }
 
 #chart {
   width: 60%;
-  height: 40em;
+  height: 42em;
   /* min-width: 41em; */
   display: inline-block;
   overflow: hidden;
@@ -273,4 +275,26 @@
 
 .center {
  text-align: center
+}
+
+#historicalRadio {
+  display: inline-block;
+}
+
+#baseline {
+  text-align: center;
+}
+
+.row0 {
+  text-align: right;
+}
+
+#historicalRadio {
+  margin-right: 3.4em;
+  transform: scale(2);
+}
+
+#climatologicalRadio {
+  margin-right: 3.5em;
+  transform: scale(2);
 }
