@@ -6,12 +6,12 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-<link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet"/>
 
 <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
 
-    <h1>Home</h1>
-    <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
+<h1>Home</h1>
+<p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
 <br>
 
 <!-- Working on adding button that will hide the form and then expand the chart
@@ -23,217 +23,240 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <div id="page" class="page">
 
-<div id="chart" class="chart"></div>
+    <div id="chart" class="chart"></div>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-        var graphs = {{graph_json | safe}};
-        Plotly.plot("chart",graphs,{});
+        var graphs = {
+        {
+            graph_json | safe
+        }
+        }
+        ;
+        Plotly.plot("chart", graphs, {});
     </script>
 
 
-<!-- Switch between the inputs and impacts pages with button
- UPDATE: to a card and nicer buttons -->
-<div id="UserForm" class="UserForm">
+    <!-- Switch between the inputs and impacts pages with button
+     UPDATE: to a card and nicer buttons -->
+    <div id="UserForm" class="UserForm">
 
-<!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
-<div id="Options" class="Options">
-<div class="card text-center bg-light border-dark special-card" >
-    <div class="row">
-    <input id="InputsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Inputs" onclick="inputsVisible();"/>
-    <input id="ImpactsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Impacts" onclick="impactsVisible();"/>
-    </div>
-</div>
-</div>
-
-<!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
-<div class="card text-center bg-light border-dark mb-3 special-card" >
-
-        <!-- INPUTS PAGE -->
-        <div id="Inputs" class="Inputs">
-        <div class="card-body">
-
-            <!-- Divides the eyes buttons and rest of form into their own columns, so that
-         the eyes being clicked do not submit the form-->
-        <div class="row0">
-            <!-- Start of baseline section -->
-            <div id="baseline" class="baseline">
-                <h5>Baseline</h5>
-            </div>
-
-
-            <!-- User Form For Dates Begins Here!!! -->
-            <form action="/prototyping" method = "POST">
-                <input type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical" width="30" height="30" >
-                <label for="historicalRadio">
-                    Historical Data <input type = "date" name = "historicalData" placeholder="mm/dd/yyyy"/>
-                </label>
-                <br>
-                <input type="radio" id="climatologicalRadio" name="baselineData" value="baselineClimatological" width="30" height="30">
-                <label for="climatologicalRadio">
-                    <p>Climatological Data <input type = "text" name = "climatologicalData" placeholder="mm" size="14"/></p>
-                </label>
-                <br>
-                <input type="submit" class="btn btn-outline-dark active" value="Get Data" /></p>
-            </form>
-        </div>
-
-         <!-- Divides the eyes buttons and rest of form into their own columns, so that
-         the eyes being clicked do not submit the form-->
-        <div class="row">
-
-        <!-- The eye buttons, in the left column, add a div in order to space out more efficiently-->
-        <div class="column left">
-
-            <p>
-            <br><br><br>
-            <input id="EyeTemp" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="tempVisible();"/>
-            <br><br>
-            <input id="EyeHumidity" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="humidityVisible();"/>
-            <br><br>
-            <input id="EyeWndSpd" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="wndSpdVisible();"/>
-            <br><br><br>
-            <input id="EyeWndDir" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="wndDirVisible();"/>
-            </p>
-        </div>
-
-
-
-        <div class="column right">
-            <!-- User Form For Parameters Begins Here!!! -->
-            <form action="/prototyping" method = "POST">
-                <!-- Adjustments sections with sliders -->
-                <div id="adjustments" class="adjustments">
-                    <h5>Adjustments</h5>
-                </div>
-
-                <!-- Sliders section -->
-                <div class="slidecontainer">
-                    <!-- Temperature -->
-                    <span id="tempPos"></span>
-                    <span id="tempVal">0</span>
-                    <span> F</span>
-                    <p>Temperature: <input type="range" min="-25" max="25" value="0" class="slider"name="tempSlider" id="tempSlider"></p>
-
-                    <!-- Humidty -->
-                    <span id="humidPos"></span>
-                    <span id="humidVal"> 0 </span>
-                    <span> %</span>
-                    <p>Humidty: <input type="range" min="-25" max="25" value="0" class="slider" name="humidtySlider" id="humiditySlider"> </p>
-
-                    <!-- Wind speed -->
-                    <span id="wndSpdPos"></span>
-                    <span id="wndSpdVal"> 0 </span>
-                    <span> mph</span>
-                    <p>Wind Speed: <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
-
-                    </div>
-
-                <!-- Wind direction -->
-                <div id="north">
-                    <span>N</span>
-                </div>
+        <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
+        <div id="Options" class="Options">
+            <div class="card text-center bg-light border-dark special-card">
                 <div class="row">
-                    <div class="column wind-label-col">
-                        <br>
-                        <p>Wind Direction: </p>
-                    </div>
-                    <div class="column slider-col">
-                        <div id="slider"></div>
-                    </div>
-                    <div class="column run-col">
-                        <br>
-                        <br>
-                        <input type="submit" class="btn btn-outline-dark active" value="Run" /></p>
-                    </div>
-                </div>
-
-            </form>
-
-        <!-- End of right column -->
-        </div>
-
-        <!-- End of row -->
-        </div>
-
-        <!-- End of inputs section -->
-        </div>
-
-        <!-- End of inputs card body section -->
-        </div>
-
-        <!-- IMPACTS PAGE -->
-        <div id="Impacts" class="Impacts">
-
-            <div id="impactButtons">
-            <input id="EconomicButton" class="btn btn-outline-dark active" type="button" value="Economic" onclick="economicVisible();"/>
-            <input id="HealthButton" class="btn btn-outline-dark active" type="button" value="Health" onclick="healthVisible();"/>
-            <input id="DemographicButton" class="btn btn-outline-dark active" type="button" value="Demographic" onclick="demographicVisible();"/>
-            <input id="EnvironmentButton" class="btn btn-outline-dark active" type="button" value="Environment" onclick="environmentVisible();"/>
-            </div>
-
-        <div class="card-body">
-            <div id="Economic" class="Economic">
-                <p>Economic data goes here</p>
-            </div>
-
-
-            <div id="Health" class="Health">
-                <p>Health data goes here</p>
-            </div>
-
-
-            <div id="Demographic" class="Demographic">
-                <p>Demographic Data goes here</p>
-            </div>
-
-
-            <div id="Environment" class="Environment">
-                <h5 class="center">Consequences</h5>
-                <div class="row">
-                    <div class="column env-eyes-column">
-
-                    </div>
-                    <div class="column env-title-column">
-                        <p>Acres Burned&nbsp;&nbsp;</p>
-                        <p>Smoke Footprint&nbsp;&nbsp;</p>
-                        <p>Watershed Footprint&nbsp;&nbsp;</p>
-                        <p>CO2e Emissions&nbsp;&nbsp;</p>
-                        <p>PM 2.5 Emissions&nbsp;&nbsp;</p>
-                    </div>
-                    <div class="column env-data-column">
-                        <span class="bolded" id="acresBurned"> 342 </span>
-                        <span class="bolded"> ac</span> <br>
-
-                        <span class="bolded" id="smokeFootprint"> 100 </span>
-                        <span class="bolded"> mi^2</span> <br>
-
-                        <span class="bolded" id="watershedFootprint"> 20 </span>
-                        <span class="bolded"> mi</span> <br>
-
-                        <span class="bolded" id="C02emissions"> 2 </span>
-                        <span class="bolded"> mmt</span> <br>
-
-                        <span class="bolded" id="PMemissions"> 31 </span>
-                        <span class="bolded"> u/gm^3</span> <br>
-                    </div>
+                    <input id="InputsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Inputs"
+                           onclick="inputsVisible();"/>
+                    <input id="ImpactsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Impacts"
+                           onclick="impactsVisible();"/>
                 </div>
             </div>
-
-        <!-- End of impacts page -->
         </div>
 
+        <!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
+        <div class="card text-center bg-light border-dark mb-3 special-card">
 
-    <!-- End of card body, which includes eye buttons, and form -->
+            <!-- INPUTS PAGE -->
+            <div id="Inputs" class="Inputs">
+                <div class="card-body">
+
+                    <!-- Divides the eyes buttons and rest of form into their own columns, so that
+                 the eyes being clicked do not submit the form-->
+                    <div class="row0">
+                        <!-- Start of baseline section -->
+                        <div id="baseline" class="baseline">
+                            <h5>Baseline</h5>
+                        </div>
+
+
+                        <!-- User Form For Dates Begins Here!!! -->
+                        <form action="/prototyping" method="POST">
+                            <input type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical"
+                                   width="30" height="30">
+                            <label for="historicalRadio">
+                                Historical Data <input type="date" name="historicalData" placeholder="mm/dd/yyyy"/>
+                            </label>
+                            <br>
+                            <input type="radio" id="climatologicalRadio" name="baselineData"
+                                   value="baselineClimatological" width="30" height="30">
+                            <label for="climatologicalRadio">
+                                <p>Climatological Data <input type="text" name="climatologicalData" placeholder="mm"
+                                                              size="14"/></p>
+                            </label>
+                            <br>
+                            <input type="submit" class="btn btn-outline-dark active" value="Get Data"/></p>
+                        </form>
+                    </div>
+
+                    <!-- Divides the eyes buttons and rest of form into their own columns, so that
+                    the eyes being clicked do not submit the form-->
+                    <div class="row">
+
+                        <!-- The eye buttons, in the left column, add a div in order to space out more efficiently-->
+                        <div class="column left">
+
+                            <p>
+                                <br><br><br>
+                                <input id="EyeTemp" type="image" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                       width="30" height="30" class="closed" onclick="tempVisible();"/>
+                                <br><br>
+                                <input id="EyeHumidity" type="image"
+                                       src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
+                                       class="closed" onclick="humidityVisible();"/>
+                                <br><br>
+                                <input id="EyeWndSpd" type="image"
+                                       src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
+                                       class="closed" onclick="wndSpdVisible();"/>
+                                <br><br><br>
+                                <input id="EyeWndDir" type="image"
+                                       src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
+                                       class="closed" onclick="wndDirVisible();"/>
+                            </p>
+                        </div>
+
+
+                        <div class="column right">
+                            <!-- User Form For Parameters Begins Here!!! -->
+                            <form action="/prototyping" method="POST">
+                                <!-- Adjustments sections with sliders -->
+                                <div id="adjustments" class="adjustments">
+                                    <h5>Adjustments</h5>
+                                </div>
+
+                                <!-- Sliders section -->
+                                <div class="slidecontainer">
+                                    <!-- Temperature -->
+                                    <span id="tempPos"></span>
+                                    <span id="tempVal">0</span>
+                                    <span> F</span>
+                                    <p>Temperature: <input type="range" min="-25" max="25" value="0" class="slider"
+                                                           name="tempSlider" id="tempSlider"></p>
+
+                                    <!-- Humidty -->
+                                    <span id="humidPos"></span>
+                                    <span id="humidVal"> 0 </span>
+                                    <span> %</span>
+                                    <p>Humidty: <input type="range" min="-25" max="25" value="0" class="slider"
+                                                       name="humidtySlider" id="humiditySlider"></p>
+
+                                    <!-- Wind speed -->
+                                    <span id="wndSpdPos"></span>
+                                    <span id="wndSpdVal"> 0 </span>
+                                    <span> mph</span>
+                                    <p>Wind Speed: <input type="range" min="-25" max="25" value="0" class="slider"
+                                                          name="wndSpdSlider" id="wndSpdSlider"></p>
+
+                                </div>
+
+                                <!-- Wind direction -->
+                                <div id="north">
+                                    <span>N</span>
+                                </div>
+                                <div class="row">
+                                    <div class="column wind-label-col">
+                                        <br>
+                                        <p>Wind Direction: </p>
+                                    </div>
+                                    <div class="column slider-col">
+                                        <div id="slider"></div>
+                                    </div>
+                                    <div class="column run-col">
+                                        <br>
+                                        <br>
+                                        <input type="submit" class="btn btn-outline-dark active" value="Run"/></p>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            <!-- End of right column -->
+                        </div>
+
+                        <!-- End of row -->
+                    </div>
+
+                    <!-- End of inputs section -->
+                </div>
+
+                <!-- End of inputs card body section -->
+            </div>
+
+            <!-- IMPACTS PAGE -->
+            <div id="Impacts" class="Impacts">
+
+                <div id="impactButtons">
+                    <input id="EconomicButton" class="btn btn-outline-dark active" type="button" value="Economic"
+                           onclick="economicVisible();"/>
+                    <input id="HealthButton" class="btn btn-outline-dark active" type="button" value="Health"
+                           onclick="healthVisible();"/>
+                    <input id="DemographicButton" class="btn btn-outline-dark active" type="button" value="Demographic"
+                           onclick="demographicVisible();"/>
+                    <input id="EnvironmentButton" class="btn btn-outline-dark active" type="button" value="Environment"
+                           onclick="environmentVisible();"/>
+                </div>
+
+                <div class="card-body">
+                    <div id="Economic" class="Economic">
+                        <p>Economic data goes here</p>
+                    </div>
+
+
+                    <div id="Health" class="Health">
+                        <p>Health data goes here</p>
+                    </div>
+
+
+                    <div id="Demographic" class="Demographic">
+                        <p>Demographic Data goes here</p>
+                    </div>
+
+
+                    <div id="Environment" class="Environment">
+                        <h5 class="center">Consequences</h5>
+                        <div class="row">
+                            <div class="column env-eyes-column">
+
+                            </div>
+                            <div class="column env-title-column">
+                                <p>Acres Burned&nbsp;&nbsp;</p>
+                                <p>Smoke Footprint&nbsp;&nbsp;</p>
+                                <p>Watershed Footprint&nbsp;&nbsp;</p>
+                                <p>CO2e Emissions&nbsp;&nbsp;</p>
+                                <p>PM 2.5 Emissions&nbsp;&nbsp;</p>
+                            </div>
+                            <div class="column env-data-column">
+                                <span class="bolded" id="acresBurned"> 342 </span>
+                                <span class="bolded"> ac</span> <br>
+
+                                <span class="bolded" id="smokeFootprint"> 100 </span>
+                                <span class="bolded"> mi^2</span> <br>
+
+                                <span class="bolded" id="watershedFootprint"> 20 </span>
+                                <span class="bolded"> mi</span> <br>
+
+                                <span class="bolded" id="C02emissions"> 2 </span>
+                                <span class="bolded"> mmt</span> <br>
+
+                                <span class="bolded" id="PMemissions"> 31 </span>
+                                <span class="bolded"> u/gm^3</span> <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End of impacts page -->
+                </div>
+
+
+                <!-- End of card body, which includes eye buttons, and form -->
+            </div>
+
+            <!-- End of card class -->
+        </div>
+
+        <!-- End of user form page, which includes impact and inputs buttons -->
     </div>
 
-<!-- End of card class -->
-</div>
-
-<!-- End of user form page, which includes impact and inputs buttons -->
-</div>
-
-<!-- End of page -->
+    <!-- End of page -->
 </div>
 
 
@@ -241,45 +264,45 @@ this button currently can hide the form, but chart size wont get any bigger
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 <script>
-var sliderTemp = document.getElementById("tempSlider");
-var outputTemp = document.getElementById("tempVal");
-outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
+    var sliderTemp = document.getElementById("tempSlider");
+    var outputTemp = document.getElementById("tempVal");
+    outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
 
-var sliderHumid = document.getElementById("humiditySlider");
-var outputHumid = document.getElementById("humidVal");
-outputHumid.innerHTML = sliderHumid.value; // Display the default slider value
+    var sliderHumid = document.getElementById("humiditySlider");
+    var outputHumid = document.getElementById("humidVal");
+    outputHumid.innerHTML = sliderHumid.value; // Display the default slider value
 
-var sliderWndSpd = document.getElementById("wndSpdSlider");
-var outputWndSpd = document.getElementById("wndSpdVal");
-outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
+    var sliderWndSpd = document.getElementById("wndSpdSlider");
+    var outputWndSpd = document.getElementById("wndSpdVal");
+    outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-sliderTemp.oninput = function() {
-  outputTemp.innerHTML = this.value;
-  if (this.value > 0) {
-      document.getElementById("tempPos").innerText= "+";
-  } else {
-       document.getElementById("tempPos").innerText= "";
-  }
-}
+    // Update the current slider value (each time you drag the slider handle)
+    sliderTemp.oninput = function () {
+        outputTemp.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("tempPos").innerText = "+";
+        } else {
+            document.getElementById("tempPos").innerText = "";
+        }
+    }
 
-sliderHumid.oninput = function() {
-  outputHumid.innerHTML = this.value;
-  if (this.value > 0) {
-      document.getElementById("humidPos").innerText= "+";
-  } else {
-       document.getElementById("humidPos").innerText= "";
-  }
-}
+    sliderHumid.oninput = function () {
+        outputHumid.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("humidPos").innerText = "+";
+        } else {
+            document.getElementById("humidPos").innerText = "";
+        }
+    }
 
-sliderWndSpd.oninput = function() {
-  outputWndSpd.innerHTML = this.value;
-  if (this.value > 0) {
-      document.getElementById("wndSpdPos").innerText= "+";
-  } else {
-       document.getElementById("wndSpdPos").innerText= "";
-  }
-}
+    sliderWndSpd.oninput = function () {
+        outputWndSpd.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("wndSpdPos").innerText = "+";
+        } else {
+            document.getElementById("wndSpdPos").innerText = "";
+        }
+    }
 
 
 </script>
@@ -287,16 +310,16 @@ sliderWndSpd.oninput = function() {
 <!-- Switches between the inputs and impacts pages -->
 <script>
     function inputsVisible() {
-            document.getElementById('Inputs').style.display = 'block';
-            document.getElementById('Impacts').style.display = 'none';
-}
+        document.getElementById('Inputs').style.display = 'block';
+        document.getElementById('Impacts').style.display = 'none';
+    }
 
-function impactsVisible() {
-            document.getElementById('Inputs').style.display = 'none';
-            document.getElementById('Impacts').style.display = 'block';
-}
+    function impactsVisible() {
+        document.getElementById('Inputs').style.display = 'none';
+        document.getElementById('Impacts').style.display = 'block';
+    }
 
-function formVisible() {
+    function formVisible() {
         var button = document.getElementById("HideForm");
 
         if (button.className == "show") {
@@ -310,7 +333,7 @@ function formVisible() {
             //document.getElementById('UserForm').style.width = '39%';
             document.getElementById('UserForm').style.display = 'inline-block';
         }
-}
+    }
 </script>
 
 </script>
@@ -318,32 +341,32 @@ function formVisible() {
 <!-- Switches between the different impacts pages -->
 <script>
     function economicVisible() {
-            document.getElementById('Economic').style.display = 'block';
-            document.getElementById('Health').style.display = 'none';
-            document.getElementById('Demographic').style.display = 'none';
-            document.getElementById('Environment').style.display = 'none';
-}
+        document.getElementById('Economic').style.display = 'block';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'none';
+    }
 
     function healthVisible() {
-            document.getElementById('Economic').style.display = 'none';
-            document.getElementById('Health').style.display = 'block';
-            document.getElementById('Demographic').style.display = 'none';
-            document.getElementById('Environment').style.display = 'none';
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'block';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'none';
     }
 
     function demographicVisible() {
-            document.getElementById('Economic').style.display = 'none';
-            document.getElementById('Health').style.display = 'none';
-            document.getElementById('Demographic').style.display = 'block';
-            document.getElementById('Environment').style.display = 'none';
-}
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'block';
+        document.getElementById('Environment').style.display = 'none';
+    }
 
     function environmentVisible() {
-            document.getElementById('Economic').style.display = 'none';
-            document.getElementById('Health').style.display = 'none';
-            document.getElementById('Demographic').style.display = 'none';
-            document.getElementById('Environment').style.display = 'block';
-}
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'block';
+    }
 </script>
 
 <!-- Enables and disables visual layers -->
@@ -426,15 +449,15 @@ function formVisible() {
 
 <!-- Circular slider  https://roundsliderui.com/demos.html#customizations -->
 <script>
-$("#slider").roundSlider({
-    sliderType: "default",
-    showTooltip: false,
-    handleShape: "square",
-    handleSize: "0",
-    radius: 40,
-    max: 360,
-    startAngle: 90
-});
+    $("#slider").roundSlider({
+        sliderType: "default",
+        showTooltip: false,
+        handleShape: "square",
+        handleSize: "0",
+        radius: 40,
+        max: 360,
+        startAngle: 90
+    });
 </script>
 
 {% endblock %}
