@@ -11,6 +11,12 @@ A subdirectory to explore the use of [flask](https://flask.palletsprojects.com/e
 
 ## Activity Log
 
+#### 14 February 2022
+- Updated form to look more like mockups
+- Added a wind direction slider
+- Updates to overall page format
+- Selectable layers
+
 #### 6 February 2022
 - Changed most of the inputs page to look like mockups
 - Added sliders and impacts page button

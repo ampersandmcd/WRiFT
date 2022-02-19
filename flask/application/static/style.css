@@ -108,12 +108,16 @@
 #Impacts {
   display: none;
   text-align: right;
-  padding: 10px;
 
+  /*
+  padding: 10px;
   margin-right: 0;
   margin-left: auto;
+
+   */
 }
 
+/*
 #Options {
   background-color: lightgrey;
   padding: 10px;
@@ -124,6 +128,7 @@
   margin-right: 0;
   margin-left: auto;
 }
+*/
 
 #baseline {
   text-align: center;
@@ -136,20 +141,46 @@
 }
 
 #UserForm {
-  width: 23em;
-  display: inline-block;
+  /* min-width: 26em;
+  width: 39%;
+  transform: scale(.45);
+   */
+  width: 39%;
+  height: 42em;
   overflow: hidden;
+  display: inline-block;
+  margin-left: .3em;
+
+  /* FOR OVERLAYING MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 26EM
+  position: absolute;
+  top: 9.7em;
+  left: 0em;
+  transform: scale(.8);
+  */
+
 }
 
 #chart {
-  width: 41em;
+  /*
+  width: 60%;
+   */
+  width: 60%;
+  height: 42em;
+  /* min-width: 42em; */
   display: inline-block;
   overflow: hidden;
-  margin-bottom: 3em;
+
+  /* TO OVERLAY MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 100%
+  position: absolute;
+  top: 14em;
+  left: 3em;
+
+   */
+
 }
 
 #page {
-  width: 65em;
+  min-width: 65em;
 }
 
 .column {
@@ -183,11 +214,7 @@
 }
 
 #north {
-  margin-right: 4.9em;
-}
-
-#south {
-  margin-right: 4.9em;
+  margin-right: 5.9em;
 }
 
 #slider .rs-border {
@@ -219,4 +246,75 @@
     top: -1px;
     right: 0px;
     border-top: 4px dotted black;
+}
+
+#EnvironmentButton {
+  width: 28%;
+  display: inline-block;
+}
+
+#EconomicButton {
+  width: 22%;
+  display: inline-block;
+}
+
+#DemographicButton {
+  width: 29%;
+  display: inline-block;
+}
+
+#HealthButton {
+  width: 16%;
+  display: inline-block;
+}
+
+#impactButtons {
+  padding: 0em;
+}
+
+.env-title-column p{
+  margin: 0em;
+}
+
+.env-title-column {
+  text-align: end;
+  margin-left: 8em;
+}
+
+.env-data-column {
+  text-align: start;
+}
+
+.bolded { font-weight: bold; }
+
+.center {
+ text-align: center
+}
+
+#historicalRadio {
+  display: inline-block;
+}
+
+#baseline {
+  text-align: center;
+}
+
+.row0 {
+  text-align: right;
+}
+
+#historicalRadio {
+  margin-right: 3.35em;
+  transform: scale(2);
+}
+
+#climatologicalRadio {
+  margin-right: 3.4em;
+  transform: scale(2);
+}
+
+.special-card {
+  /* TO MAKE CARD SEE THROUGH UNCOMMENT THIS
+  opacity: .8;
+   */
 }

@@ -14,6 +14,12 @@
     <p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
 <br>
 
+<!-- Working on adding button that will hide the form and then expand the chart
+this button currently can hide the form, but chart size wont get any bigger
+<input id="HideForm" type="button" value="Hide Form" class="show" onclick="formVisible();"/>
+-->
+
+<br>
 
 <div id="page" class="page">
 
@@ -30,22 +36,50 @@
  UPDATE: to a card and nicer buttons -->
 <div id="UserForm" class="UserForm">
 
-<!-- Top half of the user form, with input and impact buttons -->
+<!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
 <div id="Options" class="Options">
-<p>
+<div class="card text-center bg-light border-dark mb-3 special-card" >
+    <div class="card-body ">
     <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
     <input id="ImpactsButton" type="button" value="Impacts" onclick="impactsVisible();"/>
-</p>
+    </div>
+</div>
 </div>
 
-<!-- Uses Bootstrap Cards to get more modern look -->
-<div class="card text-center bg-light border-dark mb-3" style="width: 23rem;">
+<!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
+<div class="card text-center bg-light border-dark mb-3 special-card" >
     <div class="card-body">
 
         <!-- INPUTS PAGE -->
         <div id="Inputs" class="Inputs">
 
-        <!-- Divides the eyes buttons and rest of form into their own columns, so that
+
+            <!-- Divides the eyes buttons and rest of form into their own columns, so that
+         the eyes being clicked do not submit the form-->
+        <div class="row0">
+            <!-- Start of baseline section -->
+            <div id="baseline" class="baseline">
+                <h5>Baseline</h5>
+            </div>
+
+
+            <!-- User Form For Dates Begins Here!!! -->
+            <form action="/prototyping" method = "POST">
+                <input type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical" width="30" height="30" >
+                <label for="historicalRadio">
+                    Historical Data <input type = "date" name = "historicalData" placeholder="mm/dd/yyyy"/>
+                </label>
+                <br>
+                <input type="radio" id="climatologicalRadio" name="baselineData" value="baselineClimatological" width="30" height="30">
+                <label for="climatologicalRadio">
+                    <p>Climatological Data <input type = "text" name = "climatologicalData" placeholder="mm" size="14"/></p>
+                </label>
+                <br>
+                <input type="submit" value="Get Data" /></p>
+            </form>
+        </div>
+
+         <!-- Divides the eyes buttons and rest of form into their own columns, so that
          the eyes being clicked do not submit the form-->
         <div class="row">
 
@@ -53,32 +87,22 @@
         <div class="column left">
 
             <p>
-            <br><br><br><br><br><br><br><br><br><br>
-            <input id="TestButton" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" class="closed" onclick="testsVisible();"/>
             <br><br><br>
-            <input id="TestButton2" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible2();"/>
+            <input id="EyeTemp" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="tempVisible();"/>
+            <br><br>
+            <input id="EyeHumidity" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="humidityVisible();"/>
+            <br><br>
+            <input id="EyeWndSpd" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="wndSpdVisible();"/>
             <br><br><br>
-            <input id="TestButton3" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible3();"/>
-            <br><br><br>
-            <input id="TestButton4" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="15" height="15" alue="Testing" onclick="testsVisible4();"/>
+            <input id="EyeWndDir" type="image" src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30" class="closed" onclick="wndDirVisible();"/>
             </p>
         </div>
 
+
+
         <div class="column right">
-
-
-            <!-- Start of baseline section -->
-            <div id="baseline" class="baseline">
-                <h5>Baseline</h5>
-            </div>
-
-
-            <!-- User Form Begins Here!!! -->
+            <!-- User Form For Parameters Begins Here!!! -->
             <form action="/prototyping" method = "POST">
-
-                <p>Historical Data <input type = "date" name = "historicalData" placeholder="mm/dd/yyyy"/></p>
-                <p>Climatological Data <input type = "text" name = "climatologicalData" placeholder="mm" size="14"/></p>
-
                 <!-- Adjustments sections with sliders -->
                 <div id="adjustments" class="adjustments">
                     <h5>Adjustments</h5>
@@ -137,26 +161,60 @@
 
         <!-- IMPACTS PAGE -->
         <div id="Impacts" class="Impacts">
-            <h5>Impacts</h5>
+
+            <div id="impactButtons">
             <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
             <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
             <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
             <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
+            </div>
+
 
             <div id="Economic" class="Economic">
                 <p>Economic data goes here</p>
             </div>
 
+
             <div id="Health" class="Health">
                 <p>Health data goes here</p>
             </div>
+
 
             <div id="Demographic" class="Demographic">
                 <p>Demographic Data goes here</p>
             </div>
 
+
             <div id="Environment" class="Environment">
-                <p>Environment Data goes here</p>
+                <h5 class="center">Consequences</h5>
+                <div class="row">
+                    <div class="column env-eyes-column">
+
+                    </div>
+                    <div class="column env-title-column">
+                        <p>Acres Burned&nbsp;&nbsp;</p>
+                        <p>Smoke Footprint&nbsp;&nbsp;</p>
+                        <p>Watershed Footprint&nbsp;&nbsp;</p>
+                        <p>CO2e Emissions&nbsp;&nbsp;</p>
+                        <p>PM 2.5 Emissions&nbsp;&nbsp;</p>
+                    </div>
+                    <div class="column env-data-column">
+                        <span class="bolded" id="acresBurned"> 342 </span>
+                        <span class="bolded"> ac</span> <br>
+
+                        <span class="bolded" id="smokeFootprint"> 100 </span>
+                        <span class="bolded"> mi^2</span> <br>
+
+                        <span class="bolded" id="watershedFootprint"> 20 </span>
+                        <span class="bolded"> mi</span> <br>
+
+                        <span class="bolded" id="C02emissions"> 2 </span>
+                        <span class="bolded"> mmt</span> <br>
+
+                        <span class="bolded" id="PMemissions"> 31 </span>
+                        <span class="bolded"> u/gm^3</span> <br>
+                    </div>
+                </div>
             </div>
 
         <!-- End of impacts page -->
@@ -219,6 +277,22 @@ function impactsVisible() {
             document.getElementById('Inputs').style.display = 'none';
             document.getElementById('Impacts').style.display = 'block';
 }
+
+function formVisible() {
+        var button = document.getElementById("HideForm");
+
+        if (button.className == "show") {
+            button.className = "hide";
+            //document.getElementById('UserForm').style.width = '0%';
+            document.getElementById('UserForm').style.display = 'none';
+            //document.getElementById('chart').style.width = '100%';
+        } else {
+            button.className = "show";
+            //document.getElementById('chart').style.width = '60%';
+            //document.getElementById('UserForm').style.width = '39%';
+            document.getElementById('UserForm').style.display = 'inline-block';
+        }
+}
 </script>
 
 </script>
@@ -256,51 +330,78 @@ function impactsVisible() {
 
 <!-- Enables and disables visual layers -->
 <script>
-    function testsVisible() {
-        var img = document.getElementById("TestButton");
+    function tempVisible() {
+        var img = document.getElementById("EyeTemp");
+        var img2 = document.getElementById("EyeWndDir");
+        var img3 = document.getElementById("EyeWndSpd");
+        var img4 = document.getElementById("EyeHumidity");
         if (img.className == "open") {
-            img.className = "closed";
-            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+            closeEye(img);
         } else {
             // add plotly changes here
             // var graphs = {{graph_json | safe}};
             // Plotly.newPlot("chart",graphs,{});
-            img.className = "open";
-            img.src = "{{url_for('static', filename='openEye.png')}}";
+            openEye(img);
+            closeEye(img2);
+            closeEye(img3);
+            closeEye(img4);
         }
     }
 
-    function testsVisible2() {
-        var img = document.getElementById("TestButton2");
+    function humidityVisible() {
+        var img = document.getElementById("EyeHumidity");
+        var img2 = document.getElementById("EyeWndDir");
+        var img3 = document.getElementById("EyeWndSpd");
+        var img4 = document.getElementById("EyeTemp");
         if (img.className == "open") {
-            img.className = "closed";
-            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+            closeEye(img);
         } else {
-            img.className = "open";
-            img.src = "{{url_for('static', filename='openEye.png')}}";
+            openEye(img);
+            closeEye(img2);
+            closeEye(img3);
+            closeEye(img4);
         }
     }
 
-    function testsVisible3() {
-        var img = document.getElementById("TestButton3");
+    function wndSpdVisible() {
+        var img = document.getElementById("EyeWndSpd");
+        var img2 = document.getElementById("EyeWndDir");
+        var img3 = document.getElementById("EyeHumidity");
+        var img4 = document.getElementById("EyeTemp");
         if (img.className == "open") {
-            img.className = "closed";
-            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+            closeEye(img);
         } else {
-            img.className = "open";
-            img.src = "{{url_for('static', filename='openEye.png')}}";
+            openEye(img);
+            closeEye(img2);
+            closeEye(img3);
+            closeEye(img4);
         }
     }
 
-    function testsVisible4() {
-        var img = document.getElementById("TestButton4");
+    function wndDirVisible() {
+        var img = document.getElementById("EyeWndDir");
+        var img2 = document.getElementById("EyeWndSpd");
+        var img3 = document.getElementById("EyeHumidity");
+        var img4 = document.getElementById("EyeTemp");
         if (img.className == "open") {
-            img.className = "closed";
-            img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+            closeEye(img);
         } else {
-            img.className = "open";
-            img.src = "{{url_for('static', filename='openEye.png')}}";
+            openEye(img);
+            closeEye(img2);
+            closeEye(img3);
+            closeEye(img4);
         }
+
+    }
+
+    function closeEye(img) {
+        img.className = "closed";
+        img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+    }
+
+    function openEye(img) {
+        img.className = "open";
+        img.src = "{{url_for('static', filename='openEye.png')}}";
     }
 </script>
 
@@ -313,7 +414,8 @@ $("#slider").roundSlider({
     handleShape: "square",
     handleSize: "0",
     radius: 40,
-    max: 360
+    max: 360,
+    startAngle: 90
 });
 </script>
 
