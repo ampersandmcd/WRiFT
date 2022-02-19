@@ -16,7 +16,6 @@
   height: 15px;
   border-radius: 5px;
   background: black;
-  outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
@@ -28,7 +27,8 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: maroon;
+  background: white;
+  border: black;
   cursor: pointer;
 }
 
@@ -36,7 +36,8 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: maroon;
+  background: white;
+  border: black;
   cursor: pointer;
 }
 
@@ -218,35 +219,35 @@
   margin-right: 5.9em;
 }
 
-#slider .rs-border {
-  border-color: darkred;
+#circularSlider .rs-border {
+  border-color: #0d6efd;
 }
 
-#slider .rs-handle  {
+#circularSlider .rs-handle  {
     background-color: transparent;
     border: 8px solid transparent;
-    border-right-color: black;
+    border-right-color: #0d6efd;
     margin: -8px 0 0 -14px !important;
 }
-#slider .rs-handle:before  {
+#circularSlider .rs-handle:before  {
     display: block;
     content: " ";
     position: absolute;
     height: 12px;
     width: 12px;
-    background: black;
+    background: #0d6efd;
     right: -6px;
     bottom: -6px;
     border-radius: 100%;
 }
-#slider .rs-handle:after  {
+#circularSlider .rs-handle:after  {
     display: block;
     content: " ";
     width: 40px;
     position: absolute;
     top: -1px;
     right: 0px;
-    border-top: 4px dotted black;
+    border-top: 4px dotted #0d6efd;
 }
 
 #EnvironmentButton {

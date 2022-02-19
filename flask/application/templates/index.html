@@ -37,18 +37,18 @@ this button currently can hide the form, but chart size wont get any bigger
 
         <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
         <div id="Options" class="Options">
-            <div class="card text-center bg-light">
+            <div class="card text-center bg-light special-card">
                 <div class="row">
-                    <input id="InputsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Inputs"
+                    <input id="InputsButton" class="btn btn-primary btn-lg" type="button" value="Inputs"
                            onclick="inputsVisible();"/>
-                    <input id="ImpactsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Impacts"
+                    <input id="ImpactsButton" class="btn btn-primary btn-lg" type="button" value="Impacts"
                            onclick="impactsVisible();"/>
                 </div>
             </div>
         </div>
 
         <!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
-        <div class="card text-center bg-light">
+        <div class="card text-center bg-light special-card">
 
             <!-- INPUTS PAGE -->
             <div id="Inputs" class="Inputs">
@@ -93,11 +93,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input type="text" class="form-control" name="climatologicalData" placeholder="mm"/>
                                 </div>
                             </div>
-                            <div class="row" align="right">
-                                <input type="submit" class="btn btn-outline-dark active" value="Get Data"/>
+                            <div class="row">
+                                <input type="submit" class="btn btn-primary" value="Get Data"/>
                             </div>
                         </form>
+                        <br>
 
+                        <!-- Adjustments sections with sliders -->
                         <div class="row">
                             <div class="col-md-12" align="center">
                                 <h5>Adjustments</h5>
@@ -106,90 +108,92 @@ this button currently can hide the form, but chart size wont get any bigger
 
                         <!-- Divides the eyes buttons and rest of form into their own columns, so that
                         the eyes being clicked do not submit the form-->
-                        <div class="row">
 
-                            <!-- The eye buttons, in the left column, add a div in order to space out more efficiently-->
-                            <div class="column left">
+                        <!-- User Form For Parameters Begins Here!!! -->
+                        <form action="/prototyping" method="POST">
+                            <!-- Sliders section -->
+                            <div class="slidecontainer row">
+                                <!-- Temperature -->
+                                <div class="col-md-2">
+                                    <img id="EyeTemp" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                       width="80%" class="closed" onclick="tempVisible();"/>
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    Temperature
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="range" min="-25" max="25" value="0" class="form-range"
+                                                           name="tempSlider" id="tempSlider">
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    <span id="tempPos"></span>
+                                    <span id="tempVal">0</span>
+                                    <span>F</span>
+                                </div>
+                            </div>
 
-                                <p>
-                                    <br><br><br>
-                                    <input id="EyeTemp" type="image" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                           width="30" height="30" class="closed" onclick="tempVisible();"/>
-                                    <br><br>
-                                    <input id="EyeHumidity" type="image"
-                                           src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
-                                           class="closed" onclick="humidityVisible();"/>
-                                    <br><br>
-                                    <input id="EyeWndSpd" type="image"
-                                           src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
-                                           class="closed" onclick="wndSpdVisible();"/>
-                                    <br><br><br>
-                                    <input id="EyeWndDir" type="image"
-                                           src="{{url_for('static', filename='closed-eyes.png')}}" width="30" height="30"
-                                           class="closed" onclick="wndDirVisible();"/>
-                                </p>
+                            <div class="slidecontainer row">
+                                <!-- Humidity -->
+                                <div class="col-md-2">
+                                    <img id="EyeHumidity" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                   width="80%" class="closed" onclick="humidityVisible();"/>
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    Humidity
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="range" min="-25" max="25" value="0" class="form-range"
+                                                   name="humiditySlider" id="humiditySlider">
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    <span id="humidPos"></span>
+                                    <span id="humidVal">0</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                            <div class="slidecontainer row">
+                                <!-- Wind Speed -->
+                                <div class="col-md-2">
+                                    <img id="EyeWndSpd" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                    width="80%" class="closed" onclick="wndSpdVisible();"/>
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    Wind Speed
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="range" min="-25" max="25" value="0" class="form-range"
+                                           name="wndSpdSlider" id="wndSpdSlider">
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    <span id="wndSpdPos"></span>
+                                    <span id="wndSpdVal">0</span>
+                                    <span>mph</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Wind direction -->
+                                <div class="col-md-2">
+                                    <img id="EyeWndDir" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                     width="80%" class="closed" onclick="wndDirVisible();"/>
+                                </div>
+                                <div class="col-md-3" align="right">
+                                    Wind Direction
+                                </div>
+                                <div class="col-md-4" align="center">
+                                    <div id="circularSlider"></div>
+                                </div>
+                                <div class="col-md-3"></div>
                             </div>
 
 
-                            <div class="column right">
-                                <!-- User Form For Parameters Begins Here!!! -->
-                                <form action="/prototyping" method="POST">
-                                    <!-- Adjustments sections with sliders -->
-                                    <div id="adjustments" class="adjustments">
-                                        <h5>Adjustments</h5>
-                                    </div>
-
-                                    <!-- Sliders section -->
-                                    <div class="slidecontainer">
-                                        <!-- Temperature -->
-                                        <span id="tempPos"></span>
-                                        <span id="tempVal">0</span>
-                                        <span> F</span>
-                                        <p>Temperature: <input type="range" min="-25" max="25" value="0" class="slider"
-                                                               name="tempSlider" id="tempSlider"></p>
-
-                                        <!-- Humidty -->
-                                        <span id="humidPos"></span>
-                                        <span id="humidVal"> 0 </span>
-                                        <span> %</span>
-                                        <p>Humidty: <input type="range" min="-25" max="25" value="0" class="slider"
-                                                           name="humidtySlider" id="humiditySlider"></p>
-
-                                        <!-- Wind speed -->
-                                        <span id="wndSpdPos"></span>
-                                        <span id="wndSpdVal"> 0 </span>
-                                        <span> mph</span>
-                                        <p>Wind Speed: <input type="range" min="-25" max="25" value="0" class="slider"
-                                                              name="wndSpdSlider" id="wndSpdSlider"></p>
-
-                                    </div>
-
-                                    <!-- Wind direction -->
-                                    <div id="north">
-                                        <span>N</span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="column wind-label-col">
-                                            <br>
-                                            <p>Wind Direction: </p>
-                                        </div>
-                                        <div class="column slider-col">
-                                            <div id="slider"></div>
-                                        </div>
-                                        <div class="column run-col">
-                                            <br>
-                                            <br>
-                                            <input type="submit" class="btn btn-outline-dark active" value="Run"/></p>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                                <!-- End of right column -->
+                            <div class="row">
+                                <!-- Run Button -->
+                                <input type="submit" class="btn btn-primary" value="Run"/>
                             </div>
 
-                            <!-- End of row -->
-                        </div>
+                        </form>
 
                         <!-- End of col-md-6 -->
                     </div>
@@ -204,13 +208,13 @@ this button currently can hide the form, but chart size wont get any bigger
             <div id="Impacts" class="Impacts">
 
                 <div id="impactButtons">
-                    <input id="EconomicButton" class="btn btn-outline-dark active" type="button" value="Economic"
+                    <input id="EconomicButton" class="btn btn-primary" type="button" value="Economic"
                            onclick="economicVisible();"/>
-                    <input id="HealthButton" class="btn btn-outline-dark active" type="button" value="Health"
+                    <input id="HealthButton" class="btn btn-primary" type="button" value="Health"
                            onclick="healthVisible();"/>
-                    <input id="DemographicButton" class="btn btn-outline-dark active" type="button" value="Demographic"
+                    <input id="DemographicButton" class="btn btn-primary" type="button" value="Demographic"
                            onclick="demographicVisible();"/>
-                    <input id="EnvironmentButton" class="btn btn-outline-dark active" type="button" value="Environment"
+                    <input id="EnvironmentButton" class="btn btn-primary" type="button" value="Environment"
                            onclick="environmentVisible();"/>
                 </div>
 
@@ -468,7 +472,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <!-- Circular slider  https://roundsliderui.com/demos.html#customizations -->
 <script>
-    $("#slider").roundSlider({
+    $("#circularSlider").roundSlider({
         sliderType: "default",
         showTooltip: false,
         handleShape: "square",
