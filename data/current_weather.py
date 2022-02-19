@@ -33,6 +33,7 @@ class CurrentWeather:
     from all stations near a specified point. 
     """
     BASE_URL = "https://aviationweather.gov/adds/dataserver_current/httpparam"
+    SINGLE_METAR_SIZE = 42
 
     def __init__(self, radius, lat, long):
         f"""
@@ -86,14 +87,17 @@ class CurrentWeather:
         Get the most recent data corresponding to the given station.
         @param station: The station to search for
         """
-        return self.data.loc[station]
+        data = self.data.loc[station]
+        if data.size > self.SINGLE_METAR_SIZE:
+            return data.iloc[0]
+        return data
 
 
 def example():
     f"""
     Example usage of the @Link{CurrentWeather} class.
     """
-    lat, long = 37.280346, -121.692092
+    lat, long = 37.1,-121.692092
     distance = 20
 
     weather = CurrentWeather(distance, lat, long)
