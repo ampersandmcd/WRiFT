@@ -38,21 +38,20 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
 <div id="Options" class="Options">
-<div class="card text-center bg-light border-dark mb-3 special-card" >
-    <div class="card-body ">
-    <input id="InputsButton" type="button" value="Inputs" onclick="inputsVisible();"/>
-    <input id="ImpactsButton" type="button" value="Impacts" onclick="impactsVisible();"/>
+<div class="card text-center bg-light border-dark special-card" >
+    <div class="row">
+    <input id="InputsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Inputs" onclick="inputsVisible();"/>
+    <input id="ImpactsButton" class="btn btn-outline-dark btn-lg active" type="button" value="Impacts" onclick="impactsVisible();"/>
     </div>
 </div>
 </div>
 
 <!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
 <div class="card text-center bg-light border-dark mb-3 special-card" >
-    <div class="card-body">
 
         <!-- INPUTS PAGE -->
         <div id="Inputs" class="Inputs">
-
+        <div class="card-body">
 
             <!-- Divides the eyes buttons and rest of form into their own columns, so that
          the eyes being clicked do not submit the form-->
@@ -75,7 +74,7 @@ this button currently can hide the form, but chart size wont get any bigger
                     <p>Climatological Data <input type = "text" name = "climatologicalData" placeholder="mm" size="14"/></p>
                 </label>
                 <br>
-                <input type="submit" value="Get Data" /></p>
+                <input type="submit" class="btn btn-outline-dark active" value="Get Data" /></p>
             </form>
         </div>
 
@@ -111,16 +110,19 @@ this button currently can hide the form, but chart size wont get any bigger
                 <!-- Sliders section -->
                 <div class="slidecontainer">
                     <!-- Temperature -->
-                    <span id="tempVal"> 0 </span>
+                    <span id="tempPos"></span>
+                    <span id="tempVal">0</span>
                     <span> F</span>
                     <p>Temperature: <input type="range" min="-25" max="25" value="0" class="slider"name="tempSlider" id="tempSlider"></p>
 
                     <!-- Humidty -->
+                    <span id="humidPos"></span>
                     <span id="humidVal"> 0 </span>
                     <span> %</span>
                     <p>Humidty: <input type="range" min="-25" max="25" value="0" class="slider" name="humidtySlider" id="humiditySlider"> </p>
 
                     <!-- Wind speed -->
+                    <span id="wndSpdPos"></span>
                     <span id="wndSpdVal"> 0 </span>
                     <span> mph</span>
                     <p>Wind Speed: <input type="range" min="-25" max="25" value="0" class="slider" name="wndSpdSlider" id="wndSpdSlider"> </p>
@@ -142,7 +144,7 @@ this button currently can hide the form, but chart size wont get any bigger
                     <div class="column run-col">
                         <br>
                         <br>
-                        <input type="submit" value="Run" /></p>
+                        <input type="submit" class="btn btn-outline-dark active" value="Run" /></p>
                     </div>
                 </div>
 
@@ -157,19 +159,20 @@ this button currently can hide the form, but chart size wont get any bigger
         <!-- End of inputs section -->
         </div>
 
-
+        <!-- End of inputs card body section -->
+        </div>
 
         <!-- IMPACTS PAGE -->
         <div id="Impacts" class="Impacts">
 
             <div id="impactButtons">
-            <input id="EconomicButton" type="button" value="Economic" onclick="economicVisible();"/>
-            <input id="HealthButton" type="button" value="Health" onclick="healthVisible();"/>
-            <input id="DemographicButton" type="button" value="Demographic" onclick="demographicVisible();"/>
-            <input id="EnvironmentButton" type="button" value="Environment" onclick="environmentVisible();"/>
+            <input id="EconomicButton" class="btn btn-outline-dark active" type="button" value="Economic" onclick="economicVisible();"/>
+            <input id="HealthButton" class="btn btn-outline-dark active" type="button" value="Health" onclick="healthVisible();"/>
+            <input id="DemographicButton" class="btn btn-outline-dark active" type="button" value="Demographic" onclick="demographicVisible();"/>
+            <input id="EnvironmentButton" class="btn btn-outline-dark active" type="button" value="Environment" onclick="environmentVisible();"/>
             </div>
 
-
+        <div class="card-body">
             <div id="Economic" class="Economic">
                 <p>Economic data goes here</p>
             </div>
@@ -253,14 +256,29 @@ outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 sliderTemp.oninput = function() {
   outputTemp.innerHTML = this.value;
+  if (this.value > 0) {
+      document.getElementById("tempPos").innerText= "+";
+  } else {
+       document.getElementById("tempPos").innerText= "";
+  }
 }
 
 sliderHumid.oninput = function() {
   outputHumid.innerHTML = this.value;
+  if (this.value > 0) {
+      document.getElementById("humidPos").innerText= "+";
+  } else {
+       document.getElementById("humidPos").innerText= "";
+  }
 }
 
 sliderWndSpd.oninput = function() {
   outputWndSpd.innerHTML = this.value;
+  if (this.value > 0) {
+      document.getElementById("wndSpdPos").innerText= "+";
+  } else {
+       document.getElementById("wndSpdPos").innerText= "";
+  }
 }
 
 
