@@ -86,22 +86,21 @@ class CurrentWeather:
         Get the most recent data corresponding to the given station.
         @param station: The station to search for
         """
-        return self.data.loc[station].iloc[0]
+        return self.data.loc[station]
 
 
 def example():
     f"""
     Example usage of the @Link{CurrentWeather} class.
     """
-    lat = 37.4
-    long = -122.05
+    lat, long = 37.280346, -121.692092
     distance = 20
 
     weather = CurrentWeather(distance, lat, long)
     nearest = weather.getNearestStation()
-    print(nearest)
-    print(weather.dataByStation(nearest))
-    print(weather.mostRecentData())
+    data = weather.dataByStation(nearest)
+    wind_speed, wind_dir = data['wind_speed_kt'], data['wind_dir_degrees']
+    print(F"wind speed: {wind_speed}, wind direction: {wind_dir}")
 
 
 if __name__ == '__main__':
