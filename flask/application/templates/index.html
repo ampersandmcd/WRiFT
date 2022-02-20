@@ -11,7 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
 
 <h1>Home</h1>
-<p>Info about the home page will go here. This includes maps, results, selection options, and overlays.</p>
+<p>
+    How might wildfire affect your local community? How can you protect your family, home, and neighbors?
+    You've got questions. We've got answers.
+    Visualize wildfire risk and simulate the impacts of a hypothetical wildfire below.
+</p>
 <br>
 
 <!-- Working on adding button that will hide the form and then expand the chart
@@ -37,13 +41,11 @@ this button currently can hide the form, but chart size wont get any bigger
 
         <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
         <div id="Options" class="Options">
-            <div class="card text-center bg-light special-card">
-                <div class="row">
-                    <input id="InputsButton" class="btn btn-primary btn-lg" type="button" value="Inputs"
-                           onclick="inputsVisible();"/>
-                    <input id="ImpactsButton" class="btn btn-primary btn-lg" type="button" value="Impacts"
-                           onclick="impactsVisible();"/>
-                </div>
+            <div class="row">
+                <input id="InputsButton" class="btn btn-primary btn-lg" type="button" value="Inputs"
+                       onclick="inputsVisible();"/>
+                <input id="ImpactsButton" class="btn btn-primary btn-lg" type="button" value="Impacts"
+                       onclick="impactsVisible();"/>
             </div>
         </div>
 
@@ -114,12 +116,12 @@ this button currently can hide the form, but chart size wont get any bigger
                             <!-- Sliders section -->
                             <div class="slidecontainer row">
                                 <!-- Temperature -->
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <img id="EyeTemp" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                       width="80%" class="closed" onclick="tempVisible();"/>
+                                       width="30px" class="closed" onclick="tempVisible();"/>
                                 </div>
-                                <div class="col-md-3" align="right">
-                                    Temperature
+                                <div class="col-md-4" align="right">
+                                    <label for="tempSlider">Temperature</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
@@ -134,12 +136,12 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="slidecontainer row">
                                 <!-- Humidity -->
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <img id="EyeHumidity" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                   width="80%" class="closed" onclick="humidityVisible();"/>
+                                   width="30px" class="closed" onclick="humidityVisible();"/>
                                 </div>
-                                <div class="col-md-3" align="right">
-                                    Humidity
+                                <div class="col-md-4" align="right">
+                                    <label for="humiditySlider">Humidity</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
@@ -154,12 +156,12 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="slidecontainer row">
                                 <!-- Wind Speed -->
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <img id="EyeWndSpd" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                    width="80%" class="closed" onclick="wndSpdVisible();"/>
+                                    width="30px" class="closed" onclick="wndSpdVisible();"/>
                                 </div>
-                                <div class="col-md-3" align="right">
-                                    Wind Speed
+                                <div class="col-md-4" align="right">
+                                    <label for="wndSpdSlider">Wind Speed</label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
@@ -174,17 +176,17 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <!-- Wind direction -->
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <img id="EyeWndDir" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                     width="80%" class="closed" onclick="wndDirVisible();"/>
+                                     width="30px" class="closed" onclick="wndDirVisible();"/>
                                 </div>
-                                <div class="col-md-3" align="right">
-                                    Wind Direction
+                                <div class="col-md-4" align="right">
+                                    <label style="font-size: 15px;" for="circularSlider">Wind Direction</label>
                                 </div>
                                 <div class="col-md-4" align="center">
                                     <div id="circularSlider"></div>
                                 </div>
-                                <div class="col-md-3"></div>
+                                <div class="col-md-2"></div>
                             </div>
 
 
