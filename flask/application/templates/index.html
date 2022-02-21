@@ -24,7 +24,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <div id="page" class="page row">
 
-    <div id="chart" class="chart col-md-8"></div>
+    <div id="chart" class="chart col"></div>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
@@ -34,7 +34,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
     <!-- Switch between the inputs and impacts pages with button
      UPDATE: to a card and nicer buttons -->
-    <div id="UserForm" class="UserForm col-md-3">
+    <div id="UserForm" class="UserForm col">
 
         <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
         <div id="Options" class="Options">
@@ -218,26 +218,253 @@ this button currently can hide the form, but chart size wont get any bigger
                 </div>
 
                 <div class="card-body">
+                    <!-- Economic Page-->
                     <div id="Economic" class="Economic">
-                        <p>Economic data goes here</p>
+                        <h5 class="center">Direct Loss</h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Structures Destroyed</p>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totStructDestr"> 124 </span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><span class="bolded" id="totStructDestrCost">
+                                    50</span><span class="bolded">
+                                    m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Structures Damaged</p>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totStructDam">37</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span>
+                                    <span class="bolded" id="totStructDamCost">10</span>
+                                    <span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Firefighters Needed</p>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="firefightersNeed">94</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span>
+                                    <span class="bolded" id="firefightersNeedCost">1</span>
+                                    <span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"> Indirect Loss</h5>
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Business Closures</p>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totBusinClose">432</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span>
+                                    <span class="bolded" id="totBusinCloseCost">10</span>
+                                    <span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Evacuations</p>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totEvacuations">10</span>
+                                    <span class="bolded">k</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span>
+                                    <span class="bolded" id="totEvacuationsCost">50</span>
+                                    <span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"> Total Loss</h5>
+
+                            <div class="row">
+                                <div class="col-md-6" align="right">
+                                    <p>Cost</p>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span>
+                                    <span class="bolded" id="totCostEcon">121</span>
+                                    <span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
-
+                    <!-- Health Page-->
                     <div id="Health" class="Health">
-                        <p>Health data goes here</p>
+                        <h5 class="center">Losses</h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Injuries</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="injuriesTot"> 34 </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Deaths</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="deathsTot"> 1 </span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center">Resources Needed</h5>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Hospital Beds Needed</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="hospBedsTot"> 27 </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>ICU Beds Needed</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="ICUBedsTot">12</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Nurses Needed</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="nursesTot">10</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Doctors Needed</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="doctorsTot">5</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
-
+                    <!-- Demographic Page-->
                     <div id="Demographic" class="Demographic">
-                        <p>Demographic Data goes here</p>
+                        <h5 class="center">Communities Affected</h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Cities</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="cityAffected">Palo Alto</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Counties</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="countyAffected">San Mateo</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Congressional Districts</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="districtAffected">CA-14</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center">Equity Factors</h5>
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Household Income</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="houseIncome"> $50k </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Education Level</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="eduLevel"> Some college </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Median Age</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="medAge"> 41 </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Percent Nonwhite</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="percentNonWhite"> 23% </span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-
+                    <!-- Environment Page-->
                     <div id="Environment" class="Environment">
                         <h5 class="center">Consequences</h5>
                         <div class="col-md-12">
+
                             <div class="row">
-                                <div class="col-md-7 env-title-column" align="right">
+                                <div class="col-md-7" align="right">
                                     <p>Acres Burned</p>
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -245,8 +472,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <span class="bolded"> ac</span>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-7 env-title-column" align="right">
+                                <div class="col-md-7" align="right">
                                     <p>Smoke Footprint</p>
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -254,8 +482,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <span class="bolded"> mi^2</span>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-7 env-title-column" align="right">
+                                <div class="col-md-7" align="right">
                                     <p>Watershed Footprint</p>
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -263,8 +492,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <span class="bolded"> mi</span>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-7 env-title-column" align="right">
+                                <div class="col-md-7" align="right">
                                     <p>CO2e Emissions</p>
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -272,8 +502,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <span class="bolded"> mmt</span>
                                 </div>
                             </div>
+
                             <div class="row">
-                                <div class="col-md-7 env-title-column" align="right">
+                                <div class="col-md-7" align="right">
                                     <p>PM 2.5 Emissions</p>
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -281,6 +512,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <span class="bolded"> u/gm^3</span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
