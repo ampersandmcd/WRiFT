@@ -235,32 +235,51 @@ this button currently can hide the form, but chart size wont get any bigger
 
                     <div id="Environment" class="Environment">
                         <h5 class="center">Consequences</h5>
-                        <div class="row">
-                            <div class="column env-eyes-column">
-
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-7 env-title-column" align="right">
+                                    <p>Acres Burned</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="acresBurned"> 342 </span>
+                                    <span class="bolded"> ac</span>
+                                </div>
                             </div>
-                            <div class="column env-title-column">
-                                <p>Acres Burned&nbsp;&nbsp;</p>
-                                <p>Smoke Footprint&nbsp;&nbsp;</p>
-                                <p>Watershed Footprint&nbsp;&nbsp;</p>
-                                <p>CO2e Emissions&nbsp;&nbsp;</p>
-                                <p>PM 2.5 Emissions&nbsp;&nbsp;</p>
+                            <div class="row">
+                                <div class="col-md-7 env-title-column" align="right">
+                                    <p>Smoke Footprint</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="smokeFootprint"> 100 </span>
+                                    <span class="bolded"> mi^2</span>
+                                </div>
                             </div>
-                            <div class="column env-data-column">
-                                <span class="bolded" id="acresBurned"> 342 </span>
-                                <span class="bolded"> ac</span> <br>
-
-                                <span class="bolded" id="smokeFootprint"> 100 </span>
-                                <span class="bolded"> mi^2</span> <br>
-
-                                <span class="bolded" id="watershedFootprint"> 20 </span>
-                                <span class="bolded"> mi</span> <br>
-
-                                <span class="bolded" id="C02emissions"> 2 </span>
-                                <span class="bolded"> mmt</span> <br>
-
-                                <span class="bolded" id="PMemissions"> 31 </span>
-                                <span class="bolded"> u/gm^3</span> <br>
+                            <div class="row">
+                                <div class="col-md-7 env-title-column" align="right">
+                                    <p>Watershed Footprint</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="watershedFootprint"> 20 </span>
+                                    <span class="bolded"> mi</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 env-title-column" align="right">
+                                    <p>CO2e Emissions</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="C02emissions"> 2 </span>
+                                    <span class="bolded"> mmt</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 env-title-column" align="right">
+                                    <p>PM 2.5 Emissions</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="PMemissions"> 31 </span>
+                                    <span class="bolded"> u/gm^3</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -404,6 +423,14 @@ this button currently can hide the form, but chart size wont get any bigger
             // add plotly changes here
             // var graphs = {{graph_json | safe}};
             // Plotly.newPlot("chart",graphs,{});
+
+            // Turn off all Plotly Traces
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            graphs.data[15].visible = true;
+            Plotly.restyle("chart", graphs, {});
+
             openEye(img);
             closeEye(img2);
             closeEye(img3);
