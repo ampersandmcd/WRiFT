@@ -579,7 +579,12 @@ def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, min
     else:
         data = prepare_data(lat, lon, path_landfire, path_fueldict)
 
+    # load preprocessed data
     INPUT, FUEL, wind_speed, wind_dir, i_start, j_start, X, Y = data
+
+    # recompute starting indices with user input
+    i_start = np.argmin(np.abs(X - lon))
+    j_start = np.argmin(np.abs(Y - lat))
 
     # # #
     # Fires are 1x2 arrays of integers, where:

@@ -17,24 +17,48 @@
     Visualize wildfire risk and simulate the impacts of a hypothetical wildfire below.
 </p>
 
-<!-- Working on adding button that will hide the form and then expand the chart
+<!-- Working on adding button that will hide the form and the22n expand the chart
 this button currently can hide the form, but chart size wont get any bigger
 <input id="HideForm" type="button" value="Hide Form" class="show" onclick="formVisible();"/>
 -->
 
 <div id="page" class="page row">
 
-    <div id="chart" class="chart col-md-8"></div>
+    <div id="chart" class="chart col-md-7"></div>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-        var graphs = {{graph_json | safe}};
-        Plotly.plot("chart", graphs, {});
+        let chart = document.getElementById("chart");
+        let graphs = {{graph_json | safe}};
+        Plotly.plot("chart", graphs)
+        n = graphs.data.length
+        chart.on("plotly_click", function(data){
+            document.getElementById("lon").value = data.points[0].lon;
+            document.getElementById("lat").value = data.points[0].lat;
+            while (graphs.data.length > n) {
+                // delete previously selected ignition points
+                Plotly.deleteTraces(chart, [-1]);
+            }
+            // add most recent selected ignition point
+            Plotly.addTraces(chart, {
+                lon: [data.points[0].lon],
+                lat: [data.points[0].lat],
+                type: 'scattermapbox',
+                mode: 'markers',
+                marker: {'color': "orange", 'opacity': 1.0},
+                hovertemplate: "Ignition Point<br>" +
+                               "Latitude: %{lat}<br>" +
+                               "Longitude: %{lon}<br>" +
+                               "<extra></extra>",
+                size: 36,
+                visible: true
+            });
+        });
     </script>
 
     <!-- Switch between the inputs and impacts pages with button
      UPDATE: to a card and nicer buttons -->
-    <div id="UserForm" class="UserForm col-md-3">
+    <div id="UserForm" class="UserForm col-md-4">
 
         <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
         <div id="Options" class="Options">
@@ -53,19 +77,89 @@ this button currently can hide the form, but chart size wont get any bigger
             <div id="Inputs" class="Inputs">
                 <div class="card-body">
 
-                    <!-- Divides the eyes buttons and rest of form into their own columns, so that
-                 the eyes being clicked do not submit the form-->
                     <div class="col-md-12">
-                        <!-- Start of baseline section -->
+                        <!-- Risk Visualization -->
                         <div class="row">
                             <div class="col-md-12" align="center">
-                                <h5>Baseline</h5>
+                                <h5>Step 1: Understand the Risks</h5>
+                                <p align="left">
+                                    Visualize the various risk factors at play when wildfire strikes.
+                                </p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <img id="EyeRisk" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                   width="30px" class="closed" onclick="riskVisible();"/>
+                            </div>
+                            <div class="col-md-3" align="left">
+                                <span>Wildfire Risk</span>
+                            </div>
+                            <div class="col-md-1">
+                                <img id="EyePopulation" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                   width="30px" class="closed" onclick="populationVisible();"/>
+                            </div>
+                            <div class="col-md-3" align="left">
+                                <span>Population</span>
+                            </div>
+                            <div class="col-md-1">
+                                <img id="EyeHousing" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                   width="30px" class="closed" onclick="housingVisible();"/>
+                            </div>
+                            <div class="col-md-3" align="left">
+                                <span>Housing</span>
+                            </div>
+                        </div>
+                        <br>
 
+                        <!-- Inputs Form -->
+                        <form action="/" method="POST">
 
-                        <!-- User Form For Dates Begins Here!!! -->
-                        <form action="/prototyping" method="POST">
+                            <!-- Location Selection -->
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <h5>Step 2: Select an Ignition Point</h5>
+                                    <p align="left">
+                                        Click on the map or type below to select an ignition point.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4" align="right">
+                                    <label for="lat">Latitude</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy"/>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span>°N</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4" align="right">
+                                    <label for="lon">Longitude</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="lon" id="lon" placeholder="xx.xx"/>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span>°E</span>
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- Baseline Header -->
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <h5>Step 3: Set a Baseline</h5>
+                                    <p align="left">
+                                        Specify baseline weather conditions for the wildfire simulation from a particular
+                                        day, or as the climatological average conditions in a particular month.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Baseline Form -->
                             <div class="row">
                                 <div class="col-md-1">
                                     <div class="form-check">
@@ -92,24 +186,26 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input type="text" class="form-control" name="climatologicalData" placeholder="mm"/>
                                 </div>
                             </div>
+                            <!--
                             <div class="row">
                                 <input type="submit" class="btn btn-primary" value="Get Data"/>
                             </div>
-                        </form>
-                        <br>
+                            -->
+                            <br>
 
-                        <!-- Adjustments sections with sliders -->
-                        <div class="row">
-                            <div class="col-md-12" align="center">
-                                <h5>Adjustments</h5>
+                            <!-- Adjustments Header -->
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <h5>Step 4: Adjust for Climate Change</h5>
+                                    <p align="left">
+                                        Under climate change, higher temperatures, lower humidity, and higher winds are
+                                        expected in the Bay Area. Adjust the weather conditions below away from their
+                                        baseline to see how wildfire spread will be affected.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Divides the eyes buttons and rest of form into their own columns, so that
-                        the eyes being clicked do not submit the form-->
-
-                        <!-- User Form For Parameters Begins Here!!! -->
-                        <form action="/" method="POST">
+                            <!-- Adjustments Form -->
                             <!-- Sliders section -->
                             <div class="slidecontainer row">
                                 <!-- Temperature -->
@@ -124,7 +220,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
                                                            name="tempSlider" id="tempSlider">
                                 </div>
-                                <div class="col-md-3" align="right">
+                                <div class="col-md-3" align="left">
                                     <span id="tempPos"></span>
                                     <span id="tempVal">0</span>
                                     <span>F</span>
@@ -144,7 +240,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
                                                    name="humiditySlider" id="humiditySlider">
                                 </div>
-                                <div class="col-md-3" align="right">
+                                <div class="col-md-3" align="left">
                                     <span id="humidPos"></span>
                                     <span id="humidVal">0</span>
                                     <span>%</span>
@@ -164,7 +260,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
                                            name="wndSpdSlider" id="wndSpdSlider">
                                 </div>
-                                <div class="col-md-3" align="right">
+                                <div class="col-md-3" align="left">
                                     <span id="wndSpdPos"></span>
                                     <span id="wndSpdVal">0</span>
                                     <span>mph</span>
@@ -184,6 +280,17 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <div id="circularSlider"></div>
                                 </div>
                                 <div class="col-md-2"></div>
+                            </div>
+                            <br>
+
+                            <!-- Submit Header -->
+                            <div class="row">
+                                <div class="col-md-12" align="center">
+                                    <h5>Step 5: Simulate a Wildfire</h5>
+                                    <p align="left">
+                                        Click "Run" to visualize the footprint of a simulated wildfire and its effects.
+                                    </p>
+                                </div>
                             </div>
 
 
@@ -540,16 +647,16 @@ this button currently can hide the form, but chart size wont get any bigger
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 <script>
-    var sliderTemp = document.getElementById("tempSlider");
-    var outputTemp = document.getElementById("tempVal");
+    let sliderTemp = document.getElementById("tempSlider");
+    let outputTemp = document.getElementById("tempVal");
     outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
 
-    var sliderHumid = document.getElementById("humiditySlider");
-    var outputHumid = document.getElementById("humidVal");
+    let sliderHumid = document.getElementById("humiditySlider");
+    let outputHumid = document.getElementById("humidVal");
     outputHumid.innerHTML = sliderHumid.value; // Display the default slider value
 
-    var sliderWndSpd = document.getElementById("wndSpdSlider");
-    var outputWndSpd = document.getElementById("wndSpdVal");
+    let sliderWndSpd = document.getElementById("wndSpdSlider");
+    let outputWndSpd = document.getElementById("wndSpdVal");
     outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
 
     // Update the current slider value (each time you drag the slider handle)
@@ -596,7 +703,7 @@ this button currently can hide the form, but chart size wont get any bigger
     }
 
     function formVisible() {
-        var button = document.getElementById("HideForm");
+        let button = document.getElementById("HideForm");
 
         if (button.className == "show") {
             button.className = "hide";
@@ -647,76 +754,172 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <!-- Enables and disables visual layers -->
 <script>
-    function tempVisible() {
-        var img = document.getElementById("EyeTemp");
-        var img2 = document.getElementById("EyeWndDir");
-        var img3 = document.getElementById("EyeWndSpd");
-        var img4 = document.getElementById("EyeHumidity");
+
+     function riskVisible() {
+        let img = document.getElementById("EyeRisk");
         if (img.className == "open") {
             closeEye(img);
         } else {
-            // add plotly changes here
-            // var graphs = {{graph_json | safe}};
-            // Plotly.newPlot("chart",graphs,{});
+            openEye(img);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
 
-            // Turn off all Plotly Traces
+            // plotly changes
+            // turn off all traces except ignition point marker
             for (let i = 0; i < graphs.data.length; i++) {
                 graphs.data[i].visible = false;
             }
-            graphs.data[15].visible = true;
-            Plotly.restyle("chart", graphs, {});
+            // turn on this trace
+            graphs.data[0].visible = true;
+            Plotly.restyle("chart", graphs);
+        }
+    }
 
+    function populationVisible() {
+        let img = document.getElementById("EyePopulation");
+        if (img.className == "open") {
+            closeEye(img);
+        } else {
             openEye(img);
-            closeEye(img2);
-            closeEye(img3);
-            closeEye(img4);
+            otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[1].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
+        }
+    }
+
+    function housingVisible() {
+        let img = document.getElementById("EyeHousing");
+        if (img.className == "open") {
+            closeEye(img);
+        } else {
+            openEye(img);
+            otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[2].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
+        }
+    }
+
+    function tempVisible() {
+        let img = document.getElementById("EyeTemp");
+        if (img.className == "open") {
+            closeEye(img);
+        } else {
+            openEye(img);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[3].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
         }
     }
 
     function humidityVisible() {
-        var img = document.getElementById("EyeHumidity");
-        var img2 = document.getElementById("EyeWndDir");
-        var img3 = document.getElementById("EyeWndSpd");
-        var img4 = document.getElementById("EyeTemp");
+        let img = document.getElementById("EyeHumidity");
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
-            closeEye(img2);
-            closeEye(img3);
-            closeEye(img4);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[4].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
         }
     }
 
     function wndSpdVisible() {
-        var img = document.getElementById("EyeWndSpd");
-        var img2 = document.getElementById("EyeWndDir");
-        var img3 = document.getElementById("EyeHumidity");
-        var img4 = document.getElementById("EyeTemp");
+        let img = document.getElementById("EyeWndSpd");
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
-            closeEye(img2);
-            closeEye(img3);
-            closeEye(img4);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[5].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
         }
     }
 
     function wndDirVisible() {
-        var img = document.getElementById("EyeWndDir");
-        var img2 = document.getElementById("EyeWndSpd");
-        var img3 = document.getElementById("EyeHumidity");
-        var img4 = document.getElementById("EyeTemp");
+        let img = document.getElementById("EyeWndDir");
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
-            closeEye(img2);
-            closeEye(img3);
-            closeEye(img4);
-        }
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
 
+            // plotly changes
+            // turn off all traces except ignition point marker
+            for (let i = 0; i < graphs.data.length; i++) {
+                graphs.data[i].visible = false;
+            }
+            // turn on this trace
+            graphs.data[6].visible = true;
+            let chart = document.getElementById("chart");
+            Plotly.restyle(chart, graphs);
+        }
     }
 
     function closeEye(img) {

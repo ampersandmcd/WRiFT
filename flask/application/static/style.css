@@ -148,7 +148,6 @@
   transform: scale(.45);
    */
   width: 39%;
-  height: 42em;
   overflow: hidden;
   display: inline-block;
   margin-left: .3em;
@@ -166,7 +165,6 @@
   width: 60%;
    */
   width: 60%;
-  height: 42em;
   /* min-width: 42em; */
   display: inline-block;
   overflow: hidden;
@@ -343,7 +341,7 @@
 }
 
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 60px;
