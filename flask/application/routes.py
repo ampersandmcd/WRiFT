@@ -75,39 +75,39 @@ def index():
             )
         data[0].visible = True
 
-        # # Create button list
-        # buttons = []
-        # for i, item in enumerate(display_columns):
-        #     visibility = [False] * len(display_columns)
-        #     visibility[i] = True
-        #     buttons.append(dict(
-        #         args=["visible", visibility],
-        #         label=item,
-        #         method="restyle"
-        #     ))
-        #
-        # # Add mapbox and dropdown
-        # layout.update(
-        #     updatemenus=[
-        #         dict(
-        #             buttons=buttons,
-        #             direction="down",
-        #             pad={"r": 10, "t": 10},
-        #             showactive=True,
-        #             x=0.1,
-        #             xanchor="left",
-        #             y=1.08,
-        #             yanchor="top"
-        #         ),
-        #     ]
-        # )
-        #
-        # # Add annotation
-        # layout.update(
-        #     annotations=[
-        #         dict(text="Data Layer:", showarrow=False, x=0, y=1.05, yref="paper", align="left")
-        #     ]
-        # )
+        # Create button list
+        buttons = []
+        for i, item in enumerate(display_columns):
+            visibility = [False] * len(display_columns)
+            visibility[i] = True
+            buttons.append(dict(
+                args=["visible", visibility],
+                label=item,
+                method="restyle"
+            ))
+
+        # Add mapbox and dropdown
+        layout.update(
+            updatemenus=[
+                dict(
+                    buttons=buttons,
+                    direction="down",
+                    pad={"r": 10, "t": 10},
+                    showactive=True,
+                    x=0.1,
+                    xanchor="left",
+                    y=1.08,
+                    yanchor="top"
+                ),
+            ]
+        )
+
+        # Add annotation
+        layout.update(
+            annotations=[
+                dict(text="Data Layer:", showarrow=False, x=0, y=1.05, yref="paper", align="left")
+            ]
+        )
 
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
