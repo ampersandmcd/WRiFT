@@ -1,7 +1,8 @@
 import requests
 import pandas as pd
 from io import StringIO
-import geopy.distance
+
+from weather import Weather
 
 
 def _weatherDataToDF(text: str):
@@ -16,18 +17,7 @@ def _weatherDataToDF(text: str):
     return df
 
 
-def _coordDistance(row, lat, long):
-    f"""
-    Given an associative array containing 'latitude' and 'longitude'
-    columns, calculate the distance from the lat and long passed in.
-    @param row: the associative array containing 'latitude' and 'longitude' keys
-    @param lat: the latitude of the point to calculate distance from
-    @param long: the longitude of the point to calculate distance from
-    """
-    return geopy.distance.distance((lat, long), (row['latitude'], row['longitude'])).mi
-
-
-class CurrentWeather:
+class CurrentWeather(Weather):
     f"""
     Use the NOAA Aviation Weather Center to retrieve current weather information
     from all stations near a specified point. 
@@ -43,19 +33,16 @@ class CurrentWeather:
         :param long: The longitude to center data collection on.
         """
         self.radius = radius  # Statute miles
-        self.lat = lat  # Center of radius
-        self.long = long  # Center of radius
-        self.data = pd.DataFrame()
-        self.refreshData()
+        super().__init__(lat, long)
 
-    def refreshData(self):
+    def refresh_data(self):
         f"""
         Pull the most recent data from the ADDS server.
         """
-        data_text = self._collectWeatherData()
-        self.data = _weatherDataToDF(data_text)
+        data_text = self.query()
+        return _weatherDataToDF(data_text)
 
-    def _collectWeatherData(self) -> str:
+    def query(self) -> str:
         f"""
         Collect current weather data from all stations available within this @Link{CurrentWeather} 
         object's radius.
@@ -67,22 +54,14 @@ class CurrentWeather:
 
         return requests.get(self.BASE_URL, params=query).text
 
-    def getNearestStation(self):
-        f"""
-        Find the nearest weather station in this @Link{CurrentWeather} to the
-        latitude and longitude provided.
-        """
-        distances = self.data.apply(_coordDistance, axis=1, lat=self.lat, long=self.long)
-        return distances.idxmin()
-
-    def mostRecentData(self):
+    def most_recent(self):
         f"""
         Get the most recent data available.
         Only returns data for a single station.
         """
         return self.data.iloc[0]
 
-    def dataByStation(self, station):
+    def weather_by_station(self, station):
         f"""
         Get the most recent data corresponding to the given station.
         @param station: The station to search for
@@ -101,8 +80,8 @@ def example():
     distance = 20
 
     weather = CurrentWeather(distance, lat, long)
-    nearest = weather.getNearestStation()
-    data = weather.dataByStation(nearest)
+    nearest = weather.getNearestStation(weather.data)
+    data = weather.weather_by_station(nearest)
     wind_speed, wind_dir = data['wind_speed_kt'], data['wind_dir_degrees']
     print(F"wind speed: {wind_speed}, wind direction: {wind_dir}")
 
