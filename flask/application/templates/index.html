@@ -839,14 +839,17 @@ this button currently can hide the form, but chart size wont get any bigger
             }
 
             // plotly changes
-            // turn off all traces except ignition point marker
-            for (let i = 0; i < graphs.data.length; i++) {
-                graphs.data[i].visible = false;
-            }
-            // turn on this trace
-            graphs.data[3].visible = true;
             let chart = document.getElementById("chart");
-            Plotly.restyle(chart, graphs);
+
+            var update = {
+                visible: false
+            }
+            Plotly.restyle(chart, update);
+
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 3);
         }
     }
 
@@ -863,14 +866,17 @@ this button currently can hide the form, but chart size wont get any bigger
             }
 
             // plotly changes
-            // turn off all traces except ignition point marker
-            for (let i = 0; i < graphs.data.length; i++) {
-                graphs.data[i].visible = false;
-            }
-            // turn on this trace
-            graphs.data[4].visible = true;
             let chart = document.getElementById("chart");
-            Plotly.restyle(chart, graphs);
+
+            var update = {
+                visible: false
+            }
+            Plotly.restyle(chart, update);
+
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 4);
         }
     }
 
@@ -887,14 +893,17 @@ this button currently can hide the form, but chart size wont get any bigger
             }
 
             // plotly changes
-            // turn off all traces except ignition point marker
-            for (let i = 0; i < graphs.data.length; i++) {
-                graphs.data[i].visible = false;
-            }
-            // turn on this trace
-            graphs.data[5].visible = true;
             let chart = document.getElementById("chart");
-            Plotly.restyle(chart, graphs);
+
+            var update = {
+                visible: false
+            }
+            Plotly.restyle(chart, update);
+
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 5);
         }
     }
 
@@ -911,14 +920,17 @@ this button currently can hide the form, but chart size wont get any bigger
             }
 
             // plotly changes
-            // turn off all traces except ignition point marker
-            for (let i = 0; i < graphs.data.length; i++) {
-                graphs.data[i].visible = false;
-            }
-            // turn on this trace
-            graphs.data[6].visible = true;
             let chart = document.getElementById("chart");
-            Plotly.restyle(chart, graphs);
+
+            var update = {
+                visible: false
+            }
+            Plotly.restyle(chart, update);
+
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 6);
         }
     }
 
