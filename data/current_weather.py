@@ -52,7 +52,12 @@ class CurrentWeather(Weather):
         query = {"dataSource": "metars", "requestType": "retrieve", "format": "csv",
                  "radialDistance": distance_string, "hoursBeforeNow": "1"}
 
-        return requests.get(self.BASE_URL, params=query).text
+        data = requests.get(self.BASE_URL, params=query)
+
+        if data.status_code != 200:
+            raise ValueError(f"ADDS Server returned status code {data}; check arguments and retry query")
+
+        return data.text
 
     def most_recent(self):
         f"""
@@ -76,11 +81,11 @@ def example():
     f"""
     Example usage of the @Link{CurrentWeather} class.
     """
-    lat, long = 37.1,-121.692092
+    lat, long = 37.3923,-121.5
     distance = 20
 
     weather = CurrentWeather(distance, lat, long)
-    nearest = weather.getNearestStation(weather.data)
+    nearest = weather.getNearestStation()
     data = weather.weather_by_station(nearest)
     wind_speed, wind_dir = data['wind_speed_kt'], data['wind_dir_degrees']
     print(F"wind speed: {wind_speed}, wind direction: {wind_dir}")
