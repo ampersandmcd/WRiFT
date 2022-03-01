@@ -128,7 +128,7 @@ def pre_burn(lat, lon, path_pickle):
     ## get weather info
 
     weather = CurrentWeather(20, lat, lon)
-    weather = weather.dataByStation(weather.getNearestStation())
+    weather = weather.dataByStation(weather.getNearestStation(weather.data))
 
     wind_speed, wind_dir = weather.loc['wind_speed_kt'], weather.loc['wind_dir_degrees']
 
