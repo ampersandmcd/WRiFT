@@ -15,3 +15,4 @@ dependencies:
   - rioxarray=0.9
   - geopy=2.2
   - requests=2.27
+  - numba=0.55

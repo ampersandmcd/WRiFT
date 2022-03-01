@@ -9,7 +9,7 @@
 ################################################
 
 # weather processing module (thank you nathan)
-from modeling.data.cur_weather import CurrentWeather
+from modeling.data.current_weather import CurrentWeather
 
 from modeling.models.rothermel import compute_surface_spread
 

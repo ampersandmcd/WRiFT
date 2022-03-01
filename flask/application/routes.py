@@ -11,7 +11,7 @@ from matplotlib.cm import viridis
 from modeling.farsite import burn
 import matplotlib.pyplot as plt
 
-token = open("../flask/application/static/.mapbox_token").read()
+token = open("application/static/.mapbox_token").read()
 px.set_mapbox_access_token(token)
 
 
