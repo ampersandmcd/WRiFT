@@ -757,190 +757,197 @@ this button currently can hide the form, but chart size wont get any bigger
 
      function riskVisible() {
         let img = document.getElementById("EyeRisk");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 0);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 0);
         }
     }
 
     function populationVisible() {
         let img = document.getElementById("EyePopulation");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 1);
             otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 1);
         }
     }
 
     function housingVisible() {
         let img = document.getElementById("EyeHousing");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 2);
             otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 2);
         }
     }
 
     function tempVisible() {
         let img = document.getElementById("EyeTemp");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 3);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 3);
         }
     }
 
     function humidityVisible() {
         let img = document.getElementById("EyeHumidity");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 4);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 4);
         }
     }
 
     function wndSpdVisible() {
         let img = document.getElementById("EyeWndSpd");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 5);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 5);
         }
     }
 
     function wndDirVisible() {
         let img = document.getElementById("EyeWndDir");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
         if (img.className == "open") {
             closeEye(img);
         } else {
             openEye(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 6);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
             }
-
-            // plotly changes
-            let chart = document.getElementById("chart");
-
-            var update = {
-                visible: false
-            }
-            Plotly.restyle(chart, update);
-
-            var Nupdate = {
-                visible: true
-            }
-            Plotly.restyle(chart, Nupdate, 6);
         }
     }
 
