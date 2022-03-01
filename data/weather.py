@@ -1,4 +1,5 @@
 from abc import abstractmethod
+import pandas as pd
 
 import geopy.distance
 
@@ -31,10 +32,10 @@ class Weather:
     def weather_by_station(self, station):
         pass
 
-    def getNearestStation(self, data):
+    def getNearestStation(self):
         f"""
         Find the nearest weather station in this @Link{Weather} to the
         latitude and longitude provided.
         """
-        distances = data.apply(_coordDistance, axis=1, lat=self.lat, long=self.long)
+        distances = self.data.apply(_coordDistance, axis=1, lat=self.lat, long=self.long)
         return distances.idxmin()

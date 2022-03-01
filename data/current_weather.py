@@ -84,10 +84,9 @@ def example():
     lat, long = 37.3923,-121.5
     distance = 20
 
-    weather = CurrentWeather(distance, lat, long)
-    nearest = weather.getNearestStation()
-    data = weather.weather_by_station(nearest)
-    wind_speed, wind_dir = data['wind_speed_kt'], data['wind_dir_degrees']
+    weather = CurrentWeather(20, lat, long)
+    weather = weather.weather_by_station(weather.getNearestStation())
+    wind_speed, wind_dir = weather['wind_speed_kt'], weather['wind_dir_degrees']
     print(F"wind speed: {wind_speed}, wind direction: {wind_dir}")
 
 

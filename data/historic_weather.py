@@ -2,6 +2,7 @@ import requests
 import urllib
 import json
 import pandas as pd
+import datetime
 
 from weather import Weather
 
@@ -22,12 +23,14 @@ class HistoricWeather(Weather):
         """
         token = open(".ncdc_token").read()
         self.headers = {"token": token}
+        start_date = start_date.strftime("%Y-%m-%d")
         self.start_date = start_date
+        end_date = end_date.strftime("%Y-%m-%d")
         self.end_date = end_date
         super().__init__(lat, long)
 
     def refresh_data(self):
-        pass
+        return self.get_stations(2)
 
     def query(self, resource, params):
         """
@@ -51,6 +54,7 @@ class HistoricWeather(Weather):
         params = {"datasetid": self.DATA_ID, "startdate": self.start_date, "enddate": self.end_date,
                   "extent": extent, "sortfield": "maxdate", "sortorder": "desc", "datatypeid": self.DATA_TYPES}
         response = self.query("stations", params)
+        print(response)
         data = json.loads(response.text)
         stations = pd.DataFrame(data["results"])
         stations.set_index("id", inplace=True)
@@ -76,19 +80,48 @@ class DailyWeather(HistoricWeather):
     DATA_ID = "GHCND"
     DATA_TYPES = "TMAX,WDF2,WSF2"
 
+    def __init__(self, date, lat, long):
+        start_date = datetime.datetime.strptime(date, "%Y-%m-%d") + datetime.timedelta(days=-1)
+        end_date = datetime.datetime.strptime(date, "%Y-%m-%d")
+        super().__init__(start_date, end_date, lat, long)
 
-def example():
+
+class WeatherNormals(HistoricWeather):
+    DATA_ID = "NORMAL_MLY"
+    DATA_TYPES = ""
+
+    def __init__(self, month, lat, long):
+        start_date = datetime.datetime.strptime(F"2010-{month}-01", "%Y-%m-%d") + datetime.timedelta(days=-31)
+        end_date = datetime.datetime.strptime(F"2010-{month}-02", "%Y-%m-%d")
+        super().__init__(start_date, end_date, lat, long)
+
+
+def daily_example():
     """
     Example usage of the DailyWeather class
     """
-    w = DailyWeather("2020-01-01", "2020-01-02", 42.73131121772554, -84.4827754135353)
-    stations = w.get_stations(1)
-    closest = w.getNearestStation(stations)
+    date = "2020-01-02"
+    lat, long = 42.73131121772554, -84.4827754135353
+
+    w = DailyWeather(date, lat, long)
+    closest = w.getNearestStation()
     weather = w.weather_by_station(closest)
     print(F"max temperature: {weather['value']['TMAX']/10} C")
     print(F"max windspeed: {weather['value']['WSF2']/10} m/s")
     print(F"wind direction: {weather['value']['WDF2']} degrees CW from N")
 
 
+def normals_example():
+    """
+    Example usage of the WeatherNormals class
+    """
+    month = "02"
+    lat, long = 42.73131121772554, -84.4827754135353
+    w = WeatherNormals(month, lat, long)
+    closest = w.getNearestStation()
+    weather = w.weather_by_station(closest)
+    print(weather)
+
 if __name__ == '__main__':
-    example()
+    daily_example()
+    normals_example()
