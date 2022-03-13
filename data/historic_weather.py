@@ -54,7 +54,8 @@ class HistoricWeather(Weather):
         params = {"datasetid": self.DATA_ID, "startdate": self.start_date, "enddate": self.end_date,
                   "extent": extent, "sortfield": "maxdate", "sortorder": "desc", "datatypeid": self.DATA_TYPES}
         response = self.query("stations", params)
-        print(response)
+        if response.text == "{}":
+            raise ValueError(F"Data is not available for this date {self.end_date} and location {self.long, self.lat}. Try again with different parameters.")
         data = json.loads(response.text)
         stations = pd.DataFrame(data["results"])
         stations.set_index("id", inplace=True)
@@ -88,11 +89,11 @@ class DailyWeather(HistoricWeather):
 
 class WeatherNormals(HistoricWeather):
     DATA_ID = "NORMAL_MLY"
-    DATA_TYPES = ""
+    DATA_TYPES = "MLY-TMAX-NORMAL"
 
     def __init__(self, month, lat, long):
-        start_date = datetime.datetime.strptime(F"2010-{month}-01", "%Y-%m-%d") + datetime.timedelta(days=-31)
-        end_date = datetime.datetime.strptime(F"2010-{month}-02", "%Y-%m-%d")
+        start_date = datetime.datetime.strptime(F"2010-{month}-04", "%Y-%m-%d") + datetime.timedelta(days=-31)
+        end_date = datetime.datetime.strptime(F"2010-{month}-05", "%Y-%m-%d")
         super().__init__(start_date, end_date, lat, long)
 
 
@@ -100,7 +101,7 @@ def daily_example():
     """
     Example usage of the DailyWeather class
     """
-    date = "2020-01-02"
+    date = "2022-03-10"
     lat, long = 42.73131121772554, -84.4827754135353
 
     w = DailyWeather(date, lat, long)
@@ -108,19 +109,19 @@ def daily_example():
     weather = w.weather_by_station(closest)
     print(F"max temperature: {weather['value']['TMAX']/10} C")
     print(F"max windspeed: {weather['value']['WSF2']/10} m/s")
-    print(F"wind direction: {weather['value']['WDF2']} degrees CW from N")
+    print(F"wind direction: {weather['value']['WDF2']} degrees CW from N\n")
 
 
 def normals_example():
     """
     Example usage of the WeatherNormals class
     """
-    month = "02"
+    month = "08"
     lat, long = 42.73131121772554, -84.4827754135353
     w = WeatherNormals(month, lat, long)
     closest = w.getNearestStation()
     weather = w.weather_by_station(closest)
-    print(weather)
+    print(F"long-term average of month {month} maximum temperature: {weather['value']['MLY-TMAX-NORMAL']/10} F\n")
 
 if __name__ == '__main__':
     daily_example()
