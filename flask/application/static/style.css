@@ -381,3 +381,12 @@ https://www.w3schools.com/css/css_tooltip.asp
 .tooltipForm:hover .tooltiptextForm {
   visibility: visible;
 }
+
+.darken {
+  background-color: #f8f9fa;
+  border-radius: 17em;
+}
+
+.darken:hover {
+    filter: brightness(60%);
+}

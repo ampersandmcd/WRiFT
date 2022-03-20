@@ -90,24 +90,36 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="row">
                             <div class="col-md-1">
                                 <img id="EyeRisk" src="{{url_for('static', filename='openEye.png')}}"
-                                   width="30px" class="open" onclick="riskVisible();"/>
+                                   width="30px" class="open darken" onclick="riskVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
-                                <span>Wildfire Risk</span>
+                                <span>
+                                    <div class="tooltipForm">Wildfire Risk
+                                            <span class="tooltiptextForm">A map overlay that highlights areas that have high chance of a wildfire</span>
+                                        </div>
+                                </span>
                             </div>
                             <div class="col-md-1">
                                 <img id="EyePopulation" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                   width="30px" class="closed" onclick="populationVisible();"/>
+                                   width="30px" class="closed darken" onclick="populationVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
-                                <span>Population</span>
+                                <span>
+                                    <div class="tooltipForm">Population
+                                            <span class="tooltiptextForm">A map overlay that highlights where people are living</span>
+                                        </div>
+                                </span>
                             </div>
                             <div class="col-md-1">
                                 <img id="EyeHousing" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                   width="30px" class="closed" onclick="housingVisible();"/>
+                                   width="30px" class="closed darken" onclick="housingVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
-                                <span>Housing</span>
+                                <span>
+                                    <div class="tooltipForm">Housing
+                                            <span class="tooltiptextForm">A map overlay that highlights where houses are located</span>
+                                        </div>
+                                </span>
                             </div>
                         </div>
                         <br>
@@ -167,7 +179,11 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </div>
                                 </div>
                                 <div class="col-md-5" align="right">
-                                    <label for="historicalRadio">Historical Data</label>
+                                    <label for="historicalRadio">
+                                        <div class="tooltipForm">Historical Data
+                                            <span class="tooltiptextForm">The weather data from a specified date</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="date" class="form-control" name="historicalData" placeholder="mm/dd/yyyy"/>
@@ -180,7 +196,11 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </div>
                                 </div>
                                 <div class="col-md-5" align="right">
-                                    <label for="climatologicalRadio">Climatological Data</label>
+                                    <label for="climatologicalRadio">
+                                        <div class="tooltipForm">Climatological Data
+                                            <span class="tooltiptextForm">The weather data averages for a month, over the last 100 years</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="climatologicalData" placeholder="mm"/>
@@ -210,13 +230,12 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="slidecontainer row">
                                 <!-- Temperature -->
                                 <div class="col-md-1">
-                                    <img id="EyeTemp" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                       width="30px" class="closed" onclick="tempVisible();"/>
-                                </div>
+                                    <img  id="EyeTemp" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                       width="30px" class="closed darken" onclick="tempVisible();"/></div>
                                 <div class="col-md-4" align="right">
                                     <label for="tempSlider">
                                         <div class="tooltipForm">Temperature
-                                            <span class="tooltiptextForm">Tooltip text</span>
+                                            <span class="tooltiptextForm">Higher temperatures create a faster spread</span>
                                         </div>
 
                                     </label>
@@ -236,10 +255,14 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Humidity -->
                                 <div class="col-md-1">
                                     <img id="EyeHumidity" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                   width="30px" class="closed" onclick="humidityVisible();"/>
+                                   width="30px" class="closed darken" onclick="humidityVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
-                                    <label for="humiditySlider">Humidity</label>
+                                    <label for="humiditySlider">
+                                        <div class="tooltipForm">Humidity
+                                            <span class="tooltiptextForm">Low humidity percentage creates a faster spread</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
@@ -256,10 +279,14 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Wind Speed -->
                                 <div class="col-md-1">
                                     <img id="EyeWndSpd" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                    width="30px" class="closed" onclick="wndSpdVisible();"/>
+                                    width="30px" class="closed darken" onclick="wndSpdVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
-                                    <label for="wndSpdSlider">Wind Speed</label>
+                                    <label for="wndSpdSlider">
+                                        <div class="tooltipForm">Wind Speed
+                                            <span class="tooltiptextForm">Adjust the wind speed to be faster or slower in relation to the baseline data </span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="range" min="-25" max="25" value="0" class="form-range"
@@ -276,10 +303,14 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Wind direction -->
                                 <div class="col-md-1">
                                     <img id="EyeWndDir" src="{{url_for('static', filename='closed-eyes.png')}}"
-                                     width="30px" class="closed" onclick="wndDirVisible();"/>
+                                     width="30px" class="closed darken" onclick="wndDirVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
-                                    <label style="font-size: 15px;" for="circularSlider">Wind Direction</label>
+                                    <label style="font-size: 15px;" for="circularSlider">
+                                        <div class="tooltipForm">Wind Direction
+                                            <span class="tooltiptextForm">Select the direction of the wind in the simulation</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-md-4" align="center">
                                     <div id="circularSlider"></div>
@@ -771,7 +802,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -799,7 +830,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -827,7 +858,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -855,7 +886,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -883,7 +914,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -911,7 +942,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -939,7 +970,7 @@ this button currently can hide the form, but chart size wont get any bigger
         }
         Plotly.restyle(chart, update);
 
-        if (img.className == "open") {
+        if (img.className == "open darken") {
             closeEye(img);
         } else {
             openEye(img);
@@ -957,12 +988,12 @@ this button currently can hide the form, but chart size wont get any bigger
     }
 
     function closeEye(img) {
-        img.className = "closed";
+        img.className = "closed darken";
         img.src = "{{url_for('static', filename='closed-eyes.png')}}";
     }
 
     function openEye(img) {
-        img.className = "open";
+        img.className = "open darken";
         img.src = "{{url_for('static', filename='openEye.png')}}";
     }
 </script>
