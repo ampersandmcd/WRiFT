@@ -6,7 +6,7 @@ import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 
-from exploration.modeling.farsite import burn
+from app.modeling.farsite import burn
 
 token = open("application/static/.mapbox_token").read()
 px.set_mapbox_access_token(token)
@@ -118,9 +118,7 @@ def index():
         form_data = request.form
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
-        df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
-                  path_landfire="data/landfire"
-                  path_pickle="data/farsite.pickle", mins=50)
+        df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]), mins=50)
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=12),
