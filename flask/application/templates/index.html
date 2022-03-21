@@ -333,6 +333,9 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="row">
                                 <!-- Run Button -->
                                 <input type="submit" class="btn btn-primary" value="Run"/>
+                                <!-- Used to fill healthData array with values, using this until I can figure out why the sim won't run
+                                <input type="button" onclick="fillData();" class="btn btn-primary" value="Test"/>
+                                -->
                             </div>
 
                         </form>
@@ -473,7 +476,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Injuries</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="injuriesTot"> 34 </span>
+                                    <span class="bolded" id="injuriesTot"> 0 </span>
                                 </div>
                             </div>
 
@@ -482,7 +485,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Deaths</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="deathsTot"> 1 </span>
+                                    <span class="bolded" id="deathsTot"> 0 </span>
                                 </div>
                             </div>
 
@@ -494,7 +497,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Hospital Beds Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="hospBedsTot"> 27 </span>
+                                    <span class="bolded" id="hospBedsTot"> 0 </span>
                                 </div>
                             </div>
 
@@ -503,7 +506,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>ICU Beds Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="ICUBedsTot">12</span>
+                                    <span class="bolded" id="ICUBedsTot">0</span>
                                 </div>
                             </div>
 
@@ -512,7 +515,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Nurses Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="nursesTot">10</span>
+                                    <span class="bolded" id="nursesTot">0</span>
                                 </div>
                             </div>
 
@@ -521,7 +524,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Doctors Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="doctorsTot">5</span>
+                                    <span class="bolded" id="doctorsTot">0</span>
                                 </div>
                             </div>
 
@@ -679,6 +682,10 @@ this button currently can hide the form, but chart size wont get any bigger
 </div>
 
 
+<script>
+    // Global Variables
+    var Healthdata = [0];
+</script>
 <!-- Updates the slider values, these can stay in the form since the values are not
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
@@ -726,6 +733,8 @@ this button currently can hide the form, but chart size wont get any bigger
 
 </script>
 
+
+
 <!-- Switches between the inputs and impacts pages -->
 <script>
     function inputsVisible() {
@@ -736,6 +745,47 @@ this button currently can hide the form, but chart size wont get any bigger
     function impactsVisible() {
         document.getElementById('Inputs').style.display = 'none';
         document.getElementById('Impacts').style.display = 'block';
+
+
+        // The calculating mock uses a global array Healthdata, initialized to [0].
+        // The test button (commented next to run button) fills the data for the array when clicked
+        // When the impacts page button is then clicked, if the array is greater than size 1, then the impacts are calculated
+        // For final version, just replace the healthdata array with the simulation one.
+        // My program currently crashes due to missing pickle file when I try to run normally which is why i use mock array
+
+        //################### Impacts Calculation For Economic Page ################################
+
+
+        //################### Impacts Calculation For Health Page ################################
+        let injuryTot = document.getElementById("injuriesTot");
+        let deathTot = document.getElementById("deathsTot");
+        let hospBedTot = document.getElementById("hospBedsTot");
+        let ICUBedTot = document.getElementById("ICUBedsTot");
+        let nurseTot = document.getElementById("nursesTot");
+        let doctorTot = document.getElementById("doctorsTot");
+``
+        var simSize = Healthdata.length;
+        if (simSize > 1) {
+            var injuries = simSize;
+            injuryTot.innerText = injuries;
+            var deaths = Math.ceil(injuries/60);
+            deathTot.innerText = deaths;
+            var hospitalBeds = Math.round(injuries*.55);
+            hospBedTot.innerText = hospitalBeds;
+            var ICUBeds = Math.ceil(injuries*.15);
+            ICUBedTot.innerText = ICUBeds;
+            // Califronia requires 1 nurses to every 5 patients
+            var nurses = Math.ceil(hospitalBeds/5);
+            nurseTot.innerText = nurses;
+            // 12 to 1 doctor to patient ratio, beds measure patients, 10 for beds (recommended for ICU), 2 for minor injuries
+            var doctors = Math.ceil(hospitalBeds/12);
+            doctorTot.innerText = doctors;
+        }
+
+        //################### Impacts Calculation For Demographic Page ################################
+
+
+        //################### Impacts Calculation For Environment Page ################################
     }
 
     function formVisible() {
@@ -754,6 +804,9 @@ this button currently can hide the form, but chart size wont get any bigger
         }
     }
 </script>
+
+
+
 
 </script>
 
@@ -1011,6 +1064,18 @@ this button currently can hide the form, but chart size wont get any bigger
         startAngle: 90
     });
 </script>
+
+
+
+<!-- Updates the health data on the impacts page -->
+<script>
+
+    function fillData() {
+        Healthdata = [1, 2, 3, 4, 5, 6];
+    }
+
+</script>
+
 
 {% endblock %}
 
