@@ -23,7 +23,7 @@ def index():
         # https://plotly.com/python/custom-buttons/
         #
         # import data and scale to [0, 1]
-        df = pd.read_csv("application/static/farsite_lonlat_low.csv")
+        df = pd.read_csv("data/farsite_lonlat_low.csv")
         lat, lon = df["y"], df["x"]
         df -= df.min(axis=0)
         df /= df.max(axis=0)
