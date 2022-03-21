@@ -9,11 +9,10 @@
 ################################################
 
 # weather processing module (thank you nathan)
-from modeling.data.current_weather import CurrentWeather
-from modeling.models.rothermel import compute_surface_spread
+from exploration.data.current_weather import CurrentWeather
+from modeling.rothermel import compute_surface_spread
 
 # Data containers and pre-processing
-import pandas as pd
 import pickle
 
 # Computational Tools
@@ -186,12 +185,12 @@ def pre_burn(lat, lon, path_pickle):
     return pre_burn_data
 
 
-def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, mins=50):
+def burn(lat, lon, path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.csv", path_pickle="data/farsite.pickle", mins=50):
     """
     Burning down the house
     :param lat: latitude of ignition
     :param lon: longitude of ignition
-    :param path_landfire: path to `landfire.nc`
+    :param path_farsite: path to `farsite.nc`
     :param path_fueldict: path to `FUEL_DIC.csv`
     :param path_pickle: path to preprocessed pickle data
     :param mins: number of one minute iterations to burn for

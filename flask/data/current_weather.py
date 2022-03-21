@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 from io import StringIO
 
-from modeling.data.weather import Weather
+from exploration.data.weather import Weather
 
 
 def _weatherDataToDF(text: str):

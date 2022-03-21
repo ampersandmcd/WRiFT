@@ -89,7 +89,7 @@ this button currently can hide the form, but chart size wont get any bigger
                         </div>
                         <div class="row">
                             <div class="col-md-1">
-                                <img id="EyeRisk" src="{{url_for('static', filename='openEye.png')}}"
+                                <img id="EyeRisk" src="{{url_for('static', filename='eye_open.png')}}"
                                    width="30px" class="open darken" onclick="riskVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
@@ -100,7 +100,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </span>
                             </div>
                             <div class="col-md-1">
-                                <img id="EyePopulation" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                <img id="EyePopulation" src="{{url_for('static', filename='eye_closed.png')}}"
                                    width="30px" class="closed darken" onclick="populationVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
@@ -111,7 +111,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </span>
                             </div>
                             <div class="col-md-1">
-                                <img id="EyeHousing" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                <img id="EyeHousing" src="{{url_for('static', filename='eye_closed.png')}}"
                                    width="30px" class="closed darken" onclick="housingVisible();"/>
                             </div>
                             <div class="col-md-3" align="left">
@@ -230,7 +230,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="slidecontainer row">
                                 <!-- Temperature -->
                                 <div class="col-md-1">
-                                    <img  id="EyeTemp" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                    <img  id="EyeTemp" src="{{url_for('static', filename='eye_closed.png')}}"
                                        width="30px" class="closed darken" onclick="tempVisible();"/></div>
                                 <div class="col-md-4" align="right">
                                     <label for="tempSlider">
@@ -254,7 +254,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="slidecontainer row">
                                 <!-- Humidity -->
                                 <div class="col-md-1">
-                                    <img id="EyeHumidity" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                    <img id="EyeHumidity" src="{{url_for('static', filename='eye_closed.png')}}"
                                    width="30px" class="closed darken" onclick="humidityVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
@@ -278,7 +278,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="slidecontainer row">
                                 <!-- Wind Speed -->
                                 <div class="col-md-1">
-                                    <img id="EyeWndSpd" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                    <img id="EyeWndSpd" src="{{url_for('static', filename='eye_closed.png')}}"
                                     width="30px" class="closed darken" onclick="wndSpdVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
@@ -302,7 +302,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="row">
                                 <!-- Wind direction -->
                                 <div class="col-md-1">
-                                    <img id="EyeWndDir" src="{{url_for('static', filename='closed-eyes.png')}}"
+                                    <img id="EyeWndDir" src="{{url_for('static', filename='eye_closed.png')}}"
                                      width="30px" class="closed darken" onclick="wndDirVisible();"/>
                                 </div>
                                 <div class="col-md-4" align="right">
@@ -862,7 +862,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -890,7 +890,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -918,7 +918,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -946,7 +946,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -974,7 +974,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -1002,7 +1002,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -1030,7 +1030,7 @@ this button currently can hide the form, but chart size wont get any bigger
         if (img.className == "open darken") {
             closeEye(img);
         } else {
-            openEye(img);
+            eye_open(img);
             // plotly changes
             var Nupdate = {
                 visible: true
@@ -1046,12 +1046,12 @@ this button currently can hide the form, but chart size wont get any bigger
 
     function closeEye(img) {
         img.className = "closed darken";
-        img.src = "{{url_for('static', filename='closed-eyes.png')}}";
+        img.src = "{{url_for('static', filename='eye_closed.png')}}";
     }
 
-    function openEye(img) {
+    function eye_open(img) {
         img.className = "open darken";
-        img.src = "{{url_for('static', filename='openEye.png')}}";
+        img.src = "{{url_for('static', filename='eye_open.png')}}";
     }
 </script>
 
