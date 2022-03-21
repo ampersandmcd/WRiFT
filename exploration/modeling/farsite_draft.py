@@ -124,19 +124,19 @@ class CurrentWeather:
 ############ Data Processing
 ################################################
 
-def prepare_data(lat, lon, path_landfire, path_fueldict):
+def prepare_data(lat, lon, path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.csv"):
     """
     Prepares the data required for fire modeling
     :param lat: latitude coordinate of ignition point
     :param lon: longitude coordinate of ignition point
-    :param path_landfire: path to the file farsite.nc, containing LANDFIRE data
+    :param path_farsite: path to the file farsite.nc, containing LANDFIRE data
     :param path_fueldict: path to the file FUEL_DIC.csv, containing translation info for fuel types
     :return: INPUT and FUEL, arrays described below, wind speed (ft/min), and wind direction (radians),
              start_i and start_j starting indices of fire
     """
     # we also need grid coordinates for the lat/lon, so lets perform that conversion
 
-    LATLON = xr.open_dataset(path_landfire, decode_coords="all")
+    LATLON = xr.open_dataset(path_farsite, decode_coords="all")
     LATLON = LATLON.rio.reproject("EPSG:4326")
     i_start = np.argmin(np.abs(LATLON['x'].data - lon))
     j_start = np.argmin(np.abs(LATLON['y'].data - lat))
@@ -163,7 +163,7 @@ def prepare_data(lat, lon, path_landfire, path_fueldict):
     # Fuel data processing
     # # #
 
-    LANDFIRE = xr.open_dataset(path_landfire, decode_coords="all")
+    LANDFIRE = xr.open_dataset(path_farsite, decode_coords="all")
     FUEL = LANDFIRE['US_210F40'][:].data
     ELEV = LANDFIRE['US_DEM'][:].data
 
@@ -578,6 +578,8 @@ def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, min
             data = pickle.load(f)
     else:
         data = prepare_data(lat, lon, path_landfire, path_fueldict)
+        with open(path_pickle, "rb") as f:
+            pickle.dump(data, f)
 
     # load preprocessed data
     INPUT, FUEL, wind_speed, wind_dir, i_start, j_start, X, Y = data

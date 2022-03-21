@@ -17,7 +17,7 @@ __pycache__/
 # exclude data files
 *.DS_Store
 *.zip
-/data/LF2020_FBFM40_200_CONUS/
+/exploration/data/LF2020_FBFM40_200_CONUS/
 *.geojson
 *.nc
 
