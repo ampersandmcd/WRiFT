@@ -1,13 +1,14 @@
-from cur_weather import CurrentWeather
 import pickle
 import numpy as np
 import pandas as pd
 import xarray as xr
 import rioxarray
 
+from modeling.data.current_weather import CurrentWeather
+
+
 def create_pickle():
-    data = prepare_data('landfire_data/farsite.nc',
-                    'csv/FUEL_DIC.csv')
+    data = prepare_data("landfire_data/farsite.nc", "csv/FUEL_DIC.csv")
 
     with open("pickled_data/farsite.pickle", "wb") as f:
         pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -72,4 +73,6 @@ def prepare_data(path_landfire, path_fueldict):
 
     return INPUT, FUEL, X, Y
 
-create_pickle()
+
+if __name__ == "__main__":
+    create_pickle()

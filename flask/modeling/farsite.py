@@ -10,7 +10,6 @@
 
 # weather processing module (thank you nathan)
 from modeling.data.current_weather import CurrentWeather
-
 from modeling.models.rothermel import compute_surface_spread
 
 # Data containers and pre-processing
@@ -20,6 +19,7 @@ import pickle
 # Computational Tools
 import numpy as np
 import pandas as pd
+import os
 
 
 def regrid(AFC, INPUT, wind_speed, wind_dir, new_i, new_j, new_x, new_y, cell):
@@ -108,6 +108,7 @@ def handle_new_fire_point(new_frontier, FIRES, NB, AFC, PIFC, INPUT, FUEL, wind_
 
             FIRES.add((new_i, new_j))
 
+
 def pre_burn(lat, lon, path_pickle):
     """
     Processes a provided data pickle, as well as lat/lon to get info for burn
@@ -178,11 +179,14 @@ def pre_burn(lat, lon, path_pickle):
         # bottom row
         INPUT[INPUT.shape[0] - 1, i, 5] = INPUT[INPUT.shape[0] - 2, i, 5]
 
+    pre_burn_data = INPUT, data[1], data[2], data[3], i_start, j_start, wind_speed, wind_dir
+    fname = path_pickle[:-len(".pickle")] + "_pre_burn.pickle"
+    with open(fname, mode="wb") as f:
+        pickle.dump(pre_burn_data, f, protocol=pickle.HIGHEST_PROTOCOL)
+    return pre_burn_data
 
-    return INPUT, data[1], data[2], data[3], i_start, j_start, wind_speed, wind_dir
 
-
-def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, mins=500):
+def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, mins=50):
     """
     Burning down the house
     :param lat: latitude of ignition
@@ -193,17 +197,23 @@ def burn(lat, lon, path_landfire=None, path_fueldict=None, path_pickle=None, min
     :param mins: number of one minute iterations to burn for
     :return: A set of cells burned after all iterations
     """
+    cached_pickle = path_pickle[:-len(".pickle")] + "_pre_burn.pickle"
+    if os.path.exists(cached_pickle):
+        with open(cached_pickle, "rb") as f:
+            pre_burn_data = pickle.load(f)
+    else:
+        pre_burn_data = pre_burn(lat, lon, path_pickle)
 
     # load preprocessed data
-    INPUT, FUEL, X, Y, i_start, j_start, wind_speed, wind_dir = pre_burn(lat, lon, path_pickle)
+    INPUT, FUEL, X, Y, i_start, j_start, wind_speed, wind_dir = pre_burn_data
 
     # Quick check for which fuel types will not burn, we have to be careful to skip these
     NB = set([91., 92., 93., 98., 99., 0.])
 
-    if FUEL[i_start, j_start] in NB:
-        result = pd.DataFrame({(X[i_start], Y[j_start])})
-        result.columns = ["x", "y"]
-        return result
+    # if FUEL[i_start, j_start] in NB:
+    #     result = pd.DataFrame({(X[i_start], Y[j_start])})
+    #     result.columns = ["x", "y"]
+    #     return result
 
     # # #
     # Fires are 1x2 arrays of integers, where:

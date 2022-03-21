@@ -122,7 +122,7 @@ def index():
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_landfire="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
         df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
-                  path_pickle="modeling/data/pickled_data/farsite.pickle", mins=100)
+                  path_pickle="modeling/data/pickled_data/farsite.pickle", mins=50)
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=12),

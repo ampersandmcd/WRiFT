@@ -690,6 +690,10 @@ this button currently can hide the form, but chart size wont get any bigger
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
     let sliderTemp = document.getElementById("tempSlider");
     let outputTemp = document.getElementById("tempVal");
     outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
