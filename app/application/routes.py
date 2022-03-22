@@ -23,23 +23,13 @@ def index():
         # https://plotly.com/python/custom-buttons/
         #
         # import data and scale to [0, 1]
-        df = pd.read_csv("data/farsite_lonlat_low.csv")
-        lat, lon = df["y"], df["x"]
-        df -= df.min(axis=0)
-        df /= df.max(axis=0)
-        df["y"], df["x"] = lat, lon
-
-        # add fake risk, population, housing data
-        df["Risk"] = df["US_210CC"] * 100
-        df["Population"] = (1 - df["US_210EVC"]) * 100
-        df.loc[df["US_DEM"] < 0.005, "Population"] = 0
-        df["Housing"] = df["Population"]
+        df = pd.read_csv("data/farsite_lonlat_low_inputs.csv")
 
         # add fake temperature, humidity, wind speed, wind direction data
-        df["Temperature"] = (1 - df["US_DEM"]) * 30 + 40
+        df["Temperature"] = (1 - df["US_DEM"])
         df["Humidity"] = df["Temperature"]
-        df["WindSpeed"] = df["US_DEM"] * 50
-        df["WindDirection"] = df["US_ASP"] * 360
+        df["WindSpeed"] = df["US_DEM"]
+        df["WindDirection"] = df["US_ASP"]
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=8),
