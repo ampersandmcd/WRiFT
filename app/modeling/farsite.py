@@ -9,7 +9,7 @@
 ################################################
 
 # weather processing module (thank you nathan)
-from modeling.weather import CurrentWeather
+from app.modeling.weather import CurrentWeather
 from app.modeling.rothermel import compute_surface_spread
 
 # Data containers and pre-processing
@@ -110,7 +110,7 @@ def handle_new_fire_point(new_frontier, FIRES, NB, AFC, PIFC, INPUT, FUEL, wind_
             FIRES.add((new_i, new_j))
 
 
-def prepare_data(path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.csv"):
+def prepare_data(path_farsite="app/data/farsite.nc", path_fueldict="data/FUEL_DIC.csv"):
     """
     Prepares the data required for fire modeling
     :param lat: latitude coordinate of ignition point
@@ -169,12 +169,12 @@ def prepare_data(path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.cs
             INPUT[i, j, 5] = ELEV[i,j]
 
     data = INPUT, FUEL, X, Y
-    with open("data/farsite.pickle", "wb") as f:
+    with open("app/data/farsite.pickle", "wb") as f:
         pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
     return data
 
 
-def pre_burn(lat, lon, path_pickle="data/farsite.pickle"):
+def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
     """
     Processes a provided data pickle, as well as lat/lon to get info for burn
     :param lat: latitudinal coordinate of ignition
@@ -254,7 +254,7 @@ def pre_burn(lat, lon, path_pickle="data/farsite.pickle"):
     return pre_burn_data
 
 
-def burn(lat, lon, path_pickle="data/farsite.pickle", mins=50):
+def burn(lat, lon, path_pickle="app/data/farsite.pickle", mins=50):
     """
     Burning down the house
     :param lat: latitude of ignition
