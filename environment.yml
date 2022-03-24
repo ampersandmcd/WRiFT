@@ -16,3 +16,5 @@ dependencies:
   - geopy=2.2
   - requests=2.27
   - numba=0.55
+  - pygeos=0.12
+  - geopandas=0.10
