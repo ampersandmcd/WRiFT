@@ -23,7 +23,7 @@ def index():
         # https://plotly.com/python/custom-buttons/
         #
         # import data and scale to [0, 1]
-        df = pd.read_csv("app/data/farsite_lonlat_low_inputs.csv")
+        df = pd.read_csv("app/data/farsite_lonlat_low_risk_pop_housing.csv")
 
         # add fake temperature, humidity, wind speed, wind direction data
         df["Temperature"] = (1 - df["US_DEM"])
