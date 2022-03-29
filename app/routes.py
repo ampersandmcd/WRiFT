@@ -22,8 +22,9 @@ def index():
         # https://community.plotly.com/t/adding-multiple-layers-in-mapbox/25408
         # https://plotly.com/python/custom-buttons/
         #
-        # import data and scale to [0, 1]
+        # import data and scale to appropriate values
         df = pd.read_csv("app/data/farsite_lonlat_low_risk_pop_housing.csv")
+        df["Risk"] /= df["Risk"].max()
 
         # add fake temperature, humidity, wind speed, wind direction data
         df["Temperature"] = (1 - df["US_DEM"])
@@ -34,7 +35,8 @@ def index():
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=8),
                            height=1000, margin=dict(l=10, r=10, b=10, t=10))
-        layout.update(mapbox_style="satellite-streets")
+        layout.update(mapbox_style="satellite-streets",
+                      coloraxis_colorbar={"yanchor": "top", "y":1, "x":0, "ticks":"outside"})
 
 
         # load data
@@ -47,7 +49,7 @@ def index():
                 go.Scattermapbox(lat=df["y"], lon=df["x"], mode="markers", opacity=0.1, visible=False,
                                  marker=dict(
                                      size=8,
-                                     colorscale="viridis",
+                                     # colorscale="viridis",
                                      color=df[column],
                                      colorbar_title=column,
                                      colorbar=dict(
@@ -74,32 +76,32 @@ def index():
             ))
 
         # Add mapbox and dropdown
-        layout.update(
-            updatemenus=[
-                dict(
-                    buttons=buttons,
-                    direction="down",
-                    pad={"r": 10, "t": 10},
-                    showactive=True,
-                    x=0.1,
-                    xanchor="left",
-                    y=1.08,
-                    yanchor="top"
-                ),
-            ]
-        )
+        # layout.update(
+        #     updatemenus=[
+        #         dict(
+        #             buttons=buttons,
+        #             direction="down",
+        #             pad={"r": 10, "t": 10},
+        #             showactive=True,
+        #             x=0.1,
+        #             xanchor="left",
+        #             y=1.08,
+        #             yanchor="top"
+        #         ),
+        #     ]
+        # )
 
         # Add annotation
-        layout.update(
-            annotations=[
-                dict(text="Data Layer:", showarrow=False, x=0, y=1.05, yref="paper", align="left")
-            ]
-        )
+        # layout.update(
+        #     annotations=[
+        #         dict(text="Data Layer:", showarrow=False, x=0, y=1.05, yref="paper", align="left")
+        #     ]
+        # )
 
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json)
+        return render_template("index.html", graph_json=graph_json, impacts=False)
 
     if request.method == "POST":
         #
@@ -132,7 +134,7 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json)
+        return render_template("index.html", graph_json=graph_json, impacts=True)
 
 
 @app.route("/about")

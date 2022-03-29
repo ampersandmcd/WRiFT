@@ -8,36 +8,30 @@
   flex: 1;
 }
 
-
-
 .slider {
   -webkit-appearance: none;
-  width: 100px;
-  height: 15px;
-  border-radius: 5px;
-  background: black;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  width: 100%;
+  height: 10%;
+  background-color: #dcdcdc;
 }
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: white;
-  border: black;
+  background: #fa9500;
+  border: 2px solid #eb6424;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: white;
-  border: black;
+  background: #fa9500;
+  border: 2px solid #eb6424;
   cursor: pointer;
 }
 
@@ -96,14 +90,6 @@
 
 #Inputs {
   display: block;
-}
-
-#Inputs .right{
-  text-align: right;
-  padding: 10px;
-
-  margin-right: 0;
-  margin-left: auto;
 }
 
 #Impacts {
@@ -216,13 +202,13 @@
 }
 
 #circularSlider .rs-border {
-  border-color: #0d6efd;
+  border-color: #eb6424;
 }
 
 #circularSlider .rs-handle  {
     background-color: transparent;
     border: 8px solid transparent;
-    border-right-color: #0d6efd;
+    border-right-color: #fa9500;
     margin: -8px 0 0 -14px !important;
 }
 #circularSlider .rs-handle:before  {
@@ -231,7 +217,7 @@
     position: absolute;
     height: 12px;
     width: 12px;
-    background: #0d6efd;
+    background: #fa9500;
     right: -6px;
     bottom: -6px;
     border-radius: 100%;
@@ -243,7 +229,7 @@
     position: absolute;
     top: -1px;
     right: 0px;
-    border-top: 4px dotted #0d6efd;
+    border-top: 4px dotted #fa9500;
 }
 
 #EnvironmentButton {
@@ -301,15 +287,15 @@
   text-align: right;
 }
 
-#historicalRadio {
-  margin-right: 3.85em;
-  transform: scale(2);
-}
+/*#historicalRadio {*/
+/*  margin-right: 3.85em;*/
+/*  transform: scale(2);*/
+/*}*/
 
-#climatologicalRadio {
-  margin-right: 3.95em;
-  transform: scale(2);
-}
+/*#climatologicalRadio {*/
+/*  margin-right: 3.95em;*/
+/*  transform: scale(2);*/
+/*}*/
 
 .special-card {
   /* TO MAKE CARD SEE THROUGH UNCOMMENT THIS
@@ -356,25 +342,36 @@ https://www.w3schools.com/css/css_tooltip.asp
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  cursor: help;
 }
 
 /* Tooltip text */
 .tooltipForm .tooltiptextForm {
   visibility: hidden;
-  width: 120px;
+  min-width: 300px;
   bottom: 100%;
   left: 50%;
-  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  margin-left: -150px; /* Use half of the width (120/2 = 60), to center the tooltip */
 
   background-color: black;
   color: #fff;
-  text-align: center;
-  padding: 5px 0;
+  text-align: left;
+  font-size: 10pt;
+  padding: 10px;
   border-radius: 6px;
 
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+  cursor: help;
+}
+
+.tooltiptextForm.left {
+  margin-left: -300px;
+}
+
+.tooltiptextForm.right {
+  margin-left: -1px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
@@ -388,5 +385,61 @@ https://www.w3schools.com/css/css_tooltip.asp
 }
 
 .darken:hover {
-    filter: brightness(60%);
+   cursor: pointer;
+   filter: brightness(60%);
+}
+
+.btn-primary {
+  background-color: #fa9500;
+  border-color: #fa9500;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #eb6424 !important;
+  border-color: #eb6424 !important;
+  box-shadow:none !important;
+  outline:0px !important;
+}
+
+/* Hide the browser's default radio button */
+.form-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #dcdcdc;
+  outline: 2px solid #c8c8c8;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.form-check:hover input ~ .checkmark {
+  filter: brightness(60%);
+  cursor: pointer;
+}
+
+/* When the radio button is checked, add a blue background */
+.form-check input:checked ~ .checkmark {
+  background-color: #fa9500;
+  outline: 2px solid #eb6424;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.form-check:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.form-check input:checked ~ .checkmark:after {
+  display: block;
 }
