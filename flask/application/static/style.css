@@ -2,6 +2,13 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  /*MOCKUP TEST
+  Dark Green: #7C6A0A;
+  Light Green: #BABD8D;
+  Neutral Silk: #FFDAC6;
+  Light Orange: #FA9500;
+  Dark Orange: #EB6424;
+   */
 }
 
 .Site-content {
@@ -147,7 +154,7 @@
   width: 39%;
   transform: scale(.45);
    */
-  width: 39%;
+  width: 26em;
   overflow: hidden;
   display: inline-block;
   margin-left: .3em;
@@ -164,7 +171,7 @@
   /*
   width: 60%;
    */
-  width: 60%;
+  width: 42em;
   /* min-width: 42em; */
   display: inline-block;
   overflow: hidden;
@@ -389,4 +396,88 @@ https://www.w3schools.com/css/css_tooltip.asp
 
 .darken:hover {
     filter: brightness(60%);
+}
+
+
+
+
+.about p{
+  font-size: 2em;
+}
+.about h1{
+  font-size: 4em;
+  color: #FA9500;
+  background-color: #7C6A0A;
+}
+
+.about {
+
+}
+
+.contact h1 {
+  font-size: 5em;
+  color: #BABD8D;
+  background-color: #EB6424;
+}
+
+.contact h2 {
+  font-size: 3em;
+  color: #FFDAC6;
+  background-color: #EB6424;
+}
+
+.contact p {
+  font-size: 2em;
+}
+
+.contact {
+  background-color: #FFDAC6;
+}
+
+/*MOCKUP TEST
+  Dark Green: #7C6A0A;
+  Light Green: #BABD8D;
+  Neutral Silk: #FFDAC6;
+  Light Orange: #FA9500;
+  Dark Orange: #EB6424;
+   */
+.resources h1 {
+  font-size: 5em;
+  color: #FA9500;
+  background-color: #BABD8D;
+}
+
+.resources h2 {
+  font-size: 3em;
+  background-color: #FFDAC6;
+}
+
+.resources h3 {
+  font-size: 2.5em;
+  color: #EB6424;
+}
+
+.resources p {
+  font-size: 2em;
+  color: #FA9500;;
+}
+
+.resourceInfo {
+  text-align: center;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: gray;
+}
+
+.custom-range::-moz-range-thumb {
+  background: gray;
+}
+
+.custom-range::-ms-thumb {
+  background: gray;
+}
+
+#testHelp {
+
 }
