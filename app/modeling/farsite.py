@@ -237,7 +237,7 @@ def burn(lat, lon, path_pickle="data/farsite.pickle", mins=150):
     FIRES = set([(i_start, j_start)])  # Final output: cells which have had fire at any point
 
     for t in range(mins):
-        print(t)
+        #print(t)
 
         # quit if there are no fires to update
         if not frontier:

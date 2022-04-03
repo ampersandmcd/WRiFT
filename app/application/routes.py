@@ -7,10 +7,12 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 from modeling.farsite import burn
+from modeling.economic_impacts import EconomicImpactCalculator
 
 token = open("application/static/.mapbox_token").read()
 px.set_mapbox_access_token(token)
 
+impactCalculator = EconomicImpactCalculator()
 
 @app.route("/", methods=["POST", "GET"])
 def index():
@@ -109,7 +111,7 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json)
+        return render_template("index.html", graph_json=graph_json, impacts=False, num_damaged=0, num_destroyed=0)
 
     if request.method == "POST":
         #
@@ -120,6 +122,10 @@ def index():
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
         df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]))
 
+        impactCalculator.process_fire(df)
+        num_damaged = impactCalculator.num_damaged()
+        num_destroyed = impactCalculator.num_destroyed()
+
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=12),
                            height=1000, margin=dict(l=10, r=10, b=10, t=10))
@@ -127,22 +133,37 @@ def index():
 
         # load data
         data = []
-        data.append(
-            go.Scattermapbox(lat=df["y"], lon=df["x"], mode="markers", opacity=0.5, visible=True,
-                             marker=dict(
-                                 size=8,
-                                 color="orange",
-                             ),
-                             hovertemplate=f"Fire<br>" +
-                                           "Latitude: %{lat}<br>" +
-                                           "Longitude: %{lon}<br>" +
-                                           "<extra></extra>",
-                             )
-        )
+        for fire in impactCalculator.get_fire_shape():
+            data.append(
+                go.Scattermapbox(lat=[p[1] for p in fire],
+                                 lon=[p[0] for p in fire],
+                                 marker=dict(size=0, color="orange"),
+                                 fill="toself",
+                                 name="Fire footprint"
+                                 )
+            )
+        for building in impactCalculator.get_damaged_structure_shape():
+            data.append(
+                go.Scattermapbox(lat=[p[1] for p in building],
+                                 lon=[p[0] for p in building],
+                                 marker=dict(size=0, color="yellow"),
+                                 fill="toself",
+                                 name="Damaged structure"
+                                 )
+                )
+        for building in impactCalculator.get_destroyed_structure_shape():
+            data.append(
+                go.Scattermapbox(lat=[p[1] for p in building],
+                                 lon=[p[0] for p in building],
+                                 marker=dict(size=0, color="red"),
+                                 fill="toself",
+                                 name="Destroyed structure"
+                                 )
+                )
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json)
+        return render_template("index.html", graph_json=graph_json, impacts=True, num_damaged=num_damaged, num_destroyed=num_destroyed)
 
 
 @app.route("/about")

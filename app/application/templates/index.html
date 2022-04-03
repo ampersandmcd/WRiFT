@@ -366,6 +366,15 @@ this button currently can hide the form, but chart size wont get any bigger
                 <div class="card-body">
                     <!-- Economic Page-->
                     <div id="Economic" class="Economic">
+                        {% set destrcost = num_destroyed*1.7 %}
+                        {% set damagecost = num_damaged*0.15 %}
+                        {% set ffighters = num_damaged*15 + num_destroyed*10 %}
+                        {% set ffightercost = num_damaged*0.18 + num_destroyed*0.1 %}
+                        {% set businessclosed = (num_damaged + num_destroyed) // 10 %}
+                        {% set businesscost = businessclosed*0.01 %}
+                        {% set evac = num_damaged * 100 + num_destroyed * 3 %}
+                        {% set evaccost = evac*0.001 %}
+                        {% set totcost = destrcost + damagecost + ffightercost + businesscost + evaccost %}
                         <h5 class="center">Direct Loss</h5>
                         <div class="col-md-12">
 
@@ -374,12 +383,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Structures Destroyed</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totStructDestr">0</span>
+                                    <span class="bolded" id="totStructDestr"> {{ num_destroyed }} </span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDestrCost">0</span><!--
+                                    --><span class="bolded" id="totStructDestrCost">{{ '%.2f' | format(destrcost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -389,12 +398,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Structures Damaged</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totStructDam">0</span>
+                                    <span class="bolded" id="totStructDam">{{ num_damaged }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDamCost">0</span><!--
+                                    --><span class="bolded" id="totStructDamCost">{{ '%.2f' | format(damagecost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -404,12 +413,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Firefighters Needed</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="firefightersNeed">0</span>
+                                    <span class="bolded" id="firefightersNeed">{{ ffighters }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="firefightersNeedCost">0</span><!--
+                                    --><span class="bolded" id="firefightersNeedCost">{{ '%.2f' | format(ffightercost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -422,12 +431,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Business Closures</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totBusinClose">0</span>
+                                    <span class="bolded" id="totBusinClose">{{ businessclosed }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totBusinCloseCost">0</span><!--
+                                    --><span class="bolded" id="totBusinCloseCost">{{ '%.2f' | format(businesscost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -437,13 +446,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Evacuations</p>
                                 </div>
                                 <div class="col-md-2" align="right"><!--
-                                    --><span class="bolded" id="totEvacuations">0</span><!--
-                                    --><span class="bolded">k</span>
+                                    --><span class="bolded" id="totEvacuations">{{ evac }}</span><!--
+                                    --><span class="bolded"></span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totEvacuationsCost">0</span><!--
+                                    --><span class="bolded" id="totEvacuationsCost">{{ '%.2f' | format(evaccost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -458,11 +467,10 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totCostEcon">0</span><!--
+                                    --><span class="bolded" id="totCostEcon">{{ '%.2f' | format(totcost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
