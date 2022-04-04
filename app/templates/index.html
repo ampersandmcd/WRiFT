@@ -21,7 +21,6 @@
 this button currently can hide the form, but chart size wont get any bigger
 <input id="HideForm" type="button" value="Hide Form" class="show" onclick="formVisible();"/>
 -->
-
 <div id="page" class="page row">
 
     <div id="chart" class="chart col-md-7"></div>
@@ -356,6 +355,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Used to fill healthData array with values, using this until I can figure out why the sim won't run
                                 <input type="button" onclick="fillData();" class="btn btn-primary" value="Test"/>
                                 -->
+
                             </div>
 
                         </form>
@@ -386,6 +386,15 @@ this button currently can hide the form, but chart size wont get any bigger
                 <div class="card-body">
                     <!-- Economic Page-->
                     <div id="Economic" class="Economic">
+                        {% set destrcost = num_destroyed*1.7 %}
+                        {% set damagecost = num_damaged*0.15 %}
+                        {% set ffighters = num_damaged*15 + num_destroyed*10 %}
+                        {% set ffightercost = num_damaged*0.18 + num_destroyed*0.1 %}
+                        {% set businessclosed = (num_damaged + num_destroyed) // 10 %}
+                        {% set businesscost = businessclosed*0.01 %}
+                        {% set evac = num_damaged * 100 + num_destroyed * 3 %}
+                        {% set evaccost = evac*0.001 %}
+                        {% set totcost = destrcost + damagecost + ffightercost + businesscost + evaccost %}
                         <h5 class="center">Direct Loss</h5>
                         <div class="col-md-12">
 
@@ -394,12 +403,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Structures Destroyed</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totStructDestr"> 124 </span>
+                                    <span class="bolded" id="totStructDestr"> {{ num_destroyed }} </span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDestrCost">50</span><!--
+                                    --><span class="bolded" id="totStructDestrCost">{{ '%.2f' | format(destrcost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -409,12 +418,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Structures Damaged</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totStructDam">37</span>
+                                    <span class="bolded" id="totStructDam">{{ num_damaged }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDamCost">10</span><!--
+                                    --><span class="bolded" id="totStructDamCost">{{ '%.2f' | format(damagecost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -424,12 +433,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Firefighters Needed</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="firefightersNeed">94</span>
+                                    <span class="bolded" id="firefightersNeed">{{ ffighters }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="firefightersNeedCost">1</span><!--
+                                    --><span class="bolded" id="firefightersNeedCost">{{ '%.2f' | format(ffightercost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -442,12 +451,12 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Business Closures</p>
                                 </div>
                                 <div class="col-md-2" align="right">
-                                    <span class="bolded" id="totBusinClose">432</span>
+                                    <span class="bolded" id="totBusinClose">{{ businessclosed }}</span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totBusinCloseCost">10</span><!--
+                                    --><span class="bolded" id="totBusinCloseCost">{{ '%.2f' | format(businesscost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -457,13 +466,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Evacuations</p>
                                 </div>
                                 <div class="col-md-2" align="right"><!--
-                                    --><span class="bolded" id="totEvacuations">10</span><!--
-                                    --><span class="bolded">k</span>
+                                    --><span class="bolded" id="totEvacuations">{{ evac }}</span><!--
+                                    --><span class="bolded"></span>
                                 </div>
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totEvacuationsCost">50</span><!--
+                                    --><span class="bolded" id="totEvacuationsCost">{{ '%.2f' | format(evaccost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -478,11 +487,10 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totCostEcon">121</span><!--
+                                    --><span class="bolded" id="totCostEcon">{{ '%.2f' | format(totcost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -775,9 +783,23 @@ this button currently can hide the form, but chart size wont get any bigger
         // When the impacts page button is then clicked, if the array is greater than size 1, then the impacts are calculated
         // For final version, just replace the healthdata array with the simulation one.
         // My program currently crashes due to missing pickle file when I try to run normally which is why i use mock array
+        var simSize = Healthdata.length;
 
         //################### Impacts Calculation For Economic Page ################################
+        let structuresDestroyed = document.getElementById("totStructDestr");
+        let structuresDestroyedCost = document.getElementById("totStructDestrCost");
+        let structuresDamaged = document.getElementById("totStructDam");
+        let structuresDamagedCost = document.getElementById("totStructDamCost");
+        let firefighters = document.getElementById("firefightersNeed");
+        let firefightersCost = document.getElementById("firefightersNeedCost");
+        let businessesClosed = document.getElementById("totBusinClose");
+        let businessesClosedCost = document.getElementById("totBusinCloseCost");
+        let evacuations = document.getElementById("totEvacuations");
+        let evacuationsCost = document.getElementById("totEvacuationsCost");
+        let totalCost = document.getElementById("totCostEcon");
+        if (simSize > 1) {
 
+        }
 
         //################### Impacts Calculation For Health Page ################################
         let injuryTot = document.getElementById("injuriesTot");
@@ -787,7 +809,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let nurseTot = document.getElementById("nursesTot");
         let doctorTot = document.getElementById("doctorsTot");
 ``
-        var simSize = Healthdata.length;
         if (simSize > 1) {
             var injuries = simSize;
             injuryTot.innerText = injuries;
@@ -806,9 +827,36 @@ this button currently can hide the form, but chart size wont get any bigger
         }
 
         //################### Impacts Calculation For Demographic Page ################################
+        let cityAffected = document.getElementById("cityAffected");
+        let countyAffected = document.getElementById("countyAffected");
+        let districtAffected = document.getElementById("districtAffected");
+        let houseIncome = document.getElementById("houseIncome");
+        let eduLevel = document.getElementById("eduLevel");
+        let medAge = document.getElementById("medAge");
+        let percentNonwhite = document.getElementById("percentNonWhite");
+        if (simSize > 1) {
 
+        }
 
         //################### Impacts Calculation For Environment Page ################################
+        let acresBurned = document.getElementById("acresBurned");
+        let smokeBurned = document.getElementById("smokeFootprint");
+        let watershedFootprint = document.getElementById("watershedFootprint");
+        let CO2Emissions = document.getElementById("CO2emissions");
+        let PMEmissions = document.getElementById("PMemissions");
+``
+        if (simSize > 1) {
+            var acres = simSize;
+            acresBurned.innerText = acres;
+            var smoke = "UNSURE";
+            smokeBurned.innerText = smoke;
+            var watershed = "UNSURE";
+            watershedFootprint.innerText = watershed;
+            var co2 = acres * 26;
+            CO2Emissions.innerText = co2;
+            var PMe = "UNSURE";
+            PMEmissions.innerText = PMe;
+        }
     }
 
     {% if impacts %}

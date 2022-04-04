@@ -2,11 +2,20 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  /*MOCKUP TEST
+  Dark Green: #7C6A0A;
+  Light Green: #BABD8D;
+  Neutral Silk: #FFDAC6;
+  Light Orange: #FA9500;
+  Dark Orange: #EB6424;
+   */
 }
 
 .Site-content {
   flex: 1;
 }
+
+
 
 .slider {
   -webkit-appearance: none;
