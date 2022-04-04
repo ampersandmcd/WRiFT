@@ -1,0 +1,454 @@
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /*MOCKUP TEST
+  Dark Green: #7C6A0A;
+  Light Green: #BABD8D;
+  Neutral Silk: #FFDAC6;
+  Light Orange: #FA9500;
+  Dark Orange: #EB6424;
+   */
+}
+
+.Site-content {
+  flex: 1;
+}
+
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10%;
+  background-color: #dcdcdc;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fa9500;
+  border: 2px solid #eb6424;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fa9500;
+  border: 2px solid #eb6424;
+  cursor: pointer;
+}
+
+/*
+#Impacts {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+
+  margin-bottom: 10px;
+}
+ */
+
+#Economic {
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Health {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Demographic {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+#Environment {
+  display: none;
+  margin-right: 0;
+  margin-left: auto;
+  text-align: right;
+}
+/*
+#Inputs {
+  text-align: right;
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+
+  margin-right: 0;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+*/
+
+#Inputs {
+  display: block;
+}
+
+#Impacts {
+  display: none;
+  text-align: right;
+
+  /*
+  padding: 10px;
+  margin-right: 0;
+  margin-left: auto;
+
+   */
+}
+
+/*
+#Options {
+  background-color: lightgrey;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  margin-bottom: 5px;
+
+  margin-right: 0;
+  margin-left: auto;
+}
+*/
+
+#baseline {
+  text-align: right;
+  font-size: 20px;
+  margin-left: 2.7em;
+}
+
+#adjustments {
+  text-align: center;
+  font-size: 20px;
+}
+
+#UserForm {
+  /* min-width: 26em;
+  width: 39%;
+  transform: scale(.45);
+   */
+  width: 39%;
+  overflow: hidden;
+  display: inline-block;
+  margin-left: .3em;
+
+  /* FOR OVERLAYING MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 26EM
+  position: absolute;
+  top: 9.7em;
+  left: 0em;
+  transform: scale(.8);
+  */
+}
+
+#chart {
+  /*
+  width: 60%;
+   */
+  width: 60%;
+  /* min-width: 42em; */
+  display: inline-block;
+  overflow: hidden;
+
+  /* TO OVERLAY MAP AND FORM JUST UNCOMMENT THIS AND CHANGE WIDTH TO 100%
+  position: absolute;
+  top: 14em;
+  left: 3em;
+
+   */
+}
+
+#page {
+  min-width: 65em;
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 25%;
+}
+
+.right {
+  width: 75%;
+}
+
+#endForm {
+  display: inline-block;
+}
+
+.wind-label-col {
+  width: 50%;
+  padding-right: 1em;
+  vertical-align: bottom;
+}
+
+.slider-col {
+  width: 28%;
+}
+
+.run-col {
+  width: 20%;
+}
+
+#north {
+  margin-right: 5.9em;
+}
+
+#circularSlider .rs-border {
+  border-color: #eb6424;
+}
+
+#circularSlider .rs-handle  {
+    background-color: transparent;
+    border: 8px solid transparent;
+    border-right-color: #fa9500;
+    margin: -8px 0 0 -14px !important;
+}
+#circularSlider .rs-handle:before  {
+    display: block;
+    content: " ";
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background: #fa9500;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 100%;
+}
+#circularSlider .rs-handle:after  {
+    display: block;
+    content: " ";
+    width: 40px;
+    position: absolute;
+    top: -1px;
+    right: 0px;
+    border-top: 4px dotted #fa9500;
+}
+
+#EnvironmentButton {
+  width: 28%;
+  display: inline-block;
+  text-align: center;
+}
+
+#EconomicButton {
+  width: 22%;
+  display: inline-block;
+  text-align: center;
+}
+
+#DemographicButton {
+  width: 29%;
+  display: inline-block;
+}
+
+#HealthButton {
+  width: 16%;
+  display: inline-block;
+}
+
+#impactButtons {
+  padding: 0em;
+  margin-top: .25em;
+  text-align: center;
+}
+
+.env-title-column p{
+  margin: 0em;
+}
+
+.env-title-column {
+  text-align: end;
+  margin-left: 8em;
+}
+
+.env-data-column {
+  text-align: start;
+}
+
+.bolded { font-weight: bold; }
+
+.center {
+ text-align: center
+}
+
+#baseline {
+  text-align: center;
+}
+
+.row0 {
+  text-align: right;
+}
+
+/*#historicalRadio {*/
+/*  margin-right: 3.85em;*/
+/*  transform: scale(2);*/
+/*}*/
+
+/*#climatologicalRadio {*/
+/*  margin-right: 3.95em;*/
+/*  transform: scale(2);*/
+/*}*/
+
+.special-card {
+  /* TO MAKE CARD SEE THROUGH UNCOMMENT THIS
+  opacity: .8;
+   */
+}
+
+#InputsButton {
+  width: 45%;
+  display: inline-block;
+  margin-bottom: .2em;
+  margin-top: .2em;
+  margin-left: 1em;
+  margin-right: .3em;
+
+}
+
+#ImpactsButton {
+  width: 45%;
+  display: inline-block;
+
+  margin-top: .2em;
+  margin-bottom: .2em;
+  margin-right: .2em;
+}
+
+#Options {
+  margin-bottom: .25em;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+}
+
+
+/* Tooltip container
+https://www.w3schools.com/css/css_tooltip.asp
+*/
+.tooltipForm {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  cursor: help;
+}
+
+/* Tooltip text */
+.tooltipForm .tooltiptextForm {
+  visibility: hidden;
+  min-width: 300px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -150px; /* Use half of the width (120/2 = 60), to center the tooltip */
+
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  font-size: 10pt;
+  padding: 10px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  cursor: help;
+}
+
+.tooltiptextForm.left {
+  margin-left: -300px;
+}
+
+.tooltiptextForm.right {
+  margin-left: -1px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipForm:hover .tooltiptextForm {
+  visibility: visible;
+}
+
+.darken {
+  background-color: #f8f9fa;
+  border-radius: 17em;
+}
+
+.darken:hover {
+   cursor: pointer;
+   filter: brightness(60%);
+}
+
+.btn-primary {
+  background-color: #fa9500;
+  border-color: #fa9500;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #eb6424 !important;
+  border-color: #eb6424 !important;
+  box-shadow:none !important;
+  outline:0px !important;
+}
+
+/* Hide the browser's default radio button */
+.form-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #dcdcdc;
+  outline: 2px solid #c8c8c8;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.form-check:hover input ~ .checkmark {
+  filter: brightness(60%);
+  cursor: pointer;
+}
+
+/* When the radio button is checked, add a blue background */
+.form-check input:checked ~ .checkmark {
+  background-color: #fa9500;
+  outline: 2px solid #eb6424;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.form-check:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.form-check input:checked ~ .checkmark:after {
+  display: block;
+}

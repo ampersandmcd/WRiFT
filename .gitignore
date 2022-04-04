@@ -20,6 +20,7 @@ __pycache__/
 /exploration/data/LF2020_FBFM40_200_CONUS/
 *.geojson
 *.nc
+*.pickle
 
 # exclude notebook checkpoints
 .ipynb_checkpoints/
