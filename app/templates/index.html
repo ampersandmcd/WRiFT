@@ -183,7 +183,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-1">
                                     <div class="form-check">
                                         <label>
-                                            <input class="form-check-input" type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical" required/>
+                                            <input class="form-check-input" type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical" onclick="historicalRequired()" required/>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -196,7 +196,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="date" class="form-control" name="historicalData" placeholder="mm/dd/yyyy"/>
+                                    <input id="historicalDate" type="date" class="form-control" name="historicalDate" placeholder="mm/dd/yyyy"/>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="button" class="btn btn-primary" value="Load" onclick="">
@@ -206,7 +206,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-1">
                                     <div class="form-check">
                                         <label>
-                                            <input class="form-check-input" type="radio" id="climatologicalRadio" name="baselineData" value="baselineClimatological" required/>
+                                            <input class="form-check-input" type="radio" id="climatologicalRadio" name="baselineData" value="baselineClimatological" onclick="climatologicalRequired()" required/>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -219,7 +219,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" name="climatologicalData" placeholder="mm"/>
+                                    <input id="climatologicalDate" type="text" class="form-control" name="climatologicalDate" placeholder="mm"/>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="button" class="btn btn-primary" value="Load" onclick="">
@@ -713,7 +713,25 @@ this button currently can hide the form, but chart size wont get any bigger
 <script>
     // Global Variables
     var Healthdata = [0];
+
+    function test() {
+        alert("Testing")
+    }
 </script>
+
+<!-- Toggles required attribute on historical / climatological baselines -->
+<script>
+    function climatologicalRequired() {
+        document.getElementById("historicalDate").removeAttribute("required")
+        document.getElementById("climatologicalDate").setAttribute("required", "")
+    }
+
+    function historicalRequired() {
+        document.getElementById("climatologicalDate").removeAttribute("required")
+        document.getElementById("historicalDate").setAttribute("required", "")
+    }
+</script>
+
 <!-- Updates the slider values, these can stay in the form since the values are not
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
