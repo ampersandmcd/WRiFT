@@ -9,8 +9,8 @@
 ################################################
 
 # weather processing module (thank you nathan)
-from modeling.weather import CurrentWeather
-from modeling.rothermel import compute_surface_spread
+from app.modeling.weather import CurrentWeather
+from app.modeling.rothermel import compute_surface_spread
 
 # Data containers and pre-processing
 import pickle
@@ -122,7 +122,7 @@ def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
         with open(path_pickle, "rb") as f:
             data = pickle.load(f)
     else:
-        from modeling.data_preparation import prepare_data
+        from app.modeling.data_preparation import prepare_data
         data = prepare_data()
 
     # INPUT (landfire stuff), FUEL (raw fuel type), X (longitudes), Y (latitudes)
@@ -171,7 +171,7 @@ def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
 
     # retrieve tan_phi based on wind_direction
     if not os.path.exists("app/data/slope" + str(ip) + str(jp) + ".pickle"):
-        from modeling.data_preparation import build_tanphi_arrays
+        from app.modeling.data_preparation import build_tanphi_arrays
         build_tanphi_arrays()
 
     with open("app/data/slope" + str(ip) + str(jp) + ".pickle", "rb") as f:
