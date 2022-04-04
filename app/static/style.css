@@ -15,7 +15,9 @@
   flex: 1;
 }
 
-
+p {
+  text-align: left;
+}
 
 .slider {
   -webkit-appearance: none;

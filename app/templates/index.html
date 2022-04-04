@@ -351,7 +351,46 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <!-- Run Button -->
-                                <input type="submit" class="btn btn-primary" value="Run"/>
+                                <input type="submit" class="btn btn-primary" value="Run" data-toggle="modal" data-target="#loadingModal"/>
+
+                                <!-- Modal box on submission showing loading screen -->
+                                <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Simulation Loading</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p text-align="left">
+                                                    Thanks for your patience as we simulate a hypothetical wildfire and compute its impact.
+                                                    We're running a state-of-the-art model known as
+                                                    <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">FARSITE</a>,
+                                                    developed by top scientists at the U.S. Forest Service, which may take up to 30 seconds.
+                                                    Please don't refresh this page.
+                                                </p>
+                                                <p>
+                                                    While you wait, did you know? {{ fun_fact }}
+                                                </p>
+                                                <p>
+                                                    Reduce your own risk to fire by {{ prevention_fact }}
+                                                </p>
+                                                <p>
+                                                    Wildfire facts courtesy of the
+                                                    <a target="_blank" href="https://www.iii.org/article/facts-about-wildfires">Insurance Information Institute.</a>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Used to fill healthData array with values, using this until I can figure out why the sim won't run
                                 <input type="button" onclick="fillData();" class="btn btn-primary" value="Test"/>
                                 -->
