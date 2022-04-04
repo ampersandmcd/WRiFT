@@ -4,7 +4,7 @@ import json
 import pandas as pd
 import datetime
 
-from weather import Weather
+from app.modeling.weather import Weather
 
 
 class HistoricWeather(Weather):
@@ -82,6 +82,12 @@ class DailyWeather(HistoricWeather):
     DATA_TYPES = "TMAX,WDF2,WSF2"
 
     def __init__(self, date, lat, long):
+        """
+        Initialize an object for querying the weather on a given historical date.
+        @param date: The date to query as a string, format YYYY-MM-DD
+        @param lat: Latitude of the location to query
+        @param long: Longitude of the location to query
+        """
         start_date = datetime.datetime.strptime(date, "%Y-%m-%d") + datetime.timedelta(days=-1)
         end_date = datetime.datetime.strptime(date, "%Y-%m-%d")
         super().__init__(start_date, end_date, lat, long)
@@ -92,6 +98,12 @@ class WeatherNormals(HistoricWeather):
     DATA_TYPES = "MLY-TMAX-NORMAL"
 
     def __init__(self, month, lat, long):
+        """
+        Initialize an object for querying the historic weather normals for a given month and location.
+        @param month: The month to query weather normals for, format MM as a string
+        @param lat: The latitude of the location to query
+        @param long: The longitude of the location to query
+        """
         start_date = datetime.datetime.strptime(F"2010-{month}-04", "%Y-%m-%d") + datetime.timedelta(days=-31)
         end_date = datetime.datetime.strptime(F"2010-{month}-05", "%Y-%m-%d")
         super().__init__(start_date, end_date, lat, long)
