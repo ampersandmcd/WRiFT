@@ -5,6 +5,8 @@ import json
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+import math
+from geopy.geocoders import Nominatim
 
 from app.modeling.farsite import burn
 
@@ -101,7 +103,9 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json, impacts=False)
+        impacts_data = compute_impacts(df, 0)
+
+        return render_template("index.html", graph_json=graph_json, impacts=False, impacts_data=impacts_data)
 
     if request.method == "POST":
         #
@@ -111,6 +115,9 @@ def index():
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
         df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]), mins=50)
+
+        # TO DO @BEN
+        impacts_data = compute_impacts(df, 1)
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=12),
@@ -134,7 +141,7 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        return render_template("index.html", graph_json=graph_json, impacts=True)
+        return render_template("index.html", graph_json=graph_json, impacts=True, impacts_data=impacts_data)
 
 
 @app.route("/about")
@@ -169,3 +176,65 @@ def prototyping():
     if request.method == "POST":
         form_data = request.form
         return render_template("prototyping.html", form_data=form_data)
+
+
+def compute_impacts(df, run):
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    impacts_data = {}
+    # Key names
+
+    if (run):
+        # health page
+        # injury
+        # death
+        # hopital_bed
+        # ICU_bed
+        # nurses
+        # doctors
+        impacts_data["injury"] = len(df) * 100
+        impacts_data["death"] = math.floor(impacts_data["injury"] / 60)
+        impacts_data["hospital_bed"] = math.floor(impacts_data["injury"] * .55);
+        impacts_data["ICU_bed"] = math.ceil(impacts_data["injury"]*.15);
+        impacts_data["nurses"] = math.ceil(impacts_data["hospital_bed"]/5);
+        impacts_data["doctors"] = math.ceil(impacts_data["hospital_bed"]/12);
+
+        # demographic
+        # cities
+        # counties
+        # districts
+        # income
+        # education
+        # age
+        # nonwhite
+        #Latitude = "37.33145"
+        #Longitude = "-121.8877"
+        # geolocator.geocode(str(Latitude)+","+str(Longitude))
+        Latitude = df.y[0]
+        Longitude = df.x[0]
+        location = geolocator.reverse(str(Latitude) + "," + str(Longitude))
+        address = location.raw['address']
+        city = address.get('city', 'N/A')
+        if city == "N/A":
+            city = address.get('town', 'N/A')
+        impacts_data["cities"] = city
+        impacts_data["counties"] = address.get('county', 'N/A')
+        impacts_data["districts"] = "N/A"
+        impacts_data["income"] = "N/A"
+        impacts_data["education"] = "N/A"
+        impacts_data["age"] = "N/A"
+        impacts_data["nonwhite"] = "N/A"
+
+        # environment
+        # acres
+        # smoke
+        # watershed
+        # CO2
+        # PM
+        impacts_data["acres"] = len(df) * 10
+        impacts_data["smoke"] = "N/A"
+        impacts_data["watershed"] = "N/A"
+        impacts_data["CO2"] = impacts_data["acres"] * 26
+        impacts_data["PM"] = "N/A"
+
+    # do your calculations @ben
+    return impacts_data

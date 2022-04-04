@@ -110,7 +110,7 @@ def handle_new_fire_point(new_frontier, FIRES, NB, AFC, PIFC, INPUT, FUEL, wind_
             FIRES.add((new_i, new_j))
 
 
-def prepare_data(path_farsite="app/data/farsite.nc", path_fueldict="data/FUEL_DIC.csv"):
+def prepare_data(path_farsite="app/data/farsite.nc", path_fueldict="app/data/FUEL_DIC.csv"):
     """
     Prepares the data required for fire modeling
     :param lat: latitude coordinate of ignition point
