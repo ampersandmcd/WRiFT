@@ -4,7 +4,6 @@
 
 {% block content %}
 
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet"/>
 
@@ -31,7 +30,7 @@ this button currently can hide the form, but chart size wont get any bigger
         let graphs = {{graph_json | safe}};
         Plotly.plot("chart", graphs)
         n = graphs.data.length
-        chart.on("plotly_click", function(data){
+        chart.on("plotly_click", function (data) {
             document.getElementById("lon").value = data.points[0].lon;
             document.getElementById("lat").value = data.points[0].lat;
             while (graphs.data.length > n) {
@@ -46,9 +45,9 @@ this button currently can hide the form, but chart size wont get any bigger
                 mode: 'markers',
                 marker: {'color': "orange", 'opacity': 1.0},
                 hovertemplate: "Ignition Point<br>" +
-                               "Latitude: %{lat}<br>" +
-                               "Longitude: %{lon}<br>" +
-                               "<extra></extra>",
+                    "Latitude: %{lat}<br>" +
+                    "Longitude: %{lon}<br>" +
+                    "<extra></extra>",
                 size: 36,
                 visible: true
             });
@@ -89,7 +88,7 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="row">
                             <div class="col-sm-2">
                                 <img id="EyeRisk" src="{{url_for('static', filename='eye_open.png')}}"
-                                   width="30px" class="open darken" onclick="riskVisible();"/>
+                                     width="30px" class="open darken" onclick="riskVisible();"/>
                             </div>
                             <div class="col-sm-4" align="left">
                                 <span>
@@ -100,7 +99,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
                             <div class="col-sm-2">
                                 <img id="EyePerimeters" src="{{url_for('static', filename='eye_closed.png')}}"
-                                   width="30px" class="closed darken" onclick="perimetersVisible();"/>
+                                     width="30px" class="closed darken" onclick="perimetersVisible();"/>
                             </div>
                             <div class="col-sm-4" align="left">
                                 <span>
@@ -113,7 +112,7 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="row">
                             <div class="col-sm-2">
                                 <img id="EyePopulation" src="{{url_for('static', filename='eye_closed.png')}}"
-                                   width="30px" class="closed darken" onclick="populationVisible();"/>
+                                     width="30px" class="closed darken" onclick="populationVisible();"/>
                             </div>
                             <div class="col-sm-4" align="left">
                                 <span>
@@ -122,13 +121,14 @@ this button currently can hide the form, but chart size wont get any bigger
                                                 Population density measured in people per square kilometer,
                                                 derived from 2018 population estimates provided by the U.S.
                                                 Census Bureau. Data curated by the U.S. Forest Service,
-                                                available <a href="https://www.arcgis.com/home/item.html?id=2770d391dd894782b567a6becc4b32fd">here</a>.</span>
+                                                available <a
+                                                    href="https://www.arcgis.com/home/item.html?id=2770d391dd894782b567a6becc4b32fd">here</a>.</span>
                                     </div>
                                 </span>
                             </div>
                             <div class="col-sm-2">
                                 <img id="EyeHousing" src="{{url_for('static', filename='eye_closed.png')}}"
-                                   width="30px" class="closed darken" onclick="housingVisible();"/>
+                                     width="30px" class="closed darken" onclick="housingVisible();"/>
                             </div>
                             <div class="col-sm-4" align="left">
                                 <span>
@@ -137,7 +137,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                                 Housing density measured in units per square kilometer,
                                                 derived from 2018 housing unit estimates provided by the U.S.
                                                 Census Bureau. Data curated by the U.S. Forest Service,
-                                                available <a href=https://www.arcgis.com/home/item.html?id=6f49e46d5a2743c8bef156f1d7157121>here</a>.</span>
+                                                available <a
+                                                    href=https://www.arcgis.com/home/item.html?id=6f49e46d5a2743c8bef156f1d7157121>here</a>.</span>
                                         </div>
                                 </span>
                             </div>
@@ -161,7 +162,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <label for="lat">Latitude</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy" required/>
+                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy"
+                                           required/>
                                 </div>
                                 <div class="col-sm-4" align="left">
                                     <span>°N</span>
@@ -172,7 +174,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <label for="lon">Longitude</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="lon" id="lon" placeholder="xx.xx" required/>
+                                    <input type="text" class="form-control" name="lon" id="lon" placeholder="xx.xx"
+                                           required/>
                                 </div>
                                 <div class="col-sm-4" align="left">
                                     <span>°E</span>
@@ -185,7 +188,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-12" align="center">
                                     <h5>Step 3: Set a Baseline</h5>
                                     <p align="left">
-                                        Specify baseline weather conditions for the wildfire simulation from a particular
+                                        Specify baseline weather conditions for the wildfire simulation from a
+                                        particular
                                         day, or as the climatological average conditions in a particular month.
                                     </p>
                                 </div>
@@ -196,7 +200,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-1">
                                     <div class="form-check">
                                         <label>
-                                            <input class="form-check-input" type="radio" id="historicalRadio" name="baselineData" value="baselineHistorical" onclick="historicalRequired()" required/>
+                                            <input class="form-check-input" type="radio" id="historicalRadio"
+                                                   name="baselineData" value="baselineHistorical"
+                                                   onclick="historicalRequired()" required/>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -209,17 +215,22 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input id="historicalDate" type="date" class="form-control" name="historicalDate" placeholder="mm/dd/yyyy"/>
+                                    <input id="historicalDate" type="date" class="form-control" name="historicalDate"
+                                           placeholder="mm/dd/yyyy"/>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a href=# id=historicalLoad><button class='btn btn-primary'>Load</button></a>
+                                    <a href=# id=historicalLoad>
+                                        <button class='btn btn-primary'>Load</button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-1">
                                     <div class="form-check">
                                         <label>
-                                            <input class="form-check-input" type="radio" id="climatologicalRadio" name="baselineData" value="baselineClimatological" onclick="climatologicalRequired()" required/>
+                                            <input class="form-check-input" type="radio" id="climatologicalRadio"
+                                                   name="baselineData" value="baselineClimatological"
+                                                   onclick="climatologicalRequired()" required/>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
@@ -232,7 +243,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </label>
                                 </div>
                                 <div class="col-sm-5">
-                                    <input id="climatologicalDate" type="text" class="form-control" name="climatologicalDate" placeholder="mm"/>
+                                    <input id="climatologicalDate" type="text" class="form-control"
+                                           name="climatologicalDate" placeholder="mm"/>
                                 </div>
                                 <div class="col-sm-2">
                                     <input type="button" class="btn btn-primary" value="Load" onclick="">
@@ -262,8 +274,8 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="slidecontainer row">
                                 <!-- Temperature -->
                                 <div class="col-sm-1">
-                                    <img  id="EyeTemp" src="{{url_for('static', filename='eye_closed.png')}}"
-                                       width="30px" class="closed darken" onclick="tempVisible();"/></div>
+                                    <img id="EyeTemp" src="{{url_for('static', filename='eye_closed.png')}}"
+                                         width="30px" class="closed darken" onclick="tempVisible();"/></div>
                                 <div class="col-sm-4" align="right">
                                     <label for="tempSlider">
                                         <div class="tooltipForm">Temperature
@@ -274,7 +286,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="range" min="-25" max="25" value="0" class="slider"
-                                                           name="tempSlider" id="tempSlider">
+                                           name="tempSlider" id="tempSlider">
                                 </div>
                                 <div class="col-sm-3" align="left">
                                     <span id="tempPos"></span>
@@ -287,7 +299,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Humidity -->
                                 <div class="col-sm-1">
                                     <img id="EyeHumidity" src="{{url_for('static', filename='eye_closed.png')}}"
-                                   width="30px" class="closed darken" onclick="humidityVisible();"/>
+                                         width="30px" class="closed darken" onclick="humidityVisible();"/>
                                 </div>
                                 <div class="col-sm-4" align="right">
                                     <label for="humiditySlider">
@@ -298,7 +310,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="range" min="-25" max="25" value="0" class="slider"
-                                                   name="humiditySlider" id="humiditySlider">
+                                           name="humiditySlider" id="humiditySlider">
                                 </div>
                                 <div class="col-sm-3" align="left">
                                     <span id="humidPos"></span>
@@ -311,7 +323,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Wind Speed -->
                                 <div class="col-sm-1">
                                     <img id="EyeWndSpd" src="{{url_for('static', filename='eye_closed.png')}}"
-                                    width="30px" class="closed darken" onclick="wndSpdVisible();"/>
+                                         width="30px" class="closed darken" onclick="wndSpdVisible();"/>
                                 </div>
                                 <div class="col-sm-4" align="right">
                                     <label for="wndSpdSlider">
@@ -335,7 +347,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <!-- Wind direction -->
                                 <div class="col-sm-1">
                                     <img id="EyeWndDir" src="{{url_for('static', filename='eye_closed.png')}}"
-                                     width="30px" class="closed darken" onclick="wndDirVisible();"/>
+                                         width="30px" class="closed darken" onclick="wndDirVisible();"/>
                                 </div>
                                 <div class="col-sm-4" align="right">
                                     <label style="font-size: 15px;" for="circularSlider">
@@ -364,24 +376,30 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <!-- Run Button -->
-                                <input type="submit" class="btn btn-primary" value="Run" data-toggle="modal" data-target="#loadingModal"/>
+                                <input type="submit" class="btn btn-primary" value="Run" data-toggle="modal"
+                                       data-target="#loadingModal"/>
 
                                 <!-- Modal box on submission showing loading screen -->
-                                <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Simulation Loading</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <p text-align="left">
-                                                    Thanks for your patience as we simulate a hypothetical wildfire and compute its impact.
+                                                    Thanks for your patience as we simulate a hypothetical wildfire and
+                                                    compute its impact.
                                                     We're running a state-of-the-art model known as
-                                                    <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">FARSITE</a>,
-                                                    developed by top scientists at the U.S. Forest Service, which may take up to 30 seconds.
+                                                    <a target="_blank"
+                                                       href="https://www.fs.usda.gov/treesearch/pubs/4617">FARSITE</a>,
+                                                    developed by top scientists at the U.S. Forest Service, which may
+                                                    take up to 30 seconds.
                                                     Please don't refresh this page.
                                                 </p>
                                                 <p>
@@ -392,7 +410,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                                 </p>
                                                 <p>
                                                     Wildfire facts courtesy of the
-                                                    <a target="_blank" href="https://www.iii.org/article/facts-about-wildfires">Insurance Information Institute.</a>
+                                                    <a target="_blank"
+                                                       href="https://www.iii.org/article/facts-about-wildfires">Insurance
+                                                        Information Institute.</a>
                                                 </p>
                                             </div>
                                             <div class="modal-footer">
@@ -460,7 +480,8 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDestrCost">{{ '%.2f' | format(destrcost) }}</span><!--
+                                    --><span class="bolded"
+                                             id="totStructDestrCost">{{ '%.2f' | format(destrcost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -475,7 +496,8 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totStructDamCost">{{ '%.2f' | format(damagecost) }}</span><!--
+                                    --><span class="bolded"
+                                             id="totStructDamCost">{{ '%.2f' | format(damagecost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -508,7 +530,8 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totBusinCloseCost">{{ '%.2f' | format(businesscost) }}</span><!--
+                                    --><span class="bolded"
+                                             id="totBusinCloseCost">{{ '%.2f' | format(businesscost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -524,7 +547,8 @@ this button currently can hide the form, but chart size wont get any bigger
 
                                 <div class="col-md-3" align="right">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="totEvacuationsCost">{{ '%.2f' | format(evaccost) }}</span><!--
+                                    --><span class="bolded"
+                                             id="totEvacuationsCost">{{ '%.2f' | format(evaccost) }}</span><!--
                                     --><span class="bolded">m</span>
                                 </div>
                             </div>
@@ -789,13 +813,16 @@ this button currently can hide the form, but chart size wont get any bigger
     $(function () {
         $('a#historicalLoad').on('click', function (e) {
             e.preventDefault()
-            $.getJSON('/background_historical',
-                function (data) {
-                    // success handler
-                      $.each(data, function(key, val) {
-                        graphs.data.push( "<li id='" + key + "'>" + val + "</li>" );
-                      });
-                });
+            $.ajax({datatype: "json",
+                    url: "/background_historical",  // make call to background_historical endpoint
+                    data: {date: document.getElementById("historicalDate").val},  // pass date from form as parameter
+                    success: function (data) {
+                        // handle returned data from endpoint
+                        graphs.data[layers["Temperature"]].marker.color = data["Temperature"]
+                        graphs.data[layers["Humidity"]].marker.color = data["Humidity"]
+                        graphs.data[layers["WindSpeed"]].marker.color = data["WindSpeed"]
+                        graphs.data[layers["WindDirection"]].marker.color = data["WindDirection"]
+                }});
             return false;
         });
 
@@ -807,7 +834,7 @@ this button currently can hide the form, but chart size wont get any bigger
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
 <script>
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip()
     })
 
     let sliderTemp = document.getElementById("tempSlider");
@@ -854,7 +881,6 @@ this button currently can hide the form, but chart size wont get any bigger
 </script>
 
 
-
 <!-- Switches between the inputs and impacts pages -->
 <script>
     function inputsVisible() {
@@ -897,21 +923,21 @@ this button currently can hide the form, but chart size wont get any bigger
         let ICUBedTot = document.getElementById("ICUBedsTot");
         let nurseTot = document.getElementById("nursesTot");
         let doctorTot = document.getElementById("doctorsTot");
-``
+        ``
         if (simSize > 1) {
             var injuries = simSize;
             injuryTot.innerText = injuries;
-            var deaths = Math.ceil(injuries/60);
+            var deaths = Math.ceil(injuries / 60);
             deathTot.innerText = deaths;
-            var hospitalBeds = Math.round(injuries*.55);
+            var hospitalBeds = Math.round(injuries * .55);
             hospBedTot.innerText = hospitalBeds;
-            var ICUBeds = Math.ceil(injuries*.15);
+            var ICUBeds = Math.ceil(injuries * .15);
             ICUBedTot.innerText = ICUBeds;
             // Califronia requires 1 nurses to every 5 patients
-            var nurses = Math.ceil(hospitalBeds/5);
+            var nurses = Math.ceil(hospitalBeds / 5);
             nurseTot.innerText = nurses;
             // 12 to 1 doctor to patient ratio, beds measure patients, 10 for beds (recommended for ICU), 2 for minor injuries
-            var doctors = Math.ceil(hospitalBeds/12);
+            var doctors = Math.ceil(hospitalBeds / 12);
             doctorTot.innerText = doctors;
         }
 
@@ -933,7 +959,7 @@ this button currently can hide the form, but chart size wont get any bigger
         let watershedFootprint = document.getElementById("watershedFootprint");
         let CO2Emissions = document.getElementById("CO2emissions");
         let PMEmissions = document.getElementById("PMemissions");
-``
+        ``
         if (simSize > 1) {
             var acres = simSize;
             acresBurned.innerText = acres;
@@ -949,9 +975,9 @@ this button currently can hide the form, but chart size wont get any bigger
     }
 
     {% if impacts %}
-        impactsVisible();
+    impactsVisible();
     {% else %}
-        inputsVisible();
+    inputsVisible();
     {% endif %}
 
     function formVisible() {
@@ -1004,8 +1030,19 @@ this button currently can hide the form, but chart size wont get any bigger
 
 <!-- Enables and disables visual layers -->
 <script>
+    layers = {
+        "Risk": 0,
+        "Population": 1,
+        "Housing": 2,
+        "Temperature": 3,
+        "Humidity": 4,
+        "WindSpeed": 5,
+        "WindDirection": 6,
+        "Perimeters": 7
+    }
 
-     function riskVisible() {
+
+    function riskVisible() {
         let img = document.getElementById("EyeRisk");
 
         // plotly changes
@@ -1024,7 +1061,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 0);
+            Plotly.restyle(chart, Nupdate, layers["risk"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1052,7 +1089,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 1);
+            Plotly.restyle(chart, Nupdate, layers["population"]);
             otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1080,7 +1117,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 2);
+            Plotly.restyle(chart, Nupdate, layers["housing"]);
             otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1108,7 +1145,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 3);
+            Plotly.restyle(chart, Nupdate, layers["Temperature"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1136,7 +1173,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 4);
+            Plotly.restyle(chart, Nupdate, layers["Humidity"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1164,7 +1201,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 5);
+            Plotly.restyle(chart, Nupdate, layers["WindSpeed"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1192,7 +1229,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 6);
+            Plotly.restyle(chart, Nupdate, layers["WindDirection"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1220,7 +1257,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, 7);
+            Plotly.restyle(chart, Nupdate, layers["perimeters"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1253,7 +1290,6 @@ this button currently can hide the form, but chart size wont get any bigger
         startAngle: 90
     });
 </script>
-
 
 
 <!-- Updates the health data on the impacts page -->

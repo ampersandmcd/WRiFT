@@ -1,5 +1,5 @@
 import numpy as np
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from flask import current_app as app
 import pandas as pd
 import json
@@ -206,9 +206,15 @@ def index():
                                prevention_fact=random.choice(prevention_facts))
 
 
-@app.route("/background_historical")
-def background_historical():
-    return None
+@app.route("/background_historical", methods=["GET"])
+def background_historical(date="2022-01-01"):
+    # TODO: call Nathan's code here
+    return jsonify({
+        "Temperature": list(0 * df["Temperature"].values),
+        "Humidity": list(0 * df["Humidity"].values),
+        "WindSpeed": list(0 * df["WindSpeed"].values),
+        "WindDirection": list(0 * df["WindDirection"].values)
+    })
 
 @app.route("/about")
 def about():

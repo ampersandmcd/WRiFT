@@ -135,6 +135,7 @@ def normals_example():
     weather = w.weather_by_station(closest)
     print(F"long-term average of month {month} maximum temperature: {weather['value']['MLY-TMAX-NORMAL']/10} F\n")
 
+
 if __name__ == '__main__':
     daily_example()
     normals_example()
