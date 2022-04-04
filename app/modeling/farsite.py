@@ -110,7 +110,7 @@ def handle_new_fire_point(new_frontier, FIRES, NB, AFC, PIFC, INPUT, FUEL, wind_
             FIRES.add((new_i, new_j))
 
 
-def pre_burn(lat, lon, path_pickle="data/farsite.pickle"):
+def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
     """
     Processes a provided data pickle, as well as lat/lon to get info for burn
     :param lat: latitudinal coordinate of ignition
@@ -170,17 +170,17 @@ def pre_burn(lat, lon, path_pickle="data/farsite.pickle"):
     INPUT = data[0]
 
     # retrieve tan_phi based on wind_direction
-    if not os.path.exists("data/slope" + str(ip) + str(jp)):
+    if not os.path.exists("app/data/slope" + str(ip) + str(jp) + ".pickle"):
         from modeling.data_preparation import build_tanphi_arrays
         build_tanphi_arrays()
 
-    with open("data/slope" + str(ip) + str(jp), "rb") as f:
+    with open("app/data/slope" + str(ip) + str(jp) + ".pickle", "rb") as f:
         INPUT[:, :, 5] = pickle.load(f)
 
     return INPUT, data[1], data[2], data[3], i_start, j_start, wind_speed, wind_dir
 
 
-def burn(lat, lon, path_pickle="data/farsite.pickle", mins=150):
+def burn(lat, lon, path_pickle="app/data/farsite.pickle", mins=150):
     """
     Burning down the house
     :param lat: latitude of ignition

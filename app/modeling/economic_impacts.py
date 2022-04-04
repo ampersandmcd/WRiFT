@@ -3,7 +3,7 @@ import pandas as pd
 
 
 class EconomicImpactCalculator:
-    def __init__(self, footprint_file="../app/data/footprints.pickle"):
+    def __init__(self, footprint_file="app/data/footprints.pickle"):
         """
         Create an object to calculate economic impacts
         :param footprint_file: The file (.geojson) containing building footprints for the area of interest

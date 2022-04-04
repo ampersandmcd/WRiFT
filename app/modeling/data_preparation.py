@@ -4,7 +4,8 @@ import xarray as xr
 import pandas as pd
 import os
 
-def prepare_data(path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.csv"):
+
+def prepare_data(path_farsite="app/data/farsite.nc", path_fueldict="app/data/FUEL_DIC.csv"):
     """
     Prepares the data required for fire modeling - THIS DATA CAN (AND WILL) BE CACHED
     :param lat: latitude coordinate of ignition point
@@ -63,11 +64,12 @@ def prepare_data(path_farsite="data/farsite.nc", path_fueldict="data/FUEL_DIC.cs
             INPUT[i, j, 5] = ELEV[i,j]
 
     data = INPUT, FUEL, X, Y
-    with open("data/farsite.pickle", "wb") as f:
+    with open("app/data/farsite.pickle", "wb") as f:
         pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
     return data
 
-def build_tanphi_arrays(path_farsite_pickle="data/farsite.pickle"):
+
+def build_tanphi_arrays(path_farsite_pickle="app/data/farsite.pickle"):
     """
     This divides the 360 degree arc into 8 slices, and creates a pickle for each
     Say wind points into slice A, then when burning we will load the slice A pickle
@@ -99,5 +101,5 @@ def build_tanphi_arrays(path_farsite_pickle="data/farsite.pickle"):
             slope[i, slope.shape[1] - 1] = slope[i, slope.shape[1] - 2]
             slope[slope.shape[0] - 1, i] = slope[slope.shape[0] - 2, i]
 
-        with open("data/slope" + str(i_offset) + str(j_offset), "wb") as f:
+        with open("app/data/slope" + str(i_offset) + str(j_offset) + ".pickle", "wb") as f:
             pickle.dump(slope, f, protocol=pickle.HIGHEST_PROTOCOL)
