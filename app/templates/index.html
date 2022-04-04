@@ -87,25 +87,38 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <img id="EyeRisk" src="{{url_for('static', filename='eye_open.png')}}"
                                    width="30px" class="open darken" onclick="riskVisible();"/>
                             </div>
-                            <div class="col-sm-3" align="left">
+                            <div class="col-sm-4" align="left">
                                 <span>
                                     <div class="tooltipForm">Wildfire Risk
-                                            <span class="tooltiptextForm right">A map overlay that highlights areas that have high chance of a wildfire</span>
+                                            <span class="tooltiptextForm right">TODO</span>
                                         </div>
                                 </span>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
+                                <img id="EyePerimeters" src="{{url_for('static', filename='eye_closed.png')}}"
+                                   width="30px" class="closed darken" onclick="perimetersVisible();"/>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Historical Wildfires
+                                            <span class="tooltiptextForm left">TODO</span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
                                 <img id="EyePopulation" src="{{url_for('static', filename='eye_closed.png')}}"
                                    width="30px" class="closed darken" onclick="populationVisible();"/>
                             </div>
-                            <div class="col-sm-3" align="left">
+                            <div class="col-sm-4" align="left">
                                 <span>
                                     <div class="tooltipForm">Population
-                                            <span class="tooltiptextForm">
+                                            <span class="tooltiptextForm right">
                                                 Population density measured in people per square kilometer,
                                                 derived from 2018 population estimates provided by the U.S.
                                                 Census Bureau. Data curated by the U.S. Forest Service,
@@ -113,13 +126,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                     </div>
                                 </span>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <img id="EyeHousing" src="{{url_for('static', filename='eye_closed.png')}}"
                                    width="30px" class="closed darken" onclick="housingVisible();"/>
                             </div>
-                            <div class="col-sm-3" align="left">
+                            <div class="col-sm-4" align="left">
                                 <span>
-                                    <div class="tooltipForm">Population
+                                    <div class="tooltipForm">Housing
                                             <span class="tooltiptextForm left">
                                                 Housing density measured in units per square kilometer,
                                                 derived from 2018 housing unit estimates provided by the U.S.
@@ -199,7 +212,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <input id="historicalDate" type="date" class="form-control" name="historicalDate" placeholder="mm/dd/yyyy"/>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="button" class="btn btn-primary" value="Load" onclick="">
+                                    <a href=# id=historicalLoad><button class='btn btn-primary'>Load</button></a>
                                 </div>
                             </div>
                             <div class="row">
@@ -771,6 +784,24 @@ this button currently can hide the form, but chart size wont get any bigger
     }
 </script>
 
+<!-- Loads historical / climatological data on button click -->
+<script>
+    $(function () {
+        $('a#historicalLoad').on('click', function (e) {
+            e.preventDefault()
+            $.getJSON('/background_historical',
+                function (data) {
+                    // success handler
+                      $.each(data, function(key, val) {
+                        graphs.data.push( "<li id='" + key + "'>" + val + "</li>" );
+                      });
+                });
+            return false;
+        });
+
+    });
+</script>
+
 <!-- Updates the slider values, these can stay in the form since the values are not
  needed to be grabbed until the user runs the simulation.
   Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
@@ -994,7 +1025,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 0);
-            otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1022,7 +1053,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 1);
-            otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1050,7 +1081,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 2);
-            otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1078,7 +1109,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 3);
-            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1106,7 +1137,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 4);
-            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir"]
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1134,7 +1165,7 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 5);
-            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir"]
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
@@ -1162,7 +1193,35 @@ this button currently can hide the form, but chart size wont get any bigger
                 visible: true
             }
             Plotly.restyle(chart, Nupdate, 6);
-            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd"]
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function perimetersVisible() {
+        let img = document.getElementById("EyePerimeters");
+
+        // plotly changes
+        let chart = document.getElementById("chart");
+
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, 7);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
                 closeEye(img);
