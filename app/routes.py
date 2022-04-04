@@ -6,7 +6,7 @@ import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 
-from app.modeling.farsite import burn
+from app.modeling.farsite_v2 import burn
 from app.modeling.economic_impacts import EconomicImpactCalculator
 
 token = open("app/static/.mapbox_token").read()
