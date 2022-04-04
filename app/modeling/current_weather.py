@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 from io import StringIO
 
-from weather import Weather
+from app.modeling.weather import Weather
 
 
 def _weatherDataToDF(text: str):
@@ -84,7 +84,7 @@ def example():
     lat, long = 37.3923,-121.5
     distance = 20
 
-    weather = CurrentWeather(20, lat, long)
+    weather = CurrentWeather(80, lat, long)
     weather = weather.weather_by_station(weather.getNearestStation())
     wind_speed, wind_dir = weather['wind_speed_kt'], weather['wind_dir_degrees']
     print(F"wind speed: {wind_speed}, wind direction: {wind_dir}")

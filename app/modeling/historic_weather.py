@@ -4,7 +4,7 @@ import json
 import pandas as pd
 import datetime
 
-from weather import Weather
+from app.modeling.weather import Weather
 
 
 class HistoricWeather(Weather):
