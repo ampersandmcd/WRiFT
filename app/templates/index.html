@@ -247,7 +247,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                            name="climatologicalDate" placeholder="mm"/>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="button" class="btn btn-primary" value="Load" onclick="">
+                                    <a href=# id=climatologicalLoad>
+                                        <button class='btn btn-primary'>Load</button>
+                                    </a>
                                 </div>
                             </div>
                             <!--
@@ -291,7 +293,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-3" align="left">
                                     <span id="tempPos"></span>
                                     <span id="tempVal">0</span>
-                                    <span>F</span>
+                                    <span>°C</span>
                                 </div>
                             </div>
 
@@ -339,7 +341,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-3" align="left">
                                     <span id="wndSpdPos"></span>
                                     <span id="wndSpdVal">0</span>
-                                    <span>mph</span>
+                                    <span>m/s</span>
                                 </div>
                             </div>
 
@@ -812,10 +814,13 @@ this button currently can hide the form, but chart size wont get any bigger
 <script>
     $(function () {
         $('a#historicalLoad').on('click', function (e) {
-            e.preventDefault()
+            e.preventDefault();
+            params = new URLSearchParams({
+                date: document.getElementById("historicalDate").value
+            })
             $.ajax({datatype: "json",
-                    url: "/background_historical",  // make call to background_historical endpoint
-                    data: {date: document.getElementById("historicalDate").val},  // pass date from form as parameter
+                    url: "/historical?" + params.toString(),  // make call to background_historical endpoint
+                    data: {},  // pass date from form as parameter in URL
                     success: function (data) {
                         // handle returned data from endpoint
                         graphs.data[layers["Temperature"]].marker.color = data["Temperature"]
@@ -825,7 +830,25 @@ this button currently can hide the form, but chart size wont get any bigger
                 }});
             return false;
         });
-
+    });
+    $(function () {
+        $('a#climatologicalLoad').on('click', function (e) {
+            e.preventDefault();
+            params = new URLSearchParams({
+                month: document.getElementById("climatologicalDate").value
+            })
+            $.ajax({datatype: "json",
+                    url: "/climatological?" + params.toString(),  // make call to background_historical endpoint
+                    data: {},  // pass date from form as parameter in URL
+                    success: function (data) {
+                        // handle returned data from endpoint
+                        graphs.data[layers["Temperature"]].marker.color = data["Temperature"]
+                        graphs.data[layers["Humidity"]].marker.color = data["Humidity"]
+                        graphs.data[layers["WindSpeed"]].marker.color = data["WindSpeed"]
+                        graphs.data[layers["WindDirection"]].marker.color = data["WindDirection"]
+                }});
+            return false;
+        });
     });
 </script>
 
@@ -1046,8 +1069,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeRisk");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1061,7 +1082,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, layers["risk"]);
+            Plotly.restyle(chart, Nupdate, layers["Risk"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1074,8 +1095,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyePopulation");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1089,7 +1108,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, layers["population"]);
+            Plotly.restyle(chart, Nupdate, layers["Population"]);
             otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1102,8 +1121,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeHousing");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1117,7 +1134,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, layers["housing"]);
+            Plotly.restyle(chart, Nupdate, layers["Housing"]);
             otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);
@@ -1130,8 +1147,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeTemp");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1158,8 +1173,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeHumidity");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1186,8 +1199,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeWndSpd");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1214,8 +1225,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyeWndDir");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1242,8 +1251,6 @@ this button currently can hide the form, but chart size wont get any bigger
         let img = document.getElementById("EyePerimeters");
 
         // plotly changes
-        let chart = document.getElementById("chart");
-
         var update = {
             visible: false
         }
@@ -1257,7 +1264,7 @@ this button currently can hide the form, but chart size wont get any bigger
             var Nupdate = {
                 visible: true
             }
-            Plotly.restyle(chart, Nupdate, layers["perimeters"]);
+            Plotly.restyle(chart, Nupdate, layers["Perimeters"]);
             otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
             for (let i = 0; i < otherImgs.length; i++) {
                 let img = document.getElementById(otherImgs[i]);

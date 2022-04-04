@@ -21,7 +21,7 @@ class HistoricWeather(Weather):
         @param start_date: The start date for weather queries
         @param end_date: The end date for weather queries
         """
-        token = open(".ncdc_token").read()
+        token = open("app/static/.ncdc_token").read()
         self.headers = {"token": token}
         start_date = start_date.strftime("%Y-%m-%d")
         self.start_date = start_date

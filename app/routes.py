@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import plotly.figure_factory as ff
 
 from app.modeling.farsite import burn
+from app.modeling.historic_weather import DailyWeather, WeatherNormals
 from app.modeling.economic_impacts import EconomicImpactCalculator
 
 token = open("app/static/.mapbox_token").read()
@@ -44,10 +45,10 @@ df = pd.read_pickle("app/data/risk_pop_housing.pickle")
 df["Risk"] /= df["Risk"].max()
 
 # add fake temperature, humidity, wind speed, wind direction data
-df["Temperature"] = 0 * df["Risk"] + 70
-df["Humidity"] = 0 * df["Risk"] + 20
+df["Temperature"] = 0 * df["Risk"] + 10
+df["Humidity"] = 0 * df["Risk"] + 50
 df["WindSpeed"] = 0 * df["Risk"] + 10
-df["WindDirection"] = 0 * df["Risk"] + 270
+df["WindDirection"] = 0 * df["Risk"]
 
 # load vector data
 perimeters = pd.read_pickle("app/data/perimeters.pickle")
@@ -63,8 +64,6 @@ def index():
         # https://community.plotly.com/t/adding-multiple-layers-in-mapbox/25408
         # https://plotly.com/python/custom-buttons/
         #
-        global df
-        global perimeters
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=8),
@@ -75,6 +74,15 @@ def index():
         # render raster data
         data = []
         raster_columns = ["Risk", "Population", "Housing", "Temperature", "Humidity", "WindSpeed", "WindDirection"]
+        units = {
+            "Risk": "probability of ignition",
+            "Population": "people per km<sup>2</sup>",
+            "Housing": "housing units per km<sup>2</sup>",
+            "Temperature": "°C",
+            "Humidity": "%",
+            "WindSpeed": "m/s",
+            "WindDirection": "° clockwise from N",
+        }
         for column in raster_columns:
             clims = {}
             # scatter plot
@@ -92,7 +100,7 @@ def index():
                                      ),
                                      **clims
                                  ),
-                                 hovertemplate=f"{column}: " + "%{marker.color}<br>" +
+                                 hovertemplate=f"{column}: " + "%{marker.color}" + f" {units[column]}<br>" +
                                                "Latitude: %{lat}<br>" +
                                                "Longitude: %{lon}<br>" +
                                                "<extra></extra>",
@@ -156,7 +164,7 @@ def index():
         form_data = request.form
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
-        df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]))
+        burned_df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]))
 
         global impactCalculator
         impactCalculator.process_fire(df)
@@ -164,7 +172,7 @@ def index():
         num_destroyed = impactCalculator.num_destroyed()
 
         # generate layout for Plotly
-        layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=12),
+        layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=burned_df["y"].mean(), lon=burned_df["x"].mean()), zoom=12),
                            height=1000, margin=dict(l=10, r=10, b=10, t=10))
         layout.update(mapbox_style="satellite-streets")
 
@@ -206,15 +214,36 @@ def index():
                                prevention_fact=random.choice(prevention_facts))
 
 
-@app.route("/background_historical", methods=["GET"])
-def background_historical(date="2022-01-01"):
-    # TODO: call Nathan's code here
+@app.route("/historical", methods=["GET"])
+def historical():
+    date = request.args["date"]
+    lat, lon = df.y.mean(), df.x.mean()
+    w = DailyWeather(date, lat, lon)
+    closest = w.getNearestStation()
+    weather = w.weather_by_station(closest)
+    # broadcast to keep shape of underlying array
     return jsonify({
-        "Temperature": list(0 * df["Temperature"].values),
-        "Humidity": list(0 * df["Humidity"].values),
-        "WindSpeed": list(0 * df["WindSpeed"].values),
-        "WindDirection": list(0 * df["WindDirection"].values)
+        "Temperature": list(0 * df["Temperature"].values + weather['value']['TMAX']/10 - 6.5*df["US_DEM"]/1000),  # degrees C accounting for lapse rate https://scied.ucar.edu/learning-zone/atmosphere/change-atmosphere-altitude
+        "Humidity": list(0 * df["Humidity"].values + 20*df["US_DEM"]/1000),  # RH tends to increase with height as air gets colder and cannot hold as much moisture http://davidburchnavigation.blogspot.com/2012/09/relative-humidity-and-dew-point-as.html
+        "WindSpeed": list(0 * df["WindSpeed"].values + weather['value']['WSF2']/10 * (1 + df["US_DEM"]/10)**0.3),  # m/s accounting for Hellman's relationship https://en.wikipedia.org/wiki/Wind_gradient#Wind_turbines
+        "WindDirection": list(0 * df["WindDirection"].values + weather['value']['WDF2'])  # polar degrees CW from N
     })
+
+
+@app.route("/climatological", methods=["GET"])
+def climatological():
+    month = request.args["month"]
+    lat, lon = df.y.mean(), df.x.mean()
+    w = WeatherNormals(month, lat, lon)
+    closest = w.getNearestStation()
+    weather = w.weather_by_station(closest)
+    return jsonify({
+        "Temperature": list(0 * df["Temperature"].values + weather["value"]["MLY-TMAX-NORMAL"]/10 - 6.5*df["US_DEM"]/1000),  # degrees C accounting for lapse rate https://scied.ucar.edu/learning-zone/atmosphere/change-atmosphere-altitude
+        "Humidity": list(0 * df["Humidity"].values + 20*df["US_DEM"]/1000),  # RH tends to increase with height as air gets colder and cannot hold as much moisture http://davidburchnavigation.blogspot.com/2012/09/relative-humidity-and-dew-point-as.html
+        "WindSpeed": list(0 * df["WindSpeed"].values + (1 + df["US_DEM"]/10)**0.3),  # m/s accounting for Hellman's relationship https://en.wikipedia.org/wiki/Wind_gradient#Wind_turbines
+        "WindDirection": list(270 * df["WindDirection"].values)  # prevailing wind
+    })
+
 
 @app.route("/about")
 def about():
