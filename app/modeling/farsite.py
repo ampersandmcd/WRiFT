@@ -10,6 +10,7 @@
 
 # weather processing module (thank you nathan)
 from app.modeling.current_weather import CurrentWeather
+from app.modeling.historic_weather import DailyWeather
 from app.modeling.rothermel import compute_surface_spread
 
 # Data containers and pre-processing
