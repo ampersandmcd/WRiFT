@@ -10,7 +10,7 @@
 ################################################
 
 # weather processing module (thank you nathan)
-from app.modeling.weather import CurrentWeather
+from app.modeling.current_weather import CurrentWeather
 from app.modeling.rothermel import compute_surface_spread
 from app.modeling.data_preparation import prepare_data, build_tanphi_arrays
 

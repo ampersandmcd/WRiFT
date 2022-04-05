@@ -9,7 +9,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import plotly.figure_factory as ff
 
-from app.modeling.farsite import burn
+from app.modeling.farsite_v2 import burn
 from app.modeling.historic_weather import DailyWeather, WeatherNormals
 from app.modeling.economic_impacts import EconomicImpactCalculator
 
@@ -164,10 +164,9 @@ def index():
         form_data = request.form
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
-        burned_df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]))
+        burned_df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]), mins=1000)
 
-        global impactCalculator
-        impactCalculator.process_fire(df)
+        impactCalculator.process_fire(burned_df)
         num_damaged = impactCalculator.num_damaged()
         num_destroyed = impactCalculator.num_destroyed()
 
