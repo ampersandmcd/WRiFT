@@ -695,7 +695,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <h5 class="center">Equity Factors</h5>
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Household Income</p>
+                                    <p>Median Household Income</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded">$</span><!--
@@ -705,19 +705,21 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Education Level</p>
+                                    <p>Bachelor's Degree or Higher</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="eduLevel"> {{impacts_data.get('education', "-")}} </span>
+                                    <span class="bolded">%</span>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Median Age</p>
+                                    <p>Age 65 and Older</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="medAge"> {{impacts_data.get('age', "-")}} </span>
+                                    <span class="bolded">%</span>
                                 </div>
                             </div>
 

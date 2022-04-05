@@ -117,9 +117,9 @@ def pre_burn(lat, lon, path_pickle='app/data/farsite.pickle'):
 
 
     # get weather information (converting wind speed in kt -> ft/min, degrees -> radians)
-    weather = CurrentWeather(20, lat, lon)
-    weather = weather.weather_by_station(weather.getNearestStation())
-    wind_speed, wind_dir = weather.loc['wind_speed_kt']*101.269, weather.loc['wind_dir_degrees']*(np.pi/180)
+    # weather = CurrentWeather(20, lat, lon)
+    # weather = weather.weather_by_station(weather.getNearestStation())
+    # wind_speed, wind_dir = weather.loc['wind_speed_kt']*101.269, weather.loc['wind_dir_degrees']*(np.pi/180)
     wind_speed, wind_dir = 5*101.269, 225*(np.pi/180)  # hardcode demo weather values
 
     # determine slope information

@@ -9,6 +9,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import math
 from geopy.geocoders import Nominatim
+import app.data.county_demographics as cdg
 
 from app.modeling.farsite_v2 import burn
 from app.modeling.historic_weather import DailyWeather, WeatherNormals
@@ -246,8 +247,9 @@ def climatological():
     w = WeatherNormals(month, lat, lon)
     closest = w.getNearestStation()
     weather = w.weather_by_station(closest)
+    temp = (weather["value"]["MLY-TMAX-NORMAL"]/10 - 32) * 5/9
     return jsonify({
-        "Temperature": list(0 * df["Temperature"].values + weather["value"]["MLY-TMAX-NORMAL"]/10 - 6.5*df["US_DEM"]/1000),  # degrees C accounting for lapse rate https://scied.ucar.edu/learning-zone/atmosphere/change-atmosphere-altitude
+        "Temperature": list(0 * df["Temperature"].values + temp - 6.5*df["US_DEM"]/1000),  # degrees C accounting for lapse rate https://scied.ucar.edu/learning-zone/atmosphere/change-atmosphere-altitude
         "Humidity": list(0 * df["Humidity"].values + 20*df["US_DEM"]/1000),  # RH tends to increase with height as air gets colder and cannot hold as much moisture http://davidburchnavigation.blogspot.com/2012/09/relative-humidity-and-dew-point-as.html
         "WindSpeed": list(0 * df["WindSpeed"].values + (1 + df["US_DEM"]/10)**0.3),  # m/s accounting for Hellman's relationship https://en.wikipedia.org/wiki/Wind_gradient#Wind_turbines
         "WindDirection": list(270 * df["WindDirection"].values)  # prevailing wind
@@ -336,10 +338,19 @@ def compute_impacts(burned_df, run, form_data, damaged, destroyed):
         impacts_data["cities"] = city
         impacts_data["counties"] = address.get('county', 'N/A')
         impacts_data["districts"] = "N/A"
-        impacts_data["income"] = "N/A"
-        impacts_data["education"] = "N/A"
-        impacts_data["age"] = "N/A"
-        impacts_data["nonwhite"] = address
+
+        demographics = list(filter(lambda x: x["County"] == impacts_data["counties"] and x["State"] == "CA", cdg.get_report()))
+        if len(demographics) > 0:
+            demographics = demographics[0]
+            impacts_data["income"] = demographics["Income"]["Median Houseold Income"]
+            impacts_data["education"] = demographics["Education"]["Bachelor's Degree or Higher"]
+            impacts_data["age"] = demographics["Age"]["Percent 65 and Older"]
+            impacts_data["nonwhite"] = 100 - demographics["Ethnicities"]["White Alone"]
+        else:
+            impacts_data["income"] = "N/A"
+            impacts_data["education"] = "N/A"
+            impacts_data["age"] = "N/A"
+            impacts_data["nonwhite"] = "N/A"
 
         # environment
         # acres : calculated by estimating each tile to be about .0003 degrees (1degree=69 miles)  so .02 miles
