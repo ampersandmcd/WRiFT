@@ -50,6 +50,18 @@ def compute_xinc(s, d):
 def compute_yinc(s, d):
     return int(np.rint(s * np.sin(d)))
 
+@jit(nopython=True, fastmath=True)
+def increment(cell, fire, dim, x_inc, y_inc):
+    working_dim = dim - 1
+    x, y = fire
+    new_x = x + x_inc
+    new_y = y + y_inc
+    new_i = int(cell[0] + new_y // working_dim)
+    new_j = int(cell[1] + new_x // working_dim)
+    new_x %= working_dim
+    new_y %= working_dim
+    return new_i, new_j, new_x, new_y
+
 @jitclass([('Wx', int32), ('Wy', int32), ('OPx', int32), ('OPy', int32), ('OMx', int32),
            ('OMy', int32), ('WR', float32), ('OR', float32), ('dim', uint16), ('t', uint16)])
 class FireCell:
@@ -61,7 +73,7 @@ class FireCell:
 
         WR = compute_surface_spread(INPUT[i,j,:], wind_speed) * .3048
         OR = compute_OR(WR)
-        dim = compute_grid_dimension(OR, 8)
+        dim = compute_grid_dimension(OR, 7)
         t = int(np.ceil(compute_grid_dimension(OR, np.inf)/dim))
         WR, OR = WR*(dim/30)*t, OR*(dim/30)*t
         Wx, Wy = compute_xinc(WR, wind_dir), compute_yinc(WR, wind_dir)
@@ -165,7 +177,6 @@ def handle_new_fire_point(new_frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_spee
 
             FIRES.add((new_i, new_j))
 
-
 def regrid(AFC, INPUT, wind_speed, wind_dir, new_i, new_j, new_x, new_y, cell):
     """
     regrids fires when they switch cells, updates AFC for cell if necessary
@@ -222,8 +233,7 @@ def burn(lat, lon, path_pickle='app/data/farsite.pickle', mins=1000):
     INPUT, FUEL, X, Y, i_start, j_start, wind_speed, wind_dir = pre_burn(lat, lon, path_pickle)
     FIRES = set([(i_start, j_start)])
 
-    if not burnable(FUEL[i_start, j_start]):
-        return build_result(FIRES, X, Y)
+    if not burnable(FUEL[i_start, j_start]): return build_result(FIRES, X, Y)
 
     # # #
     # Fires are 1x2 arrays of integers, where:
@@ -247,60 +257,28 @@ def burn(lat, lon, path_pickle='app/data/farsite.pickle', mins=1000):
     initial_fire = (int(np.floor(AFC[(i_start, j_start)].dim / 2)), int(np.floor(AFC[(i_start, j_start)].dim / 2)))
 
     PIFC[(i_start, j_start)] = set([initial_fire])
-    frontier = dict([((i_start, j_start), set([initial_fire]))])  # Fires which will be iterated on this iteration
-
+    frontier = dict([((i_start, j_start), set([initial_fire]))])
     for t in range(mins):
 
         if not frontier:
             break
 
-        new_frontier = {}
-
-        for cell in frontier:
+        for cell in list(frontier.keys()):
 
             if not t%AFC[cell].t:
 
                 inputs = INPUT[cell[0], cell[1]]
                 cell_info = AFC[cell]
 
-                for fire in frontier[cell]:
+                for fire in frontier.pop(cell):
+                    new_i, new_j, new_x, new_y = increment(cell, fire, cell_info.dim, cell_info.Wx, cell_info.Wy)
+                    new_OPi, new_OPj, new_OPx, new_OPy = increment(cell, fire, cell_info.dim, cell_info.OPx, cell_info.OPy)
+                    new_OMi, new_OMj, new_OMx, new_OMy = increment(cell, fire, cell_info.dim, cell_info.OMx, cell_info.OMy)
+                    handle_new_fire_point(frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_i, new_j, new_x, new_y)
+                    handle_new_fire_point(frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_OPi, new_OPj, new_OPx, new_OPy)
+                    handle_new_fire_point(frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_OMi, new_OMj, new_OMx, new_OMy)
 
-                    wd = cell_info.dim - 1
-                    curx, cury = fire
-
-                    # Spread in direction of wind
-                    new_x = curx + cell_info.Wx
-                    new_y = cury + cell_info.Wy
-                    new_i = int(cell[0] + new_y // (wd))
-                    new_j = int(cell[1] + new_x // (wd))
-                    new_x %= wd
-                    new_y %= wd
-
-                    # Spread in direction wind + pi/2
-                    new_OPx = curx + cell_info.OPx
-                    new_OPy = cury + cell_info.OPy
-                    new_OPi = int(cell[0] + new_OPy // (wd))
-                    new_OPj = int(cell[1] + new_OPx // (wd))
-                    new_OPx %= wd
-                    new_OPy %= wd
-
-                    # Spread in direction wind - pi/2
-                    new_OMx = curx + cell_info.OMx
-                    new_OMy = cury + cell_info.OMy
-                    new_OMi = int(cell[0] + new_OMy // (wd))
-                    new_OMj = int(cell[1] + new_OMx // (wd))
-                    new_OMx %= wd
-                    new_OMy %= wd
-
-                    handle_new_fire_point(new_frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_i, new_j, new_x, new_y)
-                    handle_new_fire_point(new_frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_OPi, new_OPj, new_OPx, new_OPy)
-                    handle_new_fire_point(new_frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_speed, wind_dir, cell, new_OMi, new_OMj, new_OMx, new_OMy)
-
-            else:
-                new_frontier[cell] = frontier[cell]
-
-        if not t % 200: PIFC = {cell: PIFC[cell] for cell in PIFC if cell in new_frontier}
-
-        frontier = new_frontier
+        if not t % 200: PIFC = {cell: PIFC[cell] for cell in PIFC if cell in frontier}
 
     return build_result(FIRES, X, Y)
+
