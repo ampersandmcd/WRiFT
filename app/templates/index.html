@@ -644,7 +644,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Cities</p>
+                                    <p>City, or road if unavailable</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="cityAffected">{{impacts_data.get('cities', "-")}}</span>
@@ -653,7 +653,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Counties</p>
+                                    <p>County</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="countyAffected">{{impacts_data.get('counties', "-")}}</span>
@@ -729,20 +729,10 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>Smoke Footprint</p>
+                                    <p>Smoke travel distance</p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="smokeFootprint"> {{impacts_data.get('smoke', 0)}} </span>
-                                    <span class="bolded"> mi<sup>2</sup></span>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Watershed Footprint</p>
-                                </div>
-                                <div class="col-md-4" align="left">
-                                    <span class="bolded" id="watershedFootprint"> {{impacts_data.get('watershed', 0)}} </span>
                                     <span class="bolded"> mi</span>
                                 </div>
                             </div>
@@ -759,10 +749,20 @@ this button currently can hide the form, but chart size wont get any bigger
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
-                                    <p>PM 2.5 Emissions</p>
+                                    <p>Outdoor PM 2.5 Emissions</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="PMemissions"> {{impacts_data.get('PM', 0)}} </span>
+                                    <span class="bolded" id="OutPMemissions"> {{impacts_data.get('OutPM', 0)}} </span>
+                                    <span class="bolded"> ug/m<sup>3</sup></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="right">
+                                    <p>Indoor PM 2.5 Emissions</p>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="InPMemissions"> {{impacts_data.get('InPM', 0)}} </span>
                                     <span class="bolded"> ug/m<sup>3</sup></span>
                                 </div>
                             </div>

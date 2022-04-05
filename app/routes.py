@@ -72,6 +72,10 @@ def index():
         layout.update(mapbox_style="satellite-streets",
                       coloraxis_colorbar={"yanchor": "top", "y":1, "x":0, "ticks":"outside"})
 
+
+        impacts_data = {}
+
+        # load data
         # render raster data
         data = []
         raster_columns = ["Risk", "Population", "Housing", "Temperature", "Humidity", "WindSpeed", "WindDirection"]
@@ -174,7 +178,7 @@ def index():
         num_destroyed = impactCalculator.num_destroyed()
 
         # TO DO @BEN
-        impacts_data = compute_impacts(burned_df, 1)
+        impacts_data = compute_impacts(burned_df, 1, form_data, num_damaged, num_destroyed)
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=burned_df["y"].mean(), lon=burned_df["x"].mean()), zoom=12),
@@ -285,7 +289,7 @@ def prototyping():
         return render_template("prototyping.html", form_data=form_data)
 
 
-def compute_impacts(burned_df, run, burned_structures, destroyed_structures):
+def compute_impacts(df, run, form_data, damaged, destroyed):
     geolocator = Nominatim(user_agent="geoapiExercises")
     impacts_data = {}
     # Key names
@@ -298,10 +302,10 @@ def compute_impacts(burned_df, run, burned_structures, destroyed_structures):
         # ICU_bed
         # nurses
         # doctors
-        impacts_data["injury"] = len(burned_df) * 100
+        impacts_data["injury"] = math.ceil(len(burned_df) * .005 + destroyed * .30 + damaged * .15)
         impacts_data["death"] = math.floor(impacts_data["injury"] / 60)
-        impacts_data["hospital_bed"] = math.floor(impacts_data["injury"] * .55);
-        impacts_data["ICU_bed"] = math.ceil(impacts_data["injury"]*.15);
+        impacts_data["hospital_bed"] = math.ceil(impacts_data["injury"] * .55);
+        impacts_data["ICU_bed"] = math.floor(impacts_data["injury"]*.15);
         impacts_data["nurses"] = math.ceil(impacts_data["hospital_bed"]/5);
         impacts_data["doctors"] = math.ceil(impacts_data["hospital_bed"]/12);
 
@@ -323,25 +327,48 @@ def compute_impacts(burned_df, run, burned_structures, destroyed_structures):
         city = address.get('city', 'N/A')
         if city == "N/A":
             city = address.get('town', 'N/A')
+        if city == "N/A":
+            city = address.get('hamlet', 'N/A')
+        if city == "N/A":
+            city = address.get('village', 'N/A')
+        if city == "N/A":
+            city = address.get('road', 'N/A')
+
         impacts_data["cities"] = city
         impacts_data["counties"] = address.get('county', 'N/A')
         impacts_data["districts"] = "N/A"
         impacts_data["income"] = "N/A"
         impacts_data["education"] = "N/A"
         impacts_data["age"] = "N/A"
-        impacts_data["nonwhite"] = "N/A"
+        impacts_data["nonwhite"] = address
 
         # environment
-        # acres
+        # acres : calculated by estimating each tile to be about .0003 degrees (1degree=69 miles)  so .02 miles
+        # based upon tests, the boxes test to be around 1 per 2.35 acres. Lnegth is . Need to calculate area though instead of number of points
         # smoke
-        # watershed
         # CO2
         # PM
-        impacts_data["acres"] = len(burned_df) * 10
-        impacts_data["smoke"] = "N/A"
-        impacts_data["watershed"] = "N/A"
-        impacts_data["CO2"] = impacts_data["acres"] * 26
-        impacts_data["PM"] = "N/A"
+        # https://learn.kaiterra.com/en/air-academy/california-wildfires-2020-wildfire-pm2.5
+        # https://www.pnas.org/doi/10.1073/pnas.2106478118
+        # https://fire.airnow.gov/#
+        #https://www.space.com/wildfire-smoke-satellite-images-us-canada
+
+        temp = 1 + float(form_data["tempSlider"]) / 100
+        humidity = 1 + float(form_data["humiditySlider"]) / 100
+        windSpeed = 1 + float(form_data["wndSpdSlider"]) / 100
+        outpm = 50 * temp * humidity
+        inpm = 10 * temp * humidity
+        acres = round(len(df) * .48, 2)
+        if acres < 5000:
+            wildfireSmoke = acres * .05 * windSpeed + .5
+        else:
+            wildfireSmoke = acres * .003 * windSpeed + 250
+
+        impacts_data["acres"] = acres
+        impacts_data["smoke"] = round(wildfireSmoke, 2)
+        impacts_data["CO2"] = round(impacts_data["acres"] * 26, 2)
+        impacts_data["OutPM"] = round(outpm, 2)
+        impacts_data["InPM"] = round(inpm, 2)
 
     # do your calculations @ben
     return impacts_data
