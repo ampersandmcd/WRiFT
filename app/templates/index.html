@@ -582,7 +582,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Injuries</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="injuriesTot"> 0 </span>
+                                    <span class="bolded" id="injuriesTot"> {{impacts_data.get('injury', 0)}} </span>
                                 </div>
                             </div>
 
@@ -591,7 +591,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Deaths</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="deathsTot"> 0 </span>
+                                    <span class="bolded" id="deathsTot"> {{impacts_data.get('death', 0)}} </span>
                                 </div>
                             </div>
 
@@ -603,7 +603,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Hospital Beds Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="hospBedsTot"> 0 </span>
+                                    <span class="bolded" id="hospBedsTot"> {{impacts_data.get('hospital_bed', 0)}} </span>
                                 </div>
                             </div>
 
@@ -612,7 +612,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>ICU Beds Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="ICUBedsTot">0</span>
+                                    <span class="bolded" id="ICUBedsTot">{{impacts_data.get('ICU_bed', 0)}}</span>
                                 </div>
                             </div>
 
@@ -621,7 +621,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Nurses Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="nursesTot">0</span>
+                                    <span class="bolded" id="nursesTot">{{impacts_data.get('nurses', 0)}}</span>
                                 </div>
                             </div>
 
@@ -630,7 +630,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Doctors Needed</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="doctorsTot">0</span>
+                                    <span class="bolded" id="doctorsTot">{{impacts_data.get('doctors', 0)}}</span>
                                 </div>
                             </div>
 
@@ -647,7 +647,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Cities</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="cityAffected">N/A</span>
+                                    <span class="bolded" id="cityAffected">{{impacts_data.get('cities', "-")}}</span>
                                 </div>
                             </div>
 
@@ -656,7 +656,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Counties</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="countyAffected">N/A</span>
+                                    <span class="bolded" id="countyAffected">{{impacts_data.get('counties', "-")}}</span>
                                 </div>
                             </div>
 
@@ -665,7 +665,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Congressional Districts</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="districtAffected">N/A</span>
+                                    <span class="bolded" id="districtAffected">{{impacts_data.get('districts', "-")}}</span>
                                 </div>
                             </div>
 
@@ -677,8 +677,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded">$</span><!--
-                                    --><span class="bolded" id="houseIncome">0</span><!--
-                                    --><span class="bolded">k</span>
+                                    --><span class="bolded" id="houseIncome">{{impacts_data.get('income', "-")}}</span>
                                 </div>
                             </div>
 
@@ -687,7 +686,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Education Level</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="eduLevel"> N/A </span>
+                                    <span class="bolded" id="eduLevel"> {{impacts_data.get('education', "-")}} </span>
                                 </div>
                             </div>
 
@@ -696,7 +695,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Median Age</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="medAge"> N/A </span>
+                                    <span class="bolded" id="medAge"> {{impacts_data.get('age', "-")}} </span>
                                 </div>
                             </div>
 
@@ -705,7 +704,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Percent Nonwhite</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="percentNonWhite"> 0 </span><!--
+                                    <span class="bolded" id="percentNonWhite"> {{impacts_data.get('nonwhite', "-")}} </span><!--
                                     --><span class="bolded">%</span>
                                 </div>
                             </div>
@@ -723,7 +722,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Acres Burned</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="acresBurned"> 0 </span>
+                                    <span class="bolded" id="acresBurned"> {{impacts_data.get('acres', 0)}} </span>
                                     <span class="bolded"> ac</span>
                                 </div>
                             </div>
@@ -733,7 +732,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Smoke Footprint</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="smokeFootprint"> 0 </span>
+                                    <span class="bolded" id="smokeFootprint"> {{impacts_data.get('smoke', 0)}} </span>
                                     <span class="bolded"> mi<sup>2</sup></span>
                                 </div>
                             </div>
@@ -743,7 +742,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>Watershed Footprint</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="watershedFootprint"> 0 </span>
+                                    <span class="bolded" id="watershedFootprint"> {{impacts_data.get('watershed', 0)}} </span>
                                     <span class="bolded"> mi</span>
                                 </div>
                             </div>
@@ -753,8 +752,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>CO2e Emissions</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="CO2emissions"> 0 </span>
-                                    <span class="bolded"> mmt</span>
+                                    <span class="bolded" id="C02emissions"> {{impacts_data.get('CO2', 0)}} </span>
+                                    <span class="bolded"> mt</span>
                                 </div>
                             </div>
 
@@ -763,7 +762,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <p>PM 2.5 Emissions</p>
                                 </div>
                                 <div class="col-md-4" align="left">
-                                    <span class="bolded" id="PMemissions"> 0 </span>
+                                    <span class="bolded" id="PMemissions"> {{impacts_data.get('PM', 0)}} </span>
                                     <span class="bolded"> ug/m<sup>3</sup></span>
                                 </div>
                             </div>
