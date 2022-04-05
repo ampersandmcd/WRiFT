@@ -157,8 +157,7 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        impacts_data = compute_impacts(None, 0)
-
+        impacts_data = {}
         return render_template("index.html", graph_json=graph_json, impacts=False, impacts_data=impacts_data,
                                num_damaged=0, num_destroyed=0,
                                fun_fact=random.choice(fun_facts),
@@ -289,7 +288,7 @@ def prototyping():
         return render_template("prototyping.html", form_data=form_data)
 
 
-def compute_impacts(df, run, form_data, damaged, destroyed):
+def compute_impacts(burned_df, run, form_data, damaged, destroyed):
     geolocator = Nominatim(user_agent="geoapiExercises")
     impacts_data = {}
     # Key names
@@ -304,10 +303,10 @@ def compute_impacts(df, run, form_data, damaged, destroyed):
         # doctors
         impacts_data["injury"] = math.ceil(len(burned_df) * .005 + destroyed * .30 + damaged * .15)
         impacts_data["death"] = math.floor(impacts_data["injury"] / 60)
-        impacts_data["hospital_bed"] = math.ceil(impacts_data["injury"] * .55);
-        impacts_data["ICU_bed"] = math.floor(impacts_data["injury"]*.15);
-        impacts_data["nurses"] = math.ceil(impacts_data["hospital_bed"]/5);
-        impacts_data["doctors"] = math.ceil(impacts_data["hospital_bed"]/12);
+        impacts_data["hospital_bed"] = math.ceil(impacts_data["injury"] * .55)
+        impacts_data["ICU_bed"] = math.floor(impacts_data["injury"]*.15)
+        impacts_data["nurses"] = math.ceil(impacts_data["hospital_bed"]/5)
+        impacts_data["doctors"] = math.ceil(impacts_data["hospital_bed"]/12)
 
         # demographic
         # cities
@@ -358,7 +357,7 @@ def compute_impacts(df, run, form_data, damaged, destroyed):
         windSpeed = 1 + float(form_data["wndSpdSlider"]) / 100
         outpm = 50 * temp * humidity
         inpm = 10 * temp * humidity
-        acres = round(len(df) * .48, 2)
+        acres = round(len(burned_df) * .48, 2)
         if acres < 5000:
             wildfireSmoke = acres * .05 * windSpeed + .5
         else:
