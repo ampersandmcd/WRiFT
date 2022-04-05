@@ -38,17 +38,21 @@ burnable = lambda x : x not in NB
 def compute_OR(x):
     return x*(2**.5)/5
 
+
 @jit(nopython=True, fastmath=True)
 def compute_grid_dimension(x, m):
     return min(m, max(2, int(np.ceil(30/x))))
+
 
 @jit(nopython=True, fastmath=True)
 def compute_xinc(s, d):
     return int(np.rint(s * np.cos(d)))
 
+
 @jit(nopython=True, fastmath=True)
 def compute_yinc(s, d):
     return int(np.rint(s * np.sin(d)))
+
 
 @jit(nopython=True, fastmath=True)
 def increment(cell, fire, dim, x_inc, y_inc):
@@ -61,6 +65,7 @@ def increment(cell, fire, dim, x_inc, y_inc):
     new_x %= working_dim
     new_y %= working_dim
     return new_i, new_j, new_x, new_y
+
 
 @jitclass([('Wx', int32), ('Wy', int32), ('OPx', int32), ('OPy', int32), ('OMx', int32),
            ('OMy', int32), ('WR', float32), ('OR', float32), ('dim', uint16), ('t', uint16)])
@@ -91,6 +96,7 @@ class FireCell:
         self.dim = dim # grid resolution
         self.t = t     # number of time steps to skip between updates (min)
 
+
 def pre_burn(lat, lon, path_pickle='app/data/farsite.pickle'):
     """
     Processes the FARSITE data pickle created by `app.modeling.data_preparation.prepare_data`
@@ -114,6 +120,7 @@ def pre_burn(lat, lon, path_pickle='app/data/farsite.pickle'):
     weather = CurrentWeather(20, lat, lon)
     weather = weather.weather_by_station(weather.getNearestStation())
     wind_speed, wind_dir = weather.loc['wind_speed_kt']*101.269, weather.loc['wind_dir_degrees']*(np.pi/180)
+    wind_speed, wind_dir = 5*101.269, 225*(np.pi/180)  # hardcode demo weather values
 
     # determine slope information
 
@@ -177,6 +184,7 @@ def handle_new_fire_point(new_frontier, FIRES, AFC, PIFC, INPUT, FUEL, wind_spee
 
             FIRES.add((new_i, new_j))
 
+
 def regrid(AFC, INPUT, wind_speed, wind_dir, new_i, new_j, new_x, new_y, cell):
     """
     regrids fires when they switch cells, updates AFC for cell if necessary
@@ -204,6 +212,7 @@ def regrid(AFC, INPUT, wind_speed, wind_dir, new_i, new_j, new_x, new_y, cell):
     new_y = int(np.floor((new_y / (grid_dimension - 1)) * new_grid_dimension))
 
     return new_x, new_y
+
 
 def build_result(FIRES, X, Y):
     """
@@ -265,7 +274,7 @@ def burn(lat, lon, path_pickle='app/data/farsite.pickle', mins=1000):
 
         for cell in list(frontier.keys()):
 
-            if not t%AFC[cell].t:
+            if not t % AFC[cell].t:
 
                 inputs = INPUT[cell[0], cell[1]]
                 cell_info = AFC[cell]

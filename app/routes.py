@@ -170,7 +170,7 @@ def index():
         form_data = request.form
         # df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]),
         #           path_farsite="application/static/farsite.nc", path_fueldict="application/static/FUEL_DIC.csv", mins=500)
-        burned_df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]), mins=1000)
+        burned_df = burn(lat=float(form_data["lat"]), lon=float(form_data["lon"]), mins=int(form_data["duration"]))
 
         impactCalculator.process_fire(burned_df)
         num_damaged = impactCalculator.num_damaged()
@@ -357,7 +357,7 @@ def compute_impacts(burned_df, run, form_data, damaged, destroyed):
         windSpeed = 1 + float(form_data["wndSpdSlider"]) / 100
         outpm = 50 * temp * humidity
         inpm = 10 * temp * humidity
-        acres = round(len(burned_df) * .08, 2)
+        acres = round(len(burned_df) * .22, 2)  # each cell is 900m^2, multiply it by 0.22 for ac
         if acres < 5000:
             wildfireSmoke = acres * .05 * windSpeed + .5
         else:
