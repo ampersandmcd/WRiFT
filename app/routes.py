@@ -153,7 +153,7 @@ def index():
         fig = go.Figure(data=data, layout=layout)
         graph_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-        impacts_data = compute_impacts(df, 0)
+        impacts_data = compute_impacts(None, 0)
 
         return render_template("index.html", graph_json=graph_json, impacts=False, impacts_data=impacts_data,
                                num_damaged=0, num_destroyed=0,
@@ -174,7 +174,7 @@ def index():
         num_destroyed = impactCalculator.num_destroyed()
 
         # TO DO @BEN
-        impacts_data = compute_impacts(df, 1)
+        impacts_data = compute_impacts(burned_df, 1)
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=burned_df["y"].mean(), lon=burned_df["x"].mean()), zoom=12),
@@ -285,7 +285,7 @@ def prototyping():
         return render_template("prototyping.html", form_data=form_data)
 
 
-def compute_impacts(df, run):
+def compute_impacts(burned_df, run, burned_structures, destroyed_structures):
     geolocator = Nominatim(user_agent="geoapiExercises")
     impacts_data = {}
     # Key names
@@ -298,7 +298,7 @@ def compute_impacts(df, run):
         # ICU_bed
         # nurses
         # doctors
-        impacts_data["injury"] = len(df) * 100
+        impacts_data["injury"] = len(burned_df) * 100
         impacts_data["death"] = math.floor(impacts_data["injury"] / 60)
         impacts_data["hospital_bed"] = math.floor(impacts_data["injury"] * .55);
         impacts_data["ICU_bed"] = math.ceil(impacts_data["injury"]*.15);
@@ -316,8 +316,8 @@ def compute_impacts(df, run):
         #Latitude = "37.33145"
         #Longitude = "-121.8877"
         # geolocator.geocode(str(Latitude)+","+str(Longitude))
-        Latitude = df.y[0]
-        Longitude = df.x[0]
+        Latitude = burned_df.y[0]
+        Longitude = burned_df.x[0]
         location = geolocator.reverse(str(Latitude) + "," + str(Longitude))
         address = location.raw['address']
         city = address.get('city', 'N/A')
@@ -337,7 +337,7 @@ def compute_impacts(df, run):
         # watershed
         # CO2
         # PM
-        impacts_data["acres"] = len(df) * 10
+        impacts_data["acres"] = len(burned_df) * 10
         impacts_data["smoke"] = "N/A"
         impacts_data["watershed"] = "N/A"
         impacts_data["CO2"] = impacts_data["acres"] * 26
