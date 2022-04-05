@@ -357,7 +357,7 @@ def compute_impacts(burned_df, run, form_data, damaged, destroyed):
         windSpeed = 1 + float(form_data["wndSpdSlider"]) / 100
         outpm = 50 * temp * humidity
         inpm = 10 * temp * humidity
-        acres = round(len(burned_df) * .48, 2)
+        acres = round(len(burned_df) * .08, 2)
         if acres < 5000:
             wildfireSmoke = acres * .05 * windSpeed + .5
         else:
