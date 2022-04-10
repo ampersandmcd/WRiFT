@@ -76,6 +76,72 @@ this button currently can hide the form, but chart size wont get any bigger
                 <div class="card-body">
 
                     <div class="col-sm-12">
+                        <!-- Preset situations -->
+                        <div class="row">
+                            <div class="col-sm-12" align="center">
+                                <h5>Step 0: Preset Scenarios</h5>
+                                <p align="left">
+                                    Choose between several preset scenarios if you are unsure of where to start! Then hit the run button at the bottom!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2" id="presetTop">
+                                <button class='btn btn-primary' onclick="scenario1();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Homeowner Scenario
+                                            <span class="tooltiptextForm right">This scenario simulates a fire starting in the Los Gatos area.
+                                            The scenario allows you to see a fire from a homeowners view. Be sure to think about possible
+                                            evacuations, community awareness, and the economic as well as health impacts</span>
+                                        </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario2();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">City Manager
+                                            <span class="tooltiptextForm left">This scenario simulates a fire starting in the Morgan Hill area from a new barbeque area.
+                                            The scenario allows you to see a fire from a city planner's view. Be sure to think about
+                                            the economic as well as health impacts</span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario3();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Climate Activist
+                                            <span class="tooltiptextForm right">This scenario simulates a fire starting in the Summit West forest area.
+                                            The scenario allows you to see a fire from an activist's view. Be sure to think about
+                                                the demographic as well as environmental impacts</span>
+                                        </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario4();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Climate Activist with Climate Change
+                                            <span class="tooltiptextForm left">This scenario simulates a fire starting in the Summit West forest area, under climate change.
+                                            The scenario allows you to see a fire from an activist's view. Be sure to think about
+                                                the demographic as well as environmental impacts</span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+
+
+
+
                         <!-- Risk Visualization -->
                         <div class="row">
                             <div class="col-sm-12" align="center">
@@ -464,6 +530,10 @@ this button currently can hide the form, but chart size wont get any bigger
 
                 <!-- End of inputs card body section -->
             </div>
+
+
+
+
 
             <!-- IMPACTS PAGE -->
             <div id="Impacts" class="Impacts">
@@ -1331,6 +1401,81 @@ this button currently can hide the form, but chart size wont get any bigger
 
 </script>
 
+
+<!-- Fills in the scenarios -->
+<script>
+    <!-- Homeowner -->
+    function scenario1() {
+        document.getElementById('lat').value=37.219130837744444;
+        document.getElementById('lon').value=-121.99535666605864;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- City manager -->
+    function scenario2() {
+        document.getElementById('lat').value=37.116167969400465;
+        document.getElementById('lon').value=-121.64902701799252;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=200;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- Climate activist -->
+    function scenario3() {
+        document.getElementById('lat').value=37.120848099779735;
+        document.getElementById('lon').value=-122.00939705719645;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- Climate activist w climate change -->
+    function scenario4() {
+        document.getElementById('lat').value=37.111487839021194;
+        document.getElementById('lon').value=-122.018757317955;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=22;
+        document.getElementById('tempVal').innerText="22";
+        document.getElementById('humiditySlider').value=17;
+        document.getElementById('humidVal').innerText="17";
+        document.getElementById('wndSpdSlider').value=20;
+        document.getElementById('wndSpdVal').innerText="20";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+</script>
 
 {% endblock %}
 
