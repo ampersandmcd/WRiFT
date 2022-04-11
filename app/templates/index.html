@@ -19,6 +19,7 @@
 <!-- Working on adding button that will hide the form and the22n expand the chart
 this button currently can hide the form, but chart size wont get any bigger
 <input id="HideForm" type="button" value="Hide Form" class="show" onclick="formVisible();"/>
+<div id="chart" class="chart col-md-7"></div>
 -->
 <div id="page" class="page row">
 
@@ -561,7 +562,7 @@ this button currently can hide the form, but chart size wont get any bigger
                         {% set evac = num_damaged * 100 + num_destroyed * 3 %}
                         {% set evaccost = evac*0.001 %}
                         {% set totcost = destrcost + damagecost + ffightercost + businesscost + evaccost %}
-                        <h5 class="center">Direct Loss</h5>
+                        <h5 class="center"><b>Direct Loss</b></h5>
                         <div class="col-md-12">
 
                             <div class="row">
@@ -612,7 +613,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <br>
-                            <h5 class="center"> Indirect Loss</h5>
+                            <h5 class="center"> <b>Indirect Loss </b></h5>
 
                             <div class="row">
                                 <div class="col-md-6" align="right">
@@ -648,7 +649,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <br>
-                            <h5 class="center"> Total Loss</h5>
+                            <h5 class="center"> <b>Total Loss</b></h5>
 
                             <div class="row">
                                 <div class="col-md-6" align="right">
@@ -666,7 +667,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
                     <!-- Health Page-->
                     <div id="Health" class="Health">
-                        <h5 class="center">Losses</h5>
+                        <h5 class="center"><b>Losses </b></h5>
                         <div class="col-md-12">
 
                             <div class="row">
@@ -688,7 +689,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <br>
-                            <h5 class="center">Resources Needed</h5>
+                            <h5 class="center"><b>Resources Needed</b></h5>
 
                             <div class="row">
                                 <div class="col-md-7" align="right">
@@ -731,7 +732,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
                     <!-- Demographic Page-->
                     <div id="Demographic" class="Demographic">
-                        <h5 class="center">Communities Affected</h5>
+                        <h5 class="center"><b>Communities Affected</b></h5>
                         <div class="col-md-12">
 
                             <div class="row">
@@ -762,7 +763,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <br>
-                            <h5 class="center">Equity Factors</h5>
+                            <h5 class="center"><b>Equity Factors</b></h5>
                             <div class="row">
                                 <div class="col-md-7" align="right">
                                     <p>Median Household Income</p>
@@ -808,7 +809,7 @@ this button currently can hide the form, but chart size wont get any bigger
 
                     <!-- Environment Page-->
                     <div id="Environment" class="Environment">
-                        <h5 class="center">Consequences</h5>
+                        <h5 class="center"><b>Consequences</b></h5>
                         <div class="col-md-12">
 
                             <div class="row">

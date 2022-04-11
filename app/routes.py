@@ -69,7 +69,7 @@ def index():
 
         # generate layout for Plotly
         layout = go.Layout(mapbox=dict(accesstoken=token, center=dict(lat=df["y"].mean(), lon=df["x"].mean()), zoom=8),
-                           height=1000, margin=dict(l=10, r=10, b=10, t=10))
+                           height=1450, margin=dict(l=10, r=10, b=10, t=10))
         layout.update(mapbox_style="satellite-streets",
                       coloraxis_colorbar={"yanchor": "top", "y":1, "x":0, "ticks":"outside"})
 
