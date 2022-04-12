@@ -671,8 +671,13 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="col-md-12">
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Injuries</p>
+                                <div class="col-md-7 tooltipForm" align="right">
+                                    <p>
+                                    Injuries
+                                        <span class="tooltiptextForm right">
+                                            Injuries are calculated using different aspects of the simulation, including structures damaged,
+                                        the percent 65 or older, and size of the fire.</span>
+                                    </p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="injuriesTot"> {{impacts_data.get('injury', 0)}} </span>
@@ -833,8 +838,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>CO2e Emissions</p>
+                                <div class="col-md-7 tooltipForm" align="right">
+                                    <p>
+                                    CO2e Emissions
+                                        <span class="tooltiptextForm right">
+                                            In a year, a passenger car typically emits 4.6 metric tons</span>
+                                    </p>
+                                    <!-- https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle#:~:text=typical%20passenger%20vehicle%3F-,A%20typical%20passenger%20vehicle%20emits%20about%204.6%20metric%20tons%20of,8%2C887%20grams%20of%20CO2. -->
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="C02emissions"> {{impacts_data.get('CO2', 0)}} </span>
@@ -843,8 +853,15 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Outdoor PM 2.5 Emissions</p>
+                                <div class="col-md-7 tooltipForm" align="right">
+                                    <p>
+                                    Outdoor PM 2.5 Emissions
+                                        <span class="tooltiptextForm right">
+                                            Levels can reach up to 250 ug/m3 during wildfire season, becoming very unhealthy for
+                                        everyone and outdoor activity should be avoided. Sensitive groups will start to
+                                        face problems at 55 ug/m3</span>
+                                        <!-- https://molekule.science/what-is-pm-2-5-and-how-can-you-reduce-your-exposure/ -->
+                                    </p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="OutPMemissions"> {{impacts_data.get('OutPM', 0)}} </span>
@@ -853,8 +870,12 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Indoor PM 2.5 Emissions</p>
+                                <div class="col-md-7 tooltipForm" align="right">
+                                    <p>
+                                    Indoor PM 2.5 Emissions
+                                        <span class="tooltiptextForm right">
+                                            Under 12 ug/m3 levels are considered healthy and safe</span>
+                                    </p>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="InPMemissions"> {{impacts_data.get('InPM', 0)}} </span>
