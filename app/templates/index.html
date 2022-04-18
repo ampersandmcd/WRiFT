@@ -6,7 +6,6 @@
 
 
 <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet"/>
-
 <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
 
 <h1>Home</h1>
@@ -82,7 +81,7 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="col-sm-12" align="center">
                                 <h5>Step 0: Preset Scenarios</h5>
                                 <p align="left">
-                                    Choose between several preset scenarios if you are unsure of where to start! Then hit the run button at the bottom!
+                                    Unsure where to begin? Select a preset scenario below.
                                 </p>
                             </div>
                         </div>
@@ -160,7 +159,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="col-sm-4" align="left">
                                 <span>
                                     <div class="tooltipForm">Wildfire Risk
-                                            <span class="tooltiptextForm right">Probability of wildfire ignition from 0-1 according to data from the U.S. Forest Service.</span>
+                                            <span class="tooltiptextForm right">
+                                                Wildfire Hazard Potential, an index that quantifies the relative potential
+                                                for wildfire that may be difficult to control, used as a measure to help
+                                                prioritize where fuel treatments may be needed.
+                                                Data curated by the U.S. Forest Service, available <a target="_blank"
+                                                    href="https://www.arcgis.com/home/item.html?id=9274dfe5318540d7a09f0117c0be0730">here</a>.
+                                            </span>
                                         </div>
                                 </span>
                             </div>
@@ -171,7 +176,11 @@ this button currently can hide the form, but chart size wont get any bigger
                             <div class="col-sm-4" align="left">
                                 <span>
                                     <div class="tooltipForm">Historical Wildfires
-                                            <span class="tooltiptextForm left">Historical wildfire footprints from 1950-2020 courtesy of CalFire.</span>
+                                            <span class="tooltiptextForm left">
+                                                Footprints of past wildfires occurring between 1950-2020.
+                                                Data curated by CalFire, available <a target="_blank"
+                                                    href="https://frap.fire.ca.gov/frap-projects/fire-perimeters/">here</a>.
+                                            </span>
                                         </div>
                                 </span>
                             </div>
@@ -188,8 +197,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                                 Population density measured in people per square kilometer,
                                                 derived from 2018 population estimates provided by the U.S.
                                                 Census Bureau. Data curated by the U.S. Forest Service,
-                                                available <a
-                                                    href="https://www.arcgis.com/home/item.html?id=2770d391dd894782b567a6becc4b32fd">here</a>.</span>
+                                                available <a target="_blank"
+                                                    href="https://www.arcgis.com/home/item.html?id=2770d391dd894782b567a6becc4b32fd">here</a>.
+                                            </span>
                                     </div>
                                 </span>
                             </div>
@@ -204,8 +214,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                                 Housing density measured in units per square kilometer,
                                                 derived from 2018 housing unit estimates provided by the U.S.
                                                 Census Bureau. Data curated by the U.S. Forest Service,
-                                                available <a
-                                                    href=https://www.arcgis.com/home/item.html?id=6f49e46d5a2743c8bef156f1d7157121>here</a>.</span>
+                                                available <a target="_blank"
+                                                    href=https://www.arcgis.com/home/item.html?id=6f49e46d5a2743c8bef156f1d7157121>here</a>.
+                                            </span>
                                         </div>
                                 </span>
                             </div>
@@ -225,8 +236,9 @@ this button currently can hide the form, but chart size wont get any bigger
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4" align="right">
+                                <div class="col-sm-4 tooltiptextForm" align="right">
                                     <label for="lat">Latitude</label>
+                                    <span class="tooltiptextForm">Test</span>
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy"
@@ -256,8 +268,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <h5>Step 3: Set a Baseline</h5>
                                     <p align="left">
                                         Specify baseline weather conditions for the wildfire simulation from a
-                                        particular
-                                        day, or as the climatological average conditions in a particular month.
+                                        particular day, or as the climatological average conditions in a particular month.
                                     </p>
                                 </div>
                             </div>
@@ -277,7 +288,11 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-4" align="right">
                                     <label for="historicalRadio">
                                         <div class="tooltipForm">Historical Data
-                                            <span class="tooltiptextForm">The weather data from a specified date</span>
+                                            <span class="tooltiptextForm">
+                                                Selects baseline weather conditions from a particular date.
+                                                Data curated by the NOAA National Centers for Environmental Information, available
+                                                <a target="_blank" href="https://www.ncei.noaa.gov/">here</a>.
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -305,7 +320,11 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-4" align="right">
                                     <label for="climatologicalRadio">
                                         <div class="tooltipForm">Climatological Data
-                                            <span class="tooltiptextForm">The weather data averages for a month, over the last 100 years</span>
+                                            <span class="tooltiptextForm">
+                                                Selects baseline weather conditions from climate normals, i.e., average monthly conditions from 1990-2020.
+                                                Data curated by the NOAA National Centers for Environmental Information, available
+                                                <a target="_blank" href="https://www.ncei.noaa.gov/">here</a>.
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -348,7 +367,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-4" align="right">
                                     <label for="tempSlider">
                                         <div class="tooltipForm">Temperature
-                                            <span class="tooltiptextForm">Higher temperatures create a faster spread</span>
+                                            <span class="tooltiptextForm">
+                                                Adjusts temperature used in the simulation relative to the selected baseline conditions.
+                                                In general, higher temperature accelerate wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                Higher temperatures are expected in the Bay Area under climate change
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
                                         </div>
 
                                     </label>
@@ -373,7 +398,13 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-4" align="right">
                                     <label for="humiditySlider">
                                         <div class="tooltipForm">Humidity
-                                            <span class="tooltiptextForm">Low humidity percentage creates a faster spread</span>
+                                            <span class="tooltiptextForm">
+                                                Adjusts humidity used in the simulation relative to the selected baseline conditions.
+                                                In general, lower humidity accelerates wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                Lower humidity is expected in the Bay Area under climate change
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -397,7 +428,15 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <div class="col-sm-4" align="right">
                                     <label for="wndSpdSlider">
                                         <div class="tooltipForm">Wind Speed
-                                            <span class="tooltiptextForm">Adjust the wind speed to be faster or slower in relation to the baseline data </span>
+                                            <span class="tooltiptextForm">
+                                                Adjusts wind speed used in the simulation relative to the selected baseline conditions.
+                                                In general, faster wind speeds accelerate wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                It is not clear how average wind speeds in the Bay Area will change under climate change.
+                                                However, storms of greater frequency and intensity are expected under climate change,
+                                                hence the number of high-wind days is likely to increase
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -419,9 +458,16 @@ this button currently can hide the form, but chart size wont get any bigger
                                          width="30px" class="closed darken" onclick="wndDirVisible();"/>
                                 </div>
                                 <div class="col-sm-4" align="right">
-                                    <label style="font-size: 15px;" for="circularSlider">
+                                    <label for="circularSlider">
                                         <div class="tooltipForm">Wind Direction
-                                            <span class="tooltiptextForm">Select the direction of the wind in the simulation</span>
+                                            <span class="tooltiptextForm">
+                                                Adjusts wind direction used in the simulation relative to the selected baseline conditions.
+                                                Wind direction controls the primary direction of wildfire spread.
+                                                It is not clear how average wind direction in the Bay Area will change under climate change.
+                                                However, storms of greater frequency and intensity are expected under climate change,
+                                                hence the variability in wind directions is likely to increase
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
                                         </div>
                                     </label>
                                 </div>
@@ -443,10 +489,21 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
                             <div class="row">
                                 <div class="col-sm-4" align="right">
-                                    <label for="duration">Duration</label>
+                                    <label for="duration">
+                                        <div class="tooltipForm">Duration
+                                            <span class="tooltiptextForm">
+                                                    A value of 500 minutes is usually a good starting point.
+                                                    Shorter durations will result in smaller fires,
+                                                    while longer durations will result in larger fires.
+                                                    Wildfires in urban and suburban areas are likely to be extinguished more quickly than
+                                                    wildfires in rural areas, hence shorter durations are more realistic in
+                                                    urban and suburban areas and longer durations are more realistic in rural areas.
+                                            </span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="duration" id="duration" placeholder="500" required/>
+                                    <input type="text" class="form-control" name="duration" id="duration" value="500" required/>
                                 </div>
                                 <div class="col-sm-4" align="left">
                                     <span>minutes</span>

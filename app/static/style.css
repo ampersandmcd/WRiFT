@@ -214,6 +214,11 @@ p {
   margin-right: 5.9em;
 }
 
+#circularSlider .rs-container.rs-full {
+  height: 50px !important;
+  width: 50px !important;
+}
+
 #circularSlider .rs-border {
   border-color: #eb6424;
 }
@@ -238,7 +243,7 @@ p {
 #circularSlider .rs-handle:after  {
     display: block;
     content: " ";
-    width: 40px;
+    width: 25px;
     position: absolute;
     top: -1px;
     right: 0px;
@@ -355,6 +360,7 @@ https://www.w3schools.com/css/css_tooltip.asp
   position: relative;
   display: inline-block;
   /* If you want dots under the hoverable text border-bottom: 1px dotted black; */
+  border-bottom: 1px dotted black;
   cursor: help;
 }
 
@@ -395,7 +401,6 @@ https://www.w3schools.com/css/css_tooltip.asp
 .darken {
   background-color: #f8f9fa;
   border-radius: 17em;
-  border: 2px solid black;
 }
 
 .darken:hover {
