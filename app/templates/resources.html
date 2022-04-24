@@ -1,46 +1,63 @@
 {% extends "base.html" %}
 {% set active_page = "resources" %}
 {% set title = "Resources" %}
-
 {% block content %}
-<div class="resources">
+
+<div class="container">
     <h1>Resources</h1>
-    <h2>Interested in learning more?</h2>
-
-<div class="resourceInfo">
-    <div class="row">
-        <div class="col-md-6">
-    <h3>Wildfires</h3>
-    <p>wildfire 1</p>
-    <p>wildfire 2</p>
-    <p>wildfire 3</p>
-
-        </div>
-        <div class="col-md-6">
-    <h3>Climate Change</h3>
-    <p>Climate change 1</p>
-    <p>Climate change 2</p>
-    <p>Climate change 3</p>
-
-        </div>
+    <br>
+    <p>
+        Check out the following resources to learn more about wildfires, protecting your home, climate change, and the science behind our simulation.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/resources-1.jpg" alt="Wildfire burning on a ridgeline. Original source: https://unsplash.com/photos/eAKDzK4lo4o">
     </div>
-
-<br>
-
-    <div class="row">
-        <div class="col-md-6">
-    <h3>Protecting your home</h3>
-    <p>Home 1</p>
-    <p>Home 2</p>
-    <p>Home 3</p>
-        </div>
-        <div class="col-md-6">
-    <h3>The simulation</h3>
-    <p>sim 1</p>
-    <p>sim 2</p>
-    <p>sim 3</p>
-        </div>
+    <h1>Wildfires</h1>
+    <p>
+        <ul>
+            <li><a href="https://www.ready.gov/wildfires" target="_blank">Ready.Gov</a>: Government source for wildfire preparation information.</li>
+            <li><a href="https://www.fs.usda.gov/managing-land/fire" target="_blank">USFS</a>: Wildfire basics curated by the U.S. Forest Service.</li>
+            <li><a href="https://www.cdc.gov/disasters/wildfires/index.html" target="_blank">CDC</a>: Health risks of wildfires curated by the U.S. Centers for Disease Control.</li>
+            <li><a href="https://www.iii.org/fact-statistic/facts-statistics-wildfires" target="_blank">III</a>: Facts and statistics about wildfires in the United States.</li>
+            <li><a href="https://www.fire.ca.gov/" target="_blank">CalFire</a>: Information about wildfires and wildfire suppression efforts in California.</li>
+        </ul>
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/resources-2.jpg" alt="Firefighting airplane dropping fire suppressant. Original source: https://unsplash.com/photos/Sy3-Si2xPpQ">
     </div>
-</div>
+    <h1>Protecting Your Home</h1>
+    <p>
+        <ul>
+            <li><a href="https://sccfiresafe.org/" target="_blank">Fire Safe Santa Clara</a>: Information for wildfire preparation and prevention curated by Santa Clara County locals.</li>
+            <li><a href="https://www.firesafesanmateo.org/" target="_blank">Fire Safe San Mateo</a>: Information for wildfire preparation and prevention curated by San Mateo County locals.</li>
+            <li><a href="https://www.firesafesantacruz.org/" target="_blank">Fire Safe Santa Cruz</a>: Information for wildfire preparation and prevention curated by Santa Cruz County locals.</li>
+            <li><a href="https://firesafemarin.org/" target="_blank">Fire Safe Marin</a>: Information for wildfire preparation and prevention curated by Marin County locals.</li>
+            <li><a href="https://www.nfpa.org/Public-Education/Fire-causes-and-risks/Wildfire/Preparing-homes-for-wildfire" target="_blank">NFPA</a>: Tips for protecting your home against wildfires curated by the National Fire Protection Association.</li>
+        </ul>
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/resources-3.jpg" alt="Climate change stripes representing the rise in mean annual temperature. Original source: https://en.wikipedia.org/wiki/Warming_stripes">
+    </div>
+    <h1>Climate Change</h1>
+    <p>
+        <ul>
+            <li><a href="https://climate.nasa.gov/" target="_blank">NASA</a>: Hub tracking key climate change statistics and trends.</li>
+            <li><a href="https://www.ipcc.ch/" target="_blank">IPCC</a>: United Nations Intergovernmental Panel on Climate Change supporting research and policy.</li>
+            <li><a href="https://www.c2es.org/content/wildfires-and-climate-change/" target="_blank">C2ES</a>: How climate change affects wildfires in the Western U.S.</li>
+            <li><a href="https://www.epa.gov/climate-indicators/climate-change-indicators-wildfires" target="_blank">EPA</a>: Wildfire trends as an indicator of climate change.</li>
+            <li><a href="https://www.bbc.com/news/58159451" target="_blank">BBC</a>: The scientific connection between wildfires and climate change.</li>
+        </ul>
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="centerImage" width="50%" src="../static/images/resources-4.jpg" alt="FARSITE simulator overview. Original source: https://www.fs.fed.us/rm/pubs/rmrs_rp004.pdf">
+    </div>
+    <h1>Simulation Science</h1>
+    <p>
+        <ul>
+            <li><a href="https://www.fs.usda.gov/treesearch/pubs/4617" target="_blank">FARSITE</a>: Original scientific paper proposing the FARSITE model used in our simulator.</li>
+            <li><a href="https://www.google.com/books/edition/A_Mathematical_Model_for_Predicting_Fire/AfyMv5NBSjoC?hl=en&gbpv=0" target="_blank">Rothermel</a>: Basic model for wildfire spread employed by FARSITE.</li>
+        </ul>
+    </p>
 </div>
 {% endblock %}
+
