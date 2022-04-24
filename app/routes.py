@@ -256,6 +256,11 @@ def climatological():
     })
 
 
+@app.route("/video")
+def video():
+    return render_template("video.html")
+
+
 @app.route("/about")
 def about():
     return render_template("about.html")

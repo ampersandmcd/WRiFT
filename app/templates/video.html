@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set active_page = "video" %}
+{% set title = "Video" %}
+
+{% block content %}
+<div class="container">
+    <h1>Video</h1>
+    <br>
+    <p>
+        Looking to learn more about WRiFT? You've come to the right place.
+    </p>
+    <div class="embed-youtube">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/yPAByfxO_4k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+{% endblock %}
