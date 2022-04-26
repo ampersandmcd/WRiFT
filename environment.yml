@@ -1,4 +1,4 @@
-name: CapstoneExploration
+name: WRiFT
 channels:
   - conda-forge
 dependencies:
