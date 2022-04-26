@@ -8,12 +8,16 @@ import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 import math
+import geopandas as gpd
 from geopy.geocoders import Nominatim
-import app.data.county_demographics as cdg
+import pickle
 
 from app.modeling.farsite_v2 import burn
 from app.modeling.historic_weather import DailyWeather, WeatherNormals
 from app.modeling.economic_impacts import EconomicImpactCalculator
+from app.modeling.cloud_storage import safe_open
+
+import app.data.county_demographics as cdg
 
 token = open("app/static/.mapbox_token").read()
 px.set_mapbox_access_token(token)
@@ -43,7 +47,7 @@ prevention_facts = [
 impactCalculator = EconomicImpactCalculator()
 
 # load raster data and scale to appropriate values
-df = pd.read_pickle("app/data/risk_pop_housing.pickle")
+df = pd.DataFrame(pickle.loads(safe_open("app/data/risk_pop_housing.pickle")))
 df["Risk"] /= df["Risk"].max()
 
 # add fake temperature, humidity, wind speed, wind direction data
@@ -53,7 +57,7 @@ df["WindSpeed"] = 0 * df["Risk"] + 10
 df["WindDirection"] = 0 * df["Risk"]
 
 # load vector data
-perimeters = pd.read_pickle("app/data/perimeters.pickle")
+perimeters = gpd.GeoDataFrame(pickle.loads(safe_open("app/data/perimeters.pickle")))
 
 
 @app.route("/", methods=["POST", "GET"])

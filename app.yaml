@@ -1,0 +1,11 @@
+# Sets up the Google App Engine
+runtime: python39
+instance_class: F4_1G
+
+entrypoint: gunicorn -b :8080 -w 2 wsgi:app
+
+handlers:
+- url: .*
+  script: wsgi:app
+
+env_variables:
