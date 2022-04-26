@@ -1,5 +1,7 @@
 import geopandas as gpd
+import pickle
 import pandas as pd
+from app.modeling.cloud_storage import safe_open
 
 
 class EconomicImpactCalculator:
@@ -19,7 +21,7 @@ class EconomicImpactCalculator:
         Collect the geometry from the footprint file
         :return: GeoDataFrame of the building footprint polygons
         """
-        buildings = pd.read_pickle(self.footprint_file)
+        buildings = gpd.GeoDataFrame(pickle.loads(safe_open(self.footprint_file)))
         return buildings
 
     def process_fire(self, fire: pd.DataFrame):

@@ -12,6 +12,7 @@
 from app.modeling.current_weather import CurrentWeather
 from app.modeling.historic_weather import DailyWeather
 from app.modeling.rothermel import compute_surface_spread
+from app.modeling.cloud_storage import safe_open
 
 # Data containers and pre-processing
 import pickle
@@ -119,12 +120,16 @@ def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
     :param path_pickle: path to the preprocessed pickle data
     :return: unpickled data, istart, jstart, wind speed, wind direction
     """
+    """
     if os.path.exists(path_pickle):
         with open(path_pickle, "rb") as f:
             data = pickle.load(f)
     else:
         from app.modeling.data_preparation import prepare_data
         data = prepare_data()
+        """
+
+    data = pickle.loads(safe_open(path_pickle))
 
     # INPUT (landfire stuff), FUEL (raw fuel type), X (longitudes), Y (latitudes)
     # INPUT must be expanded to account for slope in direction of wind
@@ -170,6 +175,7 @@ def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
 
     INPUT = data[0]
 
+    """
     # retrieve tan_phi based on wind_direction
     if not os.path.exists("app/data/slope" + str(ip) + str(jp) + ".pickle"):
         from app.modeling.data_preparation import build_tanphi_arrays
@@ -177,6 +183,8 @@ def pre_burn(lat, lon, path_pickle="app/data/farsite.pickle"):
 
     with open("app/data/slope" + str(ip) + str(jp) + ".pickle", "rb") as f:
         INPUT[:, :, 5] = pickle.load(f)
+        """
+    INPUT[:, :, 5] = pickle.loads(safe_open("app/data/slope" + str(ip) + str(jp) + ".pickle"))
 
     return INPUT, data[1], data[2], data[3], i_start, j_start, wind_speed, wind_dir
 

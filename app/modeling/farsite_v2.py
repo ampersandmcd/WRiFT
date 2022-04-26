@@ -11,6 +11,7 @@
 
 # weather processing module (thank you nathan)
 from app.modeling.current_weather import CurrentWeather
+from app.modeling.cloud_storage import safe_open
 from app.modeling.rothermel import compute_surface_spread
 from app.modeling.data_preparation import prepare_data, build_tanphi_arrays
 
@@ -110,7 +111,8 @@ def pre_burn(lat, lon, path_pickle='app/data/farsite.pickle'):
 
     # Load pickled data, otherwise generate pickle
     # data is INPUT (landfire stuff), FUEL (raw fuel types), X (longitudes), Y (latitudes)
-    data = pickle.load(open(path_pickle, "rb")) if os.path.exists(path_pickle) else prepare_data()
+    #data = pickle.load(open(path_pickle, "rb")) if os.path.exists(path_pickle) else prepare_data()
+    data = pickle.loads(safe_open(path_pickle))
 
     # get starting cell
     i_start, j_start = np.argmin(np.abs(data[2] - lon)), np.argmin(np.abs(data[3] - lat))
@@ -135,10 +137,10 @@ def pre_burn(lat, lon, path_pickle='app/data/farsite.pickle'):
 
     INPUT = data[0]
 
-    if not os.path.exists("app/data/slope" + str(ip) + str(jp) + ".pickle"):
-        build_tanphi_arrays()
+    #if not os.path.exists("app/data/slope" + str(ip) + str(jp) + ".pickle"):
+    #    build_tanphi_arrays()
 
-    INPUT[:, :, 5] = pickle.load(open("app/data/slope" + str(ip) + str(jp) + ".pickle", "rb"))
+    INPUT[:, :, 5] = pickle.loads(safe_open("app/data/slope" + str(ip) + str(jp) + ".pickle"))
 
     return INPUT, data[1], data[2], data[3], i_start, j_start, wind_speed, wind_dir
 
