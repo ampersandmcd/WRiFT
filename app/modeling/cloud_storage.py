@@ -29,7 +29,7 @@ def download_blob(bucket_name, source_blob_name):
     # The path to which the file should be downloaded
     # destination_file_name = "local/path/to/file"
 
-    storage_client = storage.Client()
+    storage_client = storage.Client.create_anonymous_client()
 
     bucket = storage_client.bucket(bucket_name)
 
