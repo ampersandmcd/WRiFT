@@ -18,3 +18,4 @@ dependencies:
   - numba=0.55
   - pygeos=0.12
   - geopandas=0.10
+  - google-cloud-storage=2.1
