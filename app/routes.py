@@ -346,7 +346,6 @@ def compute_impacts(burned_df, run, form_data, damaged, destroyed):
 
         impacts_data["cities"] = city
         impacts_data["counties"] = address.get('county', 'N/A')
-        impacts_data["districts"] = "N/A"
 
         demographics = list(filter(lambda x: x["County"] == impacts_data["counties"] and x["State"] == "CA", cdg.get_report()))
         if len(demographics) > 0:

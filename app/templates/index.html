@@ -96,8 +96,8 @@ this button currently can hide the form, but chart size wont get any bigger
                                 <span>
                                     <div class="tooltipForm">Homeowner Scenario
                                             <span class="tooltiptextForm right">This scenario simulates a fire starting in the Los Gatos area.
-                                            The scenario allows you to see a fire from a homeowners view. Be sure to think about possible
-                                            evacuations, community awareness, and the economic as well as health impacts</span>
+                                            The scenario allows you to see a fire from a homeowner's view. Be sure to think about possible
+                                            evacuations, community awareness, and the economic as well as health impacts.</span>
                                         </div>
                                 </span>
                             </div>
@@ -109,7 +109,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <div class="tooltipForm">City Manager
                                             <span class="tooltiptextForm left">This scenario simulates a fire starting in the Morgan Hill area from a new barbeque area.
                                             The scenario allows you to see a fire from a city planner's view. Be sure to think about
-                                            the economic as well as health impacts</span>
+                                            the economic as well as health impacts.</span>
                                         </div>
                                 </span>
                             </div>
@@ -123,7 +123,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <div class="tooltipForm">Climate Activist
                                             <span class="tooltiptextForm right">This scenario simulates a fire starting in the Summit West forest area.
                                             The scenario allows you to see a fire from an activist's view. Be sure to think about
-                                                the demographic as well as environmental impacts</span>
+                                            the demographic as well as environmental impacts.</span>
                                         </div>
                                 </span>
                             </div>
@@ -135,7 +135,7 @@ this button currently can hide the form, but chart size wont get any bigger
                                     <div class="tooltipForm">Climate Activist with Climate Change
                                             <span class="tooltiptextForm left">This scenario simulates a fire starting in the Summit West forest area, under climate change.
                                             The scenario allows you to see a fire from an activist's view. Be sure to think about
-                                                the demographic as well as environmental impacts</span>
+                                            the demographic as well as environmental impacts.</span>
                                         </div>
                                 </span>
                             </div>
@@ -240,7 +240,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
                             <div class="row">
                                 <div class="col-sm-4" align="right">
-                                    <label for="lat">Latitude</label>
+                                    <label for="lat">
+                                        <div class="tooltipForm">Latitude
+                                            <span class="tooltiptextForm right">
+                                                Latitude of fire ignition point.
+                                            </span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy"
@@ -252,7 +258,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
                             <div class="row">
                                 <div class="col-sm-4" align="right">
-                                    <label for="lon">Longitude</label>
+                                    <label for="lon">
+                                        <div class="tooltipForm">Longitude
+                                            <span class="tooltiptextForm right">
+                                                Longitude of fire ignition point.
+                                            </span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="lon" id="lon" placeholder="xx.xx"
@@ -625,8 +637,15 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="col-md-12">
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Structures Destroyed</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Structures Destroyed
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of structures destroyed by simulated wildfire
+                                            based on building footprints from satellite imagery.
+                                            Data curated by Microsoft, available
+                                            <a target="_blank" href="https://github.com/microsoft/USBuildingFootprints">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2" align="right">
                                     <span class="bolded" id="totStructDestr"> {{ num_destroyed }} </span>
@@ -641,8 +660,15 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Structures Damaged</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Structures Damaged
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of structures damaged by simulated wildfire
+                                            based on building footprints from satellite imagery.
+                                            Data curated by Microsoft, available
+                                            <a target="_blank" href="https://github.com/microsoft/USBuildingFootprints">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2" align="right">
                                     <span class="bolded" id="totStructDam">{{ num_damaged }}</span>
@@ -657,8 +683,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Firefighters Needed</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Firefighters Needed
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of firefighters needed to contain the simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2" align="right">
                                     <span class="bolded" id="firefightersNeed">{{ ffighters }}</span>
@@ -675,8 +706,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             <h5 class="center"> <b>Indirect Loss </b></h5>
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Business Closures</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Business Closures
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of businesses closed due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2" align="right">
                                     <span class="bolded" id="totBusinClose">{{ businessclosed }}</span>
@@ -691,8 +727,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Evacuations</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Evacuations
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of residents evacuated due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-2" align="right"><!--
                                     --><span class="bolded" id="totEvacuations">{{ evac }}</span><!--
@@ -711,8 +752,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             <h5 class="center"> <b>Total Loss</b></h5>
 
                             <div class="row">
-                                <div class="col-md-6" align="right">
-                                    <p>Cost</p>
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Cost
+                                        <span class="tooltiptextForm right">
+                                            Estimated total cost of simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-3" align="right">
@@ -730,13 +776,13 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="col-md-12">
 
                             <div class="row">
-                                <div class="col-md-7 tooltipForm" align="right">
-                                    <p>
-                                    Injuries
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Injuries
                                         <span class="tooltiptextForm right">
-                                            Injuries are calculated using different aspects of the simulation, including structures damaged,
-                                        the percent 65 or older, and size of the fire.</span>
-                                    </p>
+                                            Estimated number of injuries due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="injuriesTot"> {{impacts_data.get('injury', 0)}} </span>
@@ -744,8 +790,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Deaths</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Deaths
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of deaths due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="deathsTot"> {{impacts_data.get('death', 0)}} </span>
@@ -756,8 +807,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             <h5 class="center"><b>Resources Needed</b></h5>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Hospital Beds Needed</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Hospital Beds
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of hospital beds needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="hospBedsTot"> {{impacts_data.get('hospital_bed', 0)}} </span>
@@ -765,8 +821,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>ICU Beds Needed</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">ICU Beds
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of ICU beds needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="ICUBedsTot">{{impacts_data.get('ICU_bed', 0)}}</span>
@@ -774,8 +835,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Nurses Needed</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Nurses
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of nurses needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="nursesTot">{{impacts_data.get('nurses', 0)}}</span>
@@ -783,8 +849,13 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Doctors Needed</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Doctors
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of doctors needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="doctorsTot">{{impacts_data.get('doctors', 0)}}</span>
@@ -800,8 +871,13 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="col-md-12">
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>City, or road if unavailable</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">City
+                                        <span class="tooltiptextForm right">
+                                            Primary city affected by simulated wildfire. If the simulated wildfire
+                                            is in a rural area, this may be the nearest major road.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="cityAffected">{{impacts_data.get('cities', "-")}}</span>
@@ -809,28 +885,29 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>County</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">County
+                                        <span class="tooltiptextForm right">
+                                            Primary county affected by simulated wildfire.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="countyAffected">{{impacts_data.get('counties', "-")}}</span>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Congressional Districts</p>
-                                </div>
-                                <div class="col-md-4" align="left">
-                                    <span class="bolded" id="districtAffected">{{impacts_data.get('districts', "-")}}</span>
-                                </div>
-                            </div>
-
                             <br>
                             <h5 class="center"><b>Equity Factors</b></h5>
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Median Household Income</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Median Household Income
+                                        <span class="tooltiptextForm right">
+                                            Median household income of residents living in the county affected by simulated wildfire.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded">$</span><!--
@@ -839,8 +916,14 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Bachelor's Degree or Higher</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Bachelor's Degree or Higher
+                                        <span class="tooltiptextForm right">
+                                            Percentage of residents living in the county affected by simulated wildfire who hold a bachelor's degree or higher.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="eduLevel"> {{impacts_data.get('education', "-")}} </span>
@@ -849,8 +932,14 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Age 65 and Older</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Age 65 and Older
+                                        <span class="tooltiptextForm right">
+                                            Percent of residents living in the county affected by simulated wildfire aged 65 and older.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="medAge"> {{impacts_data.get('age', "-")}} </span>
@@ -859,8 +948,14 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Percent Nonwhite</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Percent Nonwhite
+                                        <span class="tooltiptextForm right">
+                                            Percent of residents living in the county affected by simulated wildfire who are nonwhite.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="percentNonWhite"> {{impacts_data.get('nonwhite', "-")}} </span><!--
@@ -877,8 +972,12 @@ this button currently can hide the form, but chart size wont get any bigger
                         <div class="col-md-12">
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Acres Burned</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Acres Burned
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of acres burned by simulated wildfire.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="acresBurned"> {{impacts_data.get('acres', 0)}} </span>
@@ -887,8 +986,12 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7" align="right">
-                                    <p>Smoke travel distance</p>
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Smoke Travel Distance
+                                        <span class="tooltiptextForm right">
+                                            Estimated distance travelled by smoke from simulated wildfire, based on acres burned and wind conditions.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="smokeFootprint"> {{impacts_data.get('smoke', 0)}} </span>
@@ -897,12 +1000,17 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7 tooltipForm" align="right">
-                                    <p>
-                                    CO2e Emissions
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">CO<sub>2</sub>e Emissions
                                         <span class="tooltiptextForm right">
-                                            In a year, a passenger car typically emits 4.6 metric tons</span>
-                                    </p>
+                                            Estimated amount of carbon emissions in megatons of CO<sub>2</sub>-equivalent produced by the simulated wildfire.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle">EPA</a>,
+                                            a passenger car typically emits 4.6 metric tons per year, and according to
+                                            <a target="_blank" href="https://www.carbonindependent.org/22.html">Carbon Independent</a>,
+                                            a single commercial aircraft typically emits 0.1 metric tons per hour of flight.
+                                        </span>
+                                    </div>
                                     <!-- https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle#:~:text=typical%20passenger%20vehicle%3F-,A%20typical%20passenger%20vehicle%20emits%20about%204.6%20metric%20tons%20of,8%2C887%20grams%20of%20CO2. -->
                                 </div>
                                 <div class="col-md-4" align="left">
@@ -912,34 +1020,42 @@ this button currently can hide the form, but chart size wont get any bigger
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7 tooltipForm" align="right">
-                                    <p>
-                                    Outdoor PM 2.5 Emissions
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Outdoor PM 2.5 Emissions
                                         <span class="tooltiptextForm right">
-                                            Levels can reach up to 250 ug/m3 during wildfire season, becoming very unhealthy for
-                                        everyone and outdoor activity should be avoided. Sensitive groups will start to
-                                        face problems at 55 ug/m3. During normal circumstances, indoor levels can be higher than outdoor</span>
-                                        <!-- https://molekule.science/what-is-pm-2-5-and-how-can-you-reduce-your-exposure/ -->
-                                    </p>
+                                            Estimated concentration of particulate matter less than 2.5 microns (um) emitted by the wildfire in outdoor spaces.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">EPA</a>,
+                                            particulate matter poses a risk to lung health and is particularly dangerous to individuals with asthma or other respiratory issues.
+                                            According to the
+                                            <a target="_blank" href="https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health">WHO</a>,
+                                            concentrations above 5 &mu;g/m<sup>3</sup> are considered dangerous.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="OutPMemissions"> {{impacts_data.get('OutPM', 0)}} </span>
-                                    <span class="bolded"> ug/m<sup>3</sup></span>
+                                    <span class="bolded"> &mu;g/m<sup>3</sup></span>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-7 tooltipForm" align="right">
-                                    <p>
-                                    Indoor PM 2.5 Emissions
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Indoor PM 2.5 Emissions
                                         <span class="tooltiptextForm right">
-                                            Under 6 ug/m3 levels are considered healthy and safe according to WHO, learn more at the following link:
-                                        <a href="https://molekule.science/what-is-pm-2-5-and-how-can-you-reduce-your-exposure/">PM 2.5 Addition info</a></span>
-                                    </p>
+                                            Estimated concentration of particulate matter less than 2.5 microns (um) emitted by the wildfire in indoor spaces.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">EPA</a>,
+                                            particulate matter poses a risk to lung health and is particularly dangerous to individuals with asthma or other respiratory issues.
+                                            According to the
+                                            <a target="_blank" href="https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health">WHO</a>,
+                                            concentrations above 5 &mu;g/m<sup>3</sup> are considered dangerous.
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-md-4" align="left">
                                     <span class="bolded" id="InPMemissions"> {{impacts_data.get('InPM', 0)}} </span>
-                                    <span class="bolded"> ug/m<sup>3</sup></span>
+                                    <span class="bolded"> &mu;g/m<sup>3</sup></span>
                                 </div>
                             </div>
 
