@@ -15,7 +15,7 @@ def safe_open(filepath):
     else:
         name = Path(filepath).name
         filepath = "data/" + name
-        return download_blob("risksforecastingdatastore", filepath)
+        return download_blob("forecastingdata", filepath)
 
 
 def download_blob(bucket_name, source_blob_name):
