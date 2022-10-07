@@ -1,0 +1,105 @@
+<!-- Referenced https://getbootstrap.com/docs/4.0/getting-started/introduction/ for starting template -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Dynamically set page title -->
+    {% if title %}
+    <title>🔥 | {{ title }}</title>
+    {% else %}
+    <title>🔥</title>
+    {% endif %}
+
+</head>
+
+<body class="Site">
+    <!-- Navbar -->
+    <!-- Referenced https://jinja.palletsprojects.com/en/3.0.x/tricks/#highlighting-active-menu-items for jinja -->
+    <!-- Referenced https://getbootstrap.com/docs/4.0/components/navbar/ for bootstrap navbar -->
+    {% set navigation_bar = [
+        ('/', 'index', 'Home'),
+        ('/video', 'video', 'Video'),
+        ('/about', 'about', 'About'),
+        ('/contact', 'contact', 'Contact'),
+        ('/problem', 'problem', 'Problem'),
+        ('/solution', 'solution', 'Solution'),
+        ('/resources', 'resources', 'Resources')
+    ] %}
+    {% set active_page = active_page|default('index') %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🔥</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!-- Dynamically load navbar and set active highlight -->
+                {% for href, id, caption in navigation_bar %}
+                    <a {% if id == active_page %}
+                            class="nav-item nav-link active"
+                        {% else %}
+                            class="nav-item nav-link"
+                        {% endif %}
+                        href="{{ href|e }}">
+                        {{ caption|e }}
+                    </a>
+                {% endfor %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <!-- Set up searchbar -->
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="Site-content">
+        <br>
+        <div class="container-fluid">
+            <!-- Dynamically load page content from sub-templates here -->
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <!-- Referenced https://jinja.palletsprojects.com/en/3.0.x/tricks/#highlighting-active-menu-items for jinja -->
+    <!-- Referenced https://getbootstrap.com/docs/4.0/components/navbar/ for bootstrap navbar -->
+    {% set footer_bar = [
+        ('https://anthropoceneinstitute.com/', 'anthinst', 'Anthropocene Institute'),
+        ('https://msu.edu/', 'msu', 'Michigan State University'),
+        ('https://capstone.cse.msu.edu/2022-01/home/', 'cse498', 'CSE 498'),
+        ('https://capstone.cse.msu.edu/2022-01/projects/', 's22', 'Spring 2022')
+    ] %}
+    <footer class="footer navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">🔥</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerSupportedContent"
+                aria-controls="footerSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="footerSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <!-- Dynamically load navbar -->
+                {% for href, id, caption in footer_bar %}
+                    <a class="nav-item nav-link" href="{{ href|e }}">{{ caption|e }}</a>
+                {% endfor %}
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>

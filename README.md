@@ -1,5 +1,5 @@
-# CapstoneExploration
-A repository to facilitate exploration and experimentation by Team Anthropocene Institute in the Spring 2022 edition of CSE 498 (Capstone) at Michigan State University.
+# WRiFT
+A repository to facilitate exploration, experimentation, and implementation of WRiFT: Wildfire Risks Forecasting Tool by Team Anthropocene Institute in the Spring 2022 edition of CSE 498 (Capstone) at Michigan State University.
 
 ## conda
 
@@ -18,3 +18,8 @@ The following steps explain how to configure conda for use with this repository.
 10. You can deactivate the virtual environment and return to your base conda installation as necessary with `conda deactivate`.
 11. When adding code to this repository which requires a new package, add a line to the `environment.yml` file under the `dependencies:` header with the package name and version number you are using, following the example of `flask=2.0.2` in formatting. Strive to write code that works with the latest version of the package you are working with, but be sure to list the explicit package number in the `environment.yml` file so that our code will continue to work as expected when future updates of dependencies are released. You can obtain the version number of a package with `conda list <packagename>`. For example, running `conda list flask` with environment `CapstoneExploration` active indicates that flask is indeed version 2.0.2.
 12. Check out [this conda cheatsheet](https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf) for more helpful tips. Google and StackOverflow will also be of great help with any conda-related questions.
+
+To run the app locally, execute "python wsgi.py" from the source directory with your conda environment active.
+
+The source in this repository will run without any additional downloads. For optimal performance, download all the files in [this google](https://drive.google.com/drive/folders/12l7qknzmnbe-at5y4IYGQDvXwLRwfYqK?usp=sharing) 
+drive folder to app/data/.

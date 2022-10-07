@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% set active_page = "solution" %}
+{% set title = "Solution" %}
+
+{% block content %}
+<div class="container">
+    <h1>Solution</h1>
+    <br>
+    <p>
+        Wildfires exhibit several major behaviors, or concurrent vectors of spread, which are handled seperately by wildfire models
+        and rely on distinct but related sets of data. Therefore, comprehensive wildfire simulation suites often integrate several sub-models.
+        Our model of choice
+        <a href="https://www.fs.fed.us/rm/pubs/rmrs_rp004.pdf">FARSITE,</a>
+        was published by scientists in association with the
+        <a href="https://www.fs.usda.gov/">United States Forestry Service</a>
+        in 1998 and is an integration of several older models of surface and canopy spread, as well as fire acceleration and spotting.
+        FARSITE is considered a scientific and industry standard in wildfire modeling, and has driven simulation software suites for over two decades.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/solution-1.jpg" alt="Burning Hillside. Original source: https://www.dailysabah.com/world/americas/california-wildfire-nears-lake-tahoe-hours-after-evacuation-order">
+    </div>
+    <p>
+        Surface spread is fire propagation that occurs through ground fuels. These ground fuels include low brush, fallen trees, and grasses.
+        FARSITE, and thus WRiFT, models surface spread via the
+        <a href="https://www.fs.fed.us/rm/pubs_series/rmrs/gtr/rmrs_gtr371.pdf">Rothermel Model.</a>
+        This model was developed in the early 1970s by US Forestry Service scientist Richard Rothermel, and was iterated upon in
+        1976 by fellow USFS scientist Frank Albini. WRiFT utilizes "static fuel model" Rothermel Spread, which forgoes simulation of
+        the effects of fire on fuel moisture in exchange for efficiency and seamless performance.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/solution-2.jpg" alt="Fire spreading along ground. Original source: https://www.nationalgeographic.com/travel/article/wildfires-ravage-napa-valley-will-the-wine-region-survive">
+    </div>
+    <p>
+        Canopy spread is fire propagation that occurs through the combustion of tree crowns which overlie surface fuels in forested areas.
+        Canopy fire often outpaces ground fire in areas of thick woodland, driven by greater access to oxygen. FARSITE, and thus WRiFT,
+        utilized a model of canopy fire based on work published by C.E. Van Wagner in the 1997
+        <a href="https://cdnsciencepub.com/doi/abs/10.1139/x77-004">Canadian Journal of Forest Research.</a>
+        Canopy fires are the most intense type of wildfire, the most likely to spot, and often the most difficult to contain.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/solution-3.jpg" alt="Fire in tree tops. Original source: https://wallpaperaccess.com/forest-fire">
+    </div>
+    <p>
+        Fire acceleration models are used to computationally express the intuitive reality that as a fire gains energy,
+        it gains a sense of momentum, and thus spreads more quickly. Formally, fire acceleration is defined as the rate of increase in spread rate
+        of a fire with respect to time. Computed under the assumption that all other conditions remain constant, acceleration forms an important
+        component of wildfire models. FARSITE, and thus WRiFT, utilizes the fire acceleration model proposed by the
+        <a href="https://cfs.nrcan.gc.ca/pubwarehouse/pdfs/31414.pdf">Forestry Canada Fire Danger Group</a>
+        in 1992.
+    </p>
+    <p>
+        Fire Spotting refers new points of ignition ahead of the fire front, created by embers lofted on updrafts and carried by wind.
+        Spotting can advance fire over barriers many kilometers away from the current fire perimeter and dramatically alter fire growth patterns
+        and behavior. FARSITE, and thus WRiFT, utilizes Frank Albini's 1979 publication on
+        <a href="https://www.frames.gov/documents/behaveplus/publications/Morris_1987_INT-RN-374.pdf">Maximum Spotting Distance from Torching Trees.</a>
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/solution-4.jpg" alt="Fire embers carried by wind. Original source: https://jooinn.com/img/get">
+    </div>
+    <p>
+        Aerial photos make clear the wave-like nature of wildfire propogation, a process characterized by a raging fire-front leaving
+        charred and smoldering wilderness in its wake. This wave-like behavior allows us to model the growth of fire using a wealth of
+        physical and mathematical theory. Wave propogation theory allows us to to approximate the complex phenomenon of a fire-front
+        with remarkable realism and precision.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/solution-5.jpg" alt="Aerial photo showcasing wave-like nature of fire. Original source: https://spectrum.ieee.org/drones-sensors-wildfire-detection">
+    </div>
+    <p>
+        WRiFT utilizes the
+        <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygens Principle</a>
+        , also known as the Huygens-Fresnel Principle, provides a method of analysis applied to wave propogation across many sub-fields of physics.
+        The principle states that every point on a wave-front is itself the source of eliptical wavelets. These eliptical wavelets mutually
+        interfere with one-another, and their post-interference sum gives the next wave-front. This method is naturally suited to iteration, with
+        a discrete timestep seperating each render of the wave-front from the prior eliptical propagation step.
+    </p>
+    <div class="divForCenterImage">
+        <img class="centerImage" width="100%" src="../static/images/solution-6.png" alt="Visualization of Huygens Principle wave propagation. Original Source:https://byjus.com/physics/the-huygens-principle-and-the-principle-of-a-wave-front/">
+    </div>
+    <p>
+        WRiFT, optimized for web performance, approximates the elipses of FARSITE with iscosceles triangles.
+        We further utilize what we came to know as "intracellular automata", a technique whereby each thirty meter cell of the
+        <a href="https://landfire.gov/">LANDFIRE Dataset</a>
+        driving our simulation is imagined to act as as a collection of subcells, the granularity of which is inversely proportion to the
+        spread-rate of fire in the global cell. Each global cell is granted its own timestep, which are modulated to enforce an maximal
+        intracellular granularity. The code driving these simulation techniques is publically available in our
+        <a href="https://github.com/andrewmcdonald27/WRiFT">Github Repository.</a>
+    </p>
+    <p>
+        WRiFT is an evolving project. Several aspects of our model require refinement, and yet other aspects of fire behavior are absent from our approximations. WRiFT is
+        currently not equiped with a substantive fuel moisture model. Fuel moisture models are highly complex, and often deeply interconnected with fire behavior models.
+        Though a rigorous framework and data pipeline is in place to enable a moisture model implementation, one has yet to be constructed.
+    </p>
+</div>
+{% endblock %}

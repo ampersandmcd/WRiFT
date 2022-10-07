@@ -1,0 +1,1679 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+{% set title = "Home" %}
+
+{% block content %}
+
+
+<link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
+
+<div class="container">
+    <h1>Home</h1>
+    <br>
+    <p>
+        How might wildfire affect your local community? How can you protect your family, home, and neighbors?
+        You've got questions. We've got answers.
+        Visualize wildfire risk and simulate the impacts of a hypothetical wildfire below.
+    </p>
+</div>
+
+<!-- Working on adding button that will hide the form and the22n expand the chart
+this button currently can hide the form, but chart size wont get any bigger
+<input id="HideForm" type="button" value="Hide Form" class="show" onclick="formVisible();"/>
+<div id="chart" class="chart col-md-7"></div>
+-->
+<div id="page" class="page row">
+
+    <div id="chart" class="chart col-md-7"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        let chart = document.getElementById("chart");
+        let graphs = {{graph_json | safe}};
+        Plotly.plot("chart", graphs)
+        n = graphs.data.length
+        chart.on("plotly_click", function (data) {
+            document.getElementById("lon").value = data.points[0].lon;
+            document.getElementById("lat").value = data.points[0].lat;
+            while (graphs.data.length > n) {
+                // delete previously selected ignition points
+                Plotly.deleteTraces(chart, [-1]);
+            }
+            // add most recent selected ignition point
+            Plotly.addTraces(chart, {
+                lon: [data.points[0].lon],
+                lat: [data.points[0].lat],
+                type: 'scattermapbox',
+                mode: 'markers',
+                marker: {'color': "orange", 'opacity': 1.0},
+                hovertemplate: "Ignition Point<br>" +
+                    "Latitude: %{lat}<br>" +
+                    "Longitude: %{lon}<br>" +
+                    "<extra></extra>",
+                size: 36,
+                visible: true
+            });
+        });
+    </script>
+
+    <!-- Switch between the inputs and impacts pages with button
+     UPDATE: to a card and nicer buttons -->
+    <div id="UserForm" class="UserForm col-md-4">
+
+        <!-- Top half of the user form, with input and impact buttons style="width: 26rem;" -->
+        <div id="Options" class="Options">
+            <div class="row">
+                <input id="InputsButton" class="btn btn-primary btn-lg" type="button" value="Inputs"
+                       onclick="inputsVisible();"/>
+                <input id="ImpactsButton" class="btn btn-primary btn-lg" type="button" value="Impacts"
+                       onclick="impactsVisible();"/>
+            </div>
+        </div>
+
+        <!-- Uses Bootstrap Cards to get more modern look style="width: 26rem;" -->
+        <div class="card text-center bg-light special-card">
+
+            <!-- INPUTS PAGE -->
+            <div id="Inputs" class="Inputs">
+                <div class="card-body">
+
+                    <div class="col-sm-12">
+                        <!-- Preset situations -->
+                        <div class="row">
+                            <div class="col-sm-12" align="center">
+                                <h5>Step 0: Preset Scenarios</h5>
+                                <p align="left">
+                                    Unsure where to begin? Select a preset scenario below.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2" id="presetTop">
+                                <button class='btn btn-primary' onclick="scenario1();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Homeowner Scenario
+                                            <span class="tooltiptextForm right">This scenario simulates a fire starting in the Los Gatos area.
+                                            The scenario allows you to see a fire from a homeowner's view. Be sure to think about possible
+                                            evacuations, community awareness, and the economic as well as health impacts.</span>
+                                        </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario2();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">City Manager
+                                            <span class="tooltiptextForm left">This scenario simulates a fire starting in the Morgan Hill area from a new barbeque area.
+                                            The scenario allows you to see a fire from a city planner's view. Be sure to think about
+                                            the economic as well as health impacts.</span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario3();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Climate Activist
+                                            <span class="tooltiptextForm right">This scenario simulates a fire starting in the Summit West forest area.
+                                            The scenario allows you to see a fire from an activist's view. Be sure to think about
+                                            the demographic as well as environmental impacts.</span>
+                                        </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class='btn btn-primary' onclick="scenario4();">Fill</button>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Climate Activist with Climate Change
+                                            <span class="tooltiptextForm left">This scenario simulates a fire starting in the Summit West forest area, under climate change.
+                                            The scenario allows you to see a fire from an activist's view. Be sure to think about
+                                            the demographic as well as environmental impacts.</span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+
+
+
+
+                        <!-- Risk Visualization -->
+                        <div class="row">
+                            <div class="col-sm-12" align="center">
+                                <h5>Step 1: Understand the Risks</h5>
+                                <p align="left">
+                                    Visualize the various risk factors at play when wildfire strikes.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img id="EyeRisk" src="{{url_for('static', filename='eye_open.png')}}"
+                                     width="30px" class="open darken" onclick="riskVisible();"/>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Wildfire Risk
+                                            <span class="tooltiptextForm right">
+                                                Wildfire Hazard Potential, an index that quantifies the relative potential
+                                                for wildfire that may be difficult to control, used as a measure to help
+                                                prioritize where fuel treatments may be needed.
+                                                Data curated by the U.S. Forest Service, available <a target="_blank"
+                                                    href="https://www.arcgis.com/home/item.html?id=9274dfe5318540d7a09f0117c0be0730">here</a>.
+                                            </span>
+                                        </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <img id="EyePerimeters" src="{{url_for('static', filename='eye_closed.png')}}"
+                                     width="30px" class="closed darken" onclick="perimetersVisible();"/>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Historical Wildfires
+                                            <span class="tooltiptextForm left">
+                                                Footprints of past wildfires occurring between 1950-2020.
+                                                Data curated by CalFire, available <a target="_blank"
+                                                    href="https://frap.fire.ca.gov/frap-projects/fire-perimeters/">here</a>.
+                                            </span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img id="EyePopulation" src="{{url_for('static', filename='eye_closed.png')}}"
+                                     width="30px" class="closed darken" onclick="populationVisible();"/>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Population
+                                            <span class="tooltiptextForm right">
+                                                Population density measured in people per square kilometer,
+                                                derived from 2018 population estimates provided by the U.S.
+                                                Census Bureau. Data curated by the U.S. Forest Service,
+                                                available <a target="_blank"
+                                                    href="https://www.arcgis.com/home/item.html?id=2770d391dd894782b567a6becc4b32fd">here</a>.
+                                            </span>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <img id="EyeHousing" src="{{url_for('static', filename='eye_closed.png')}}"
+                                     width="30px" class="closed darken" onclick="housingVisible();"/>
+                            </div>
+                            <div class="col-sm-4" align="left">
+                                <span>
+                                    <div class="tooltipForm">Housing
+                                            <span class="tooltiptextForm left">
+                                                Housing density measured in units per square kilometer,
+                                                derived from 2018 housing unit estimates provided by the U.S.
+                                                Census Bureau. Data curated by the U.S. Forest Service,
+                                                available <a target="_blank"
+                                                    href=https://www.arcgis.com/home/item.html?id=6f49e46d5a2743c8bef156f1d7157121>here</a>.
+                                            </span>
+                                        </div>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- Inputs Form -->
+                        <form action="/" method="POST">
+
+                            <!-- Location Selection -->
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h5>Step 2: Select an Ignition Point</h5>
+                                    <p align="left">
+                                        Click on the map or type below to select an ignition point.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4" align="right">
+                                    <label for="lat">
+                                        <div class="tooltipForm">Latitude
+                                            <span class="tooltiptextForm right">
+                                                Latitude of fire ignition point.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="lat" id="lat" placeholder="yy.yy"
+                                           required/>
+                                </div>
+                                <div class="col-sm-4" align="left">
+                                    <span>°N</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4" align="right">
+                                    <label for="lon">
+                                        <div class="tooltipForm">Longitude
+                                            <span class="tooltiptextForm right">
+                                                Longitude of fire ignition point.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="lon" id="lon" placeholder="xx.xx"
+                                           required/>
+                                </div>
+                                <div class="col-sm-4" align="left">
+                                    <span>°E</span>
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- Baseline Header -->
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h5>Step 3: Set a Baseline</h5>
+                                    <p align="left">
+                                        Specify baseline weather conditions for the wildfire simulation from a
+                                        particular day, or as the climatological average conditions in a particular month.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Baseline Form -->
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input" type="radio" id="historicalRadio"
+                                                   name="baselineData" value="baselineHistorical"
+                                                   onclick="historicalRequired()" required/>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="historicalRadio">
+                                        <div class="tooltipForm">Historical Data
+                                            <span class="tooltiptextForm">
+                                                Selects baseline weather conditions from a particular date.
+                                                Data curated by the NOAA National Centers for Environmental Information, available
+                                                <a target="_blank" href="https://www.ncei.noaa.gov/">here</a>.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input id="historicalDate" type="date" class="form-control" name="historicalDate"
+                                           placeholder="mm/dd/yyyy"/>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=# id=historicalLoad>
+                                        <button class='btn btn-primary'>Load</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="form-check">
+                                        <label>
+                                            <input class="form-check-input" type="radio" id="climatologicalRadio"
+                                                   name="baselineData" value="baselineClimatological"
+                                                   onclick="climatologicalRequired()" required/>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="climatologicalRadio">
+                                        <div class="tooltipForm">Climatological Data
+                                            <span class="tooltiptextForm">
+                                                Selects baseline weather conditions from climate normals, i.e., average monthly conditions from 1990-2020.
+                                                Data curated by the NOAA National Centers for Environmental Information, available
+                                                <a target="_blank" href="https://www.ncei.noaa.gov/">here</a>.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input id="climatologicalDate" type="text" class="form-control"
+                                           name="climatologicalDate" placeholder="mm"/>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href=# id=climatologicalLoad>
+                                        <button class='btn btn-primary'>Load</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="row">
+                                <input type="submit" class="btn btn-primary" value="Get Data"/>
+                            </div>
+                            -->
+                            <br>
+
+                            <!-- Adjustments Header -->
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h5>Step 4: Adjust for Climate Change</h5>
+                                    <p align="left">
+                                        Under climate change, higher temperatures, lower humidity, and higher winds are
+                                        expected in the Bay Area. Adjust the weather conditions below away from their
+                                        baseline to see how wildfire spread will be affected.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Adjustments Form -->
+                            <!-- Sliders section -->
+                            <div class="slidecontainer row">
+                                <!-- Temperature -->
+                                <div class="col-sm-1">
+                                    <img id="EyeTemp" src="{{url_for('static', filename='eye_closed.png')}}"
+                                         width="30px" class="closed darken" onclick="tempVisible();"/></div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="tempSlider">
+                                        <div class="tooltipForm">Temperature
+                                            <span class="tooltiptextForm">
+                                                Adjusts temperature used in the simulation relative to the selected baseline conditions.
+                                                In general, higher temperature accelerate wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                Higher temperatures are expected in the Bay Area under climate change
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
+                                        </div>
+
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="range" min="-25" max="25" value="0" class="slider"
+                                           name="tempSlider" id="tempSlider">
+                                </div>
+                                <div class="col-sm-3" align="left">
+                                    <span id="tempPos"></span>
+                                    <span id="tempVal">0</span>
+                                    <span>°C</span>
+                                </div>
+                            </div>
+
+                            <div class="slidecontainer row">
+                                <!-- Humidity -->
+                                <div class="col-sm-1">
+                                    <img id="EyeHumidity" src="{{url_for('static', filename='eye_closed.png')}}"
+                                         width="30px" class="closed darken" onclick="humidityVisible();"/>
+                                </div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="humiditySlider">
+                                        <div class="tooltipForm">Humidity
+                                            <span class="tooltiptextForm">
+                                                Adjusts humidity used in the simulation relative to the selected baseline conditions.
+                                                In general, lower humidity accelerates wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                Lower humidity is expected in the Bay Area under climate change
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="range" min="-25" max="25" value="0" class="slider"
+                                           name="humiditySlider" id="humiditySlider">
+                                </div>
+                                <div class="col-sm-3" align="left">
+                                    <span id="humidPos"></span>
+                                    <span id="humidVal">0</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                            <div class="slidecontainer row">
+                                <!-- Wind Speed -->
+                                <div class="col-sm-1">
+                                    <img id="EyeWndSpd" src="{{url_for('static', filename='eye_closed.png')}}"
+                                         width="30px" class="closed darken" onclick="wndSpdVisible();"/>
+                                </div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="wndSpdSlider">
+                                        <div class="tooltipForm">Wind Speed
+                                            <span class="tooltiptextForm">
+                                                Adjusts wind speed used in the simulation relative to the selected baseline conditions.
+                                                In general, faster wind speeds accelerate wildfire spread
+                                                <a target="_blank" href="https://www.fs.usda.gov/treesearch/pubs/4617">(Finney 1998)</a>.
+                                                It is not clear how average wind speeds in the Bay Area will change under climate change.
+                                                However, storms of greater frequency and intensity are expected under climate change,
+                                                hence the number of high-wind days is likely to increase
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="range" min="-25" max="25" value="0" class="slider"
+                                           name="wndSpdSlider" id="wndSpdSlider">
+                                </div>
+                                <div class="col-sm-3" align="left">
+                                    <span id="wndSpdPos"></span>
+                                    <span id="wndSpdVal">0</span>
+                                    <span>m/s</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Wind direction -->
+                                <div class="col-sm-1">
+                                    <img id="EyeWndDir" src="{{url_for('static', filename='eye_closed.png')}}"
+                                         width="30px" class="closed darken" onclick="wndDirVisible();"/>
+                                </div>
+                                <div class="col-sm-4" align="right">
+                                    <label for="circularSlider">
+                                        <div class="tooltipForm">Wind Direction
+                                            <span class="tooltiptextForm">
+                                                Adjusts wind direction used in the simulation relative to the selected baseline conditions.
+                                                Wind direction controls the primary direction of wildfire spread.
+                                                It is not clear how average wind direction in the Bay Area will change under climate change.
+                                                However, storms of greater frequency and intensity are expected under climate change,
+                                                hence the variability in wind directions is likely to increase
+                                                <a target="_blank" href="https://www.ipcc.ch/assessment-report/ar6/">(IPCC 2021)</a>.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4" align="center">
+                                    <div id="circularSlider"></div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                            <br>
+
+                            <!-- Duration Header -->
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h5>Step 5: Set a Burn Duration</h5>
+                                    <p align="left">
+                                        Specify how long the fire simulation should run.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4" align="right">
+                                    <label for="duration">
+                                        <div class="tooltipForm">Duration
+                                            <span class="tooltiptextForm">
+                                                    A value of 500 minutes is usually a good starting point.
+                                                    Shorter durations will result in smaller fires,
+                                                    while longer durations will result in larger fires.
+                                                    Wildfires in urban and suburban areas are likely to be extinguished more quickly than
+                                                    wildfires in rural areas, hence shorter durations are more realistic in
+                                                    urban and suburban areas and longer durations are more realistic in rural areas.
+                                            </span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="duration" id="duration" value="500" required/>
+                                </div>
+                                <div class="col-sm-4" align="left">
+                                    <span>minutes</span>
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- Submit Header -->
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <h5>Step 6: Simulate a Wildfire</h5>
+                                    <p align="left">
+                                        Click "Run" to visualize the footprint of a simulated wildfire and its effects.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <!-- Run Button -->
+                                <input type="submit" class="btn btn-primary" value="Run" data-toggle="modal"
+                                       data-target="#loadingModal"/>
+
+                                <!-- Modal box on submission showing loading screen -->
+                                <div class="modal fade" id="loadingModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Simulation Loading</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p text-align="left">
+                                                    Thanks for your patience as we simulate a hypothetical wildfire and
+                                                    compute its impact.
+                                                    We're running a state-of-the-art model known as
+                                                    <a target="_blank"
+                                                       href="https://www.fs.usda.gov/treesearch/pubs/4617">FARSITE</a>,
+                                                    developed by top scientists at the U.S. Forest Service, which may
+                                                    take up to 30 seconds.
+                                                    Please don't refresh this page.
+                                                </p>
+                                                <p>
+                                                    While you wait, did you know? {{ fun_fact }}
+                                                </p>
+                                                <p>
+                                                    Reduce your own risk to fire by {{ prevention_fact }}
+                                                </p>
+                                                <p>
+                                                    Wildfire facts courtesy of the
+                                                    <a target="_blank"
+                                                       href="https://www.iii.org/article/facts-about-wildfires">Insurance
+                                                        Information Institute.</a>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Used to fill healthData array with values, using this until I can figure out why the sim won't run
+                                <input type="button" onclick="fillData();" class="btn btn-primary" value="Test"/>
+                                -->
+
+                            </div>
+
+                        </form>
+
+                        <!-- End of col-md-6 -->
+                    </div>
+
+                    <!-- End of inputs section -->
+                </div>
+
+                <!-- End of inputs card body section -->
+            </div>
+
+
+
+
+
+            <!-- IMPACTS PAGE -->
+            <div id="Impacts" class="Impacts">
+
+                <div id="impactButtons">
+                    <input id="EconomicButton" class="btn btn-primary" type="button" value="Economic"
+                           onclick="economicVisible();"/>
+                    <input id="HealthButton" class="btn btn-primary" type="button" value="Health"
+                           onclick="healthVisible();"/>
+                    <input id="DemographicButton" class="btn btn-primary" type="button" value="Demographic"
+                           onclick="demographicVisible();"/>
+                    <input id="EnvironmentButton" class="btn btn-primary" type="button" value="Environment"
+                           onclick="environmentVisible();"/>
+                </div>
+
+                <div class="card-body">
+                    <!-- Economic Page-->
+                    <div id="Economic" class="Economic">
+                        {% set destrcost = num_destroyed*1.7 %}
+                        {% set damagecost = num_damaged*0.15 %}
+                        {% set ffighters = num_damaged*15 + num_destroyed*10 %}
+                        {% set ffightercost = num_damaged*0.18 + num_destroyed*0.1 %}
+                        {% set businessclosed = (num_damaged + num_destroyed) // 10 %}
+                        {% set businesscost = businessclosed*0.01 %}
+                        {% set evac = num_damaged * 100 + num_destroyed * 3 %}
+                        {% set evaccost = evac*0.001 %}
+                        {% set totcost = destrcost + damagecost + ffightercost + businesscost + evaccost %}
+                        <h5 class="center"><b>Direct Loss</b></h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Structures Destroyed
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of structures destroyed by simulated wildfire
+                                            based on building footprints from satellite imagery.
+                                            Data curated by Microsoft, available
+                                            <a target="_blank" href="https://github.com/microsoft/USBuildingFootprints">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totStructDestr"> {{ num_destroyed }} </span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded"
+                                             id="totStructDestrCost">{{ '%.2f' | format(destrcost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Structures Damaged
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of structures damaged by simulated wildfire
+                                            based on building footprints from satellite imagery.
+                                            Data curated by Microsoft, available
+                                            <a target="_blank" href="https://github.com/microsoft/USBuildingFootprints">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totStructDam">{{ num_damaged }}</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded"
+                                             id="totStructDamCost">{{ '%.2f' | format(damagecost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Firefighters Needed
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of firefighters needed to contain the simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="firefightersNeed">{{ ffighters }}</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded" id="firefightersNeedCost">{{ '%.2f' | format(ffightercost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"> <b>Indirect Loss </b></h5>
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Business Closures
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of businesses closed due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" align="right">
+                                    <span class="bolded" id="totBusinClose">{{ businessclosed }}</span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded"
+                                             id="totBusinCloseCost">{{ '%.2f' | format(businesscost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Evacuations
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of residents evacuated due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" align="right"><!--
+                                    --><span class="bolded" id="totEvacuations">{{ evac }}</span><!--
+                                    --><span class="bolded"></span>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded"
+                                             id="totEvacuationsCost">{{ '%.2f' | format(evaccost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"> <b>Total Loss</b></h5>
+
+                            <div class="row">
+                                <div class="col-md-6" align="left">
+                                    <div class="tooltipForm">Cost
+                                        <span class="tooltiptextForm right">
+                                            Estimated total cost of simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3" align="right">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded" id="totCostEcon">{{ '%.2f' | format(totcost) }}</span><!--
+                                    --><span class="bolded">m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Page-->
+                    <div id="Health" class="Health">
+                        <h5 class="center"><b>Losses </b></h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Injuries
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of injuries due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="injuriesTot"> {{impacts_data.get('injury', 0)}} </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Deaths
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of deaths due to simulated wildfire,
+                                            based on acreage and number of buildings damaged or destroyed.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="deathsTot"> {{impacts_data.get('death', 0)}} </span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"><b>Resources Needed</b></h5>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Hospital Beds
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of hospital beds needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="hospBedsTot"> {{impacts_data.get('hospital_bed', 0)}} </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">ICU Beds
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of ICU beds needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="ICUBedsTot">{{impacts_data.get('ICU_bed', 0)}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Nurses
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of nurses needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="nursesTot">{{impacts_data.get('nurses', 0)}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Doctors
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of doctors needed due to simulated wildfire,
+                                            based on number of injuries.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="doctorsTot">{{impacts_data.get('doctors', 0)}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Demographic Page-->
+                    <div id="Demographic" class="Demographic">
+                        <h5 class="center"><b>Communities Affected</b></h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">City
+                                        <span class="tooltiptextForm right">
+                                            Primary city affected by simulated wildfire. If the simulated wildfire
+                                            is in a rural area, this may be the nearest major road.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="cityAffected">{{impacts_data.get('cities', "-")}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">County
+                                        <span class="tooltiptextForm right">
+                                            Primary county affected by simulated wildfire.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="countyAffected">{{impacts_data.get('counties', "-")}}</span>
+                                </div>
+                            </div>
+
+                            <br>
+                            <h5 class="center"><b>Equity Factors</b></h5>
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Median Household Income
+                                        <span class="tooltiptextForm right">
+                                            Median household income of residents living in the county affected by simulated wildfire.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded">$</span><!--
+                                    --><span class="bolded" id="houseIncome">{{impacts_data.get('income', "-")}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Bachelor's Degree or Higher
+                                        <span class="tooltiptextForm right">
+                                            Percentage of residents living in the county affected by simulated wildfire who hold a bachelor's degree or higher.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="eduLevel"> {{impacts_data.get('education', "-")}} </span>
+                                    <span class="bolded">%</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Age 65 and Older
+                                        <span class="tooltiptextForm right">
+                                            Percent of residents living in the county affected by simulated wildfire aged 65 and older.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="medAge"> {{impacts_data.get('age', "-")}} </span>
+                                    <span class="bolded">%</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Percent Nonwhite
+                                        <span class="tooltiptextForm right">
+                                            Percent of residents living in the county affected by simulated wildfire who are nonwhite.
+                                            Data curated by the U.S. Census Bureau, available
+                                            <a target="_blank" href="https://www.census.gov/programs-surveys/acs">here</a>.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="percentNonWhite"> {{impacts_data.get('nonwhite', "-")}} </span><!--
+                                    --><span class="bolded">%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Environment Page-->
+                    <div id="Environment" class="Environment">
+                        <h5 class="center"><b>Consequences</b></h5>
+                        <div class="col-md-12">
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Acres Burned
+                                        <span class="tooltiptextForm right">
+                                            Estimated number of acres burned by simulated wildfire.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="acresBurned"> {{impacts_data.get('acres', 0)}} </span>
+                                    <span class="bolded"> ac</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Smoke Travel Distance
+                                        <span class="tooltiptextForm right">
+                                            Estimated distance travelled by smoke from simulated wildfire, based on acres burned and wind conditions.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="smokeFootprint"> {{impacts_data.get('smoke', 0)}} </span>
+                                    <span class="bolded"> mi</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">CO<sub>2</sub>e Emissions
+                                        <span class="tooltiptextForm right">
+                                            Estimated amount of carbon emissions in megatons of CO<sub>2</sub>-equivalent produced by the simulated wildfire.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle">EPA</a>,
+                                            a passenger car typically emits 4.6 metric tons per year, and according to
+                                            <a target="_blank" href="https://www.carbonindependent.org/22.html">Carbon Independent</a>,
+                                            a single commercial aircraft typically emits 0.1 metric tons per hour of flight.
+                                        </span>
+                                    </div>
+                                    <!-- https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle#:~:text=typical%20passenger%20vehicle%3F-,A%20typical%20passenger%20vehicle%20emits%20about%204.6%20metric%20tons%20of,8%2C887%20grams%20of%20CO2. -->
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="C02emissions"> {{impacts_data.get('CO2', 0)}} </span>
+                                    <span class="bolded"> mt</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Outdoor PM 2.5 Emissions
+                                        <span class="tooltiptextForm right">
+                                            Estimated concentration of particulate matter less than 2.5 microns (um) emitted by the wildfire in outdoor spaces.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">EPA</a>,
+                                            particulate matter poses a risk to lung health and is particularly dangerous to individuals with asthma or other respiratory issues.
+                                            According to the
+                                            <a target="_blank" href="https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health">WHO</a>,
+                                            concentrations above 5 &mu;g/m<sup>3</sup> are considered dangerous.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="OutPMemissions"> {{impacts_data.get('OutPM', 0)}} </span>
+                                    <span class="bolded"> &mu;g/m<sup>3</sup></span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-7" align="left">
+                                    <div class="tooltipForm">Indoor PM 2.5 Emissions
+                                        <span class="tooltiptextForm right">
+                                            Estimated concentration of particulate matter less than 2.5 microns (um) emitted by the wildfire in indoor spaces.
+                                            According to the
+                                            <a target="_blank" href="https://www.epa.gov/pm-pollution/particulate-matter-pm-basics">EPA</a>,
+                                            particulate matter poses a risk to lung health and is particularly dangerous to individuals with asthma or other respiratory issues.
+                                            According to the
+                                            <a target="_blank" href="https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health">WHO</a>,
+                                            concentrations above 5 &mu;g/m<sup>3</sup> are considered dangerous.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" align="left">
+                                    <span class="bolded" id="InPMemissions"> {{impacts_data.get('InPM', 0)}} </span>
+                                    <span class="bolded"> &mu;g/m<sup>3</sup></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- End of impacts page -->
+                </div>
+
+
+                <!-- End of card body, which includes eye buttons, and form -->
+            </div>
+
+            <!-- End of card class -->
+        </div>
+
+        <!-- End of user form page, which includes impact and inputs buttons -->
+    </div>
+
+    <!-- End of page -->
+</div>
+
+
+<script>
+    // Global Variables
+    var Healthdata = [0];
+
+    function test() {
+        alert("Testing")
+    }
+</script>
+
+<!-- Toggles required attribute on historical / climatological baselines -->
+<script>
+    function climatologicalRequired() {
+        document.getElementById("historicalDate").removeAttribute("required")
+        document.getElementById("climatologicalDate").setAttribute("required", "")
+    }
+
+    function historicalRequired() {
+        document.getElementById("climatologicalDate").removeAttribute("required")
+        document.getElementById("historicalDate").setAttribute("required", "")
+    }
+</script>
+
+<!-- Loads historical / climatological data on button click -->
+<script>
+    $(function () {
+        $('a#historicalLoad').on('click', function (e) {
+            e.preventDefault();
+            params = new URLSearchParams({
+                date: document.getElementById("historicalDate").value
+            })
+            $.ajax({datatype: "json",
+                    url: "/historical?" + params.toString(),  // make call to background_historical endpoint
+                    data: {},  // pass date from form as parameter in URL
+                    success: function (data) {
+                        // handle returned data from endpoint
+                        graphs.data[layers["Temperature"]].marker.color = data["Temperature"]
+                        graphs.data[layers["Humidity"]].marker.color = data["Humidity"]
+                        graphs.data[layers["WindSpeed"]].marker.color = data["WindSpeed"]
+                        graphs.data[layers["WindDirection"]].marker.color = data["WindDirection"]
+                }});
+            return false;
+        });
+    });
+    $(function () {
+        $('a#climatologicalLoad').on('click', function (e) {
+            e.preventDefault();
+            params = new URLSearchParams({
+                month: document.getElementById("climatologicalDate").value
+            })
+            $.ajax({datatype: "json",
+                    url: "/climatological?" + params.toString(),  // make call to background_historical endpoint
+                    data: {},  // pass date from form as parameter in URL
+                    success: function (data) {
+                        // handle returned data from endpoint
+                        graphs.data[layers["Temperature"]].marker.color = data["Temperature"]
+                        graphs.data[layers["Humidity"]].marker.color = data["Humidity"]
+                        graphs.data[layers["WindSpeed"]].marker.color = data["WindSpeed"]
+                        graphs.data[layers["WindDirection"]].marker.color = data["WindDirection"]
+                }});
+            return false;
+        });
+    });
+</script>
+
+<!-- Updates the slider values, these can stay in the form since the values are not
+ needed to be grabbed until the user runs the simulation.
+  Found on: https://www.w3schools.com/howto/howto_js_rangeslider.asp -->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    let sliderTemp = document.getElementById("tempSlider");
+    let outputTemp = document.getElementById("tempVal");
+    outputTemp.innerHTML = sliderTemp.value; // Display the default slider value
+
+    let sliderHumid = document.getElementById("humiditySlider");
+    let outputHumid = document.getElementById("humidVal");
+    outputHumid.innerHTML = sliderHumid.value; // Display the default slider value
+
+    let sliderWndSpd = document.getElementById("wndSpdSlider");
+    let outputWndSpd = document.getElementById("wndSpdVal");
+    outputWndSpd.innerHTML = sliderWndSpd.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    sliderTemp.oninput = function () {
+        outputTemp.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("tempPos").innerText = "+";
+        } else {
+            document.getElementById("tempPos").innerText = "";
+        }
+    }
+
+    sliderHumid.oninput = function () {
+        outputHumid.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("humidPos").innerText = "+";
+        } else {
+            document.getElementById("humidPos").innerText = "";
+        }
+    }
+
+    sliderWndSpd.oninput = function () {
+        outputWndSpd.innerHTML = this.value;
+        if (this.value > 0) {
+            document.getElementById("wndSpdPos").innerText = "+";
+        } else {
+            document.getElementById("wndSpdPos").innerText = "";
+        }
+    }
+
+
+</script>
+
+
+<!-- Switches between the inputs and impacts pages -->
+<script>
+    function inputsVisible() {
+        document.getElementById('Inputs').style.display = 'block';
+        document.getElementById('Impacts').style.display = 'none';
+    }
+
+    function impactsVisible() {
+        document.getElementById('Inputs').style.display = 'none';
+        document.getElementById('Impacts').style.display = 'block';
+
+
+        // The calculating mock uses a global array Healthdata, initialized to [0].
+        // The test button (commented next to run button) fills the data for the array when clicked
+        // When the impacts page button is then clicked, if the array is greater than size 1, then the impacts are calculated
+        // For final version, just replace the healthdata array with the simulation one.
+        // My program currently crashes due to missing pickle file when I try to run normally which is why i use mock array
+        var simSize = Healthdata.length;
+
+        //################### Impacts Calculation For Economic Page ################################
+        let structuresDestroyed = document.getElementById("totStructDestr");
+        let structuresDestroyedCost = document.getElementById("totStructDestrCost");
+        let structuresDamaged = document.getElementById("totStructDam");
+        let structuresDamagedCost = document.getElementById("totStructDamCost");
+        let firefighters = document.getElementById("firefightersNeed");
+        let firefightersCost = document.getElementById("firefightersNeedCost");
+        let businessesClosed = document.getElementById("totBusinClose");
+        let businessesClosedCost = document.getElementById("totBusinCloseCost");
+        let evacuations = document.getElementById("totEvacuations");
+        let evacuationsCost = document.getElementById("totEvacuationsCost");
+        let totalCost = document.getElementById("totCostEcon");
+        if (simSize > 1) {
+
+        }
+
+        //################### Impacts Calculation For Health Page ################################
+        let injuryTot = document.getElementById("injuriesTot");
+        let deathTot = document.getElementById("deathsTot");
+        let hospBedTot = document.getElementById("hospBedsTot");
+        let ICUBedTot = document.getElementById("ICUBedsTot");
+        let nurseTot = document.getElementById("nursesTot");
+        let doctorTot = document.getElementById("doctorsTot");
+        ``
+        if (simSize > 1) {
+            var injuries = simSize;
+            injuryTot.innerText = injuries;
+            var deaths = Math.ceil(injuries / 60);
+            deathTot.innerText = deaths;
+            var hospitalBeds = Math.round(injuries * .55);
+            hospBedTot.innerText = hospitalBeds;
+            var ICUBeds = Math.ceil(injuries * .15);
+            ICUBedTot.innerText = ICUBeds;
+            // Califronia requires 1 nurses to every 5 patients
+            var nurses = Math.ceil(hospitalBeds / 5);
+            nurseTot.innerText = nurses;
+            // 12 to 1 doctor to patient ratio, beds measure patients, 10 for beds (recommended for ICU), 2 for minor injuries
+            var doctors = Math.ceil(hospitalBeds / 12);
+            doctorTot.innerText = doctors;
+        }
+
+        //################### Impacts Calculation For Demographic Page ################################
+        let cityAffected = document.getElementById("cityAffected");
+        let countyAffected = document.getElementById("countyAffected");
+        let districtAffected = document.getElementById("districtAffected");
+        let houseIncome = document.getElementById("houseIncome");
+        let eduLevel = document.getElementById("eduLevel");
+        let medAge = document.getElementById("medAge");
+        let percentNonwhite = document.getElementById("percentNonWhite");
+        if (simSize > 1) {
+
+        }
+
+        //################### Impacts Calculation For Environment Page ################################
+        let acresBurned = document.getElementById("acresBurned");
+        let smokeBurned = document.getElementById("smokeFootprint");
+        let watershedFootprint = document.getElementById("watershedFootprint");
+        let CO2Emissions = document.getElementById("CO2emissions");
+        let PMEmissions = document.getElementById("PMemissions");
+        ``
+        if (simSize > 1) {
+            var acres = simSize;
+            acresBurned.innerText = acres;
+            var smoke = "UNSURE";
+            smokeBurned.innerText = smoke;
+            var watershed = "UNSURE";
+            watershedFootprint.innerText = watershed;
+            var co2 = acres * 26;
+            CO2Emissions.innerText = co2;
+            var PMe = "UNSURE";
+            PMEmissions.innerText = PMe;
+        }
+    }
+
+    {% if impacts %}
+    impactsVisible();
+    {% else %}
+    inputsVisible();
+    {% endif %}
+
+    function formVisible() {
+        let button = document.getElementById("HideForm");
+
+        if (button.className == "show") {
+            button.className = "hide";
+            //document.getElementById('UserForm').style.width = '0%';
+            document.getElementById('UserForm').style.display = 'none';
+            //document.getElementById('chart').style.width = '100%';
+        } else {
+            button.className = "show";
+            //document.getElementById('chart').style.width = '60%';
+            //document.getElementById('UserForm').style.width = '39%';
+            document.getElementById('UserForm').style.display = 'inline-block';
+        }
+    }
+</script>
+
+<!-- Switches between the different impacts pages -->
+<script>
+    function economicVisible() {
+        document.getElementById('Economic').style.display = 'block';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'none';
+    }
+
+    function healthVisible() {
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'block';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'none';
+    }
+
+    function demographicVisible() {
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'block';
+        document.getElementById('Environment').style.display = 'none';
+    }
+
+    function environmentVisible() {
+        document.getElementById('Economic').style.display = 'none';
+        document.getElementById('Health').style.display = 'none';
+        document.getElementById('Demographic').style.display = 'none';
+        document.getElementById('Environment').style.display = 'block';
+    }
+</script>
+
+<!-- Enables and disables visual layers -->
+<script>
+    layers = {
+        "Risk": 0,
+        "Population": 1,
+        "Housing": 2,
+        "Temperature": 3,
+        "Humidity": 4,
+        "WindSpeed": 5,
+        "WindDirection": 6,
+        "Perimeters": 7
+    }
+
+
+    function riskVisible() {
+        let img = document.getElementById("EyeRisk");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Risk"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function populationVisible() {
+        let img = document.getElementById("EyePopulation");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Population"]);
+            otherImgs = ["EyeRisk", "EyeHousing", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function housingVisible() {
+        let img = document.getElementById("EyeHousing");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Housing"]);
+            otherImgs = ["EyeRisk", "EyePopulation", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function tempVisible() {
+        let img = document.getElementById("EyeTemp");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Temperature"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeHumidity", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function humidityVisible() {
+        let img = document.getElementById("EyeHumidity");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Humidity"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeWndSpd", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function wndSpdVisible() {
+        let img = document.getElementById("EyeWndSpd");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["WindSpeed"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndDir", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function wndDirVisible() {
+        let img = document.getElementById("EyeWndDir");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["WindDirection"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyePerimeters"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function perimetersVisible() {
+        let img = document.getElementById("EyePerimeters");
+
+        // plotly changes
+        var update = {
+            visible: false
+        }
+        Plotly.restyle(chart, update);
+
+        if (img.className == "open darken") {
+            closeEye(img);
+        } else {
+            eye_open(img);
+            // plotly changes
+            var Nupdate = {
+                visible: true
+            }
+            Plotly.restyle(chart, Nupdate, layers["Perimeters"]);
+            otherImgs = ["EyePopulation", "EyeHousing", "EyeRisk", "EyeTemp", "EyeHumidity", "EyeWndSpd", "EyeWndDir"]
+            for (let i = 0; i < otherImgs.length; i++) {
+                let img = document.getElementById(otherImgs[i]);
+                closeEye(img);
+            }
+        }
+    }
+
+    function closeEye(img) {
+        img.className = "closed darken";
+        img.src = "{{url_for('static', filename='eye_closed.png')}}";
+    }
+
+    function eye_open(img) {
+        img.className = "open darken";
+        img.src = "{{url_for('static', filename='eye_open.png')}}";
+    }
+</script>
+
+
+<!-- Circular slider  https://roundsliderui.com/demos.html#customizations -->
+<script>
+    $("#circularSlider").roundSlider({
+        sliderType: "default",
+        showTooltip: false,
+        handleShape: "square",
+        handleSize: "0",
+        radius: 40,
+        max: 360,
+        startAngle: 90
+    });
+</script>
+
+
+<!-- Updates the health data on the impacts page -->
+<script>
+
+    function fillData() {
+        Healthdata = [1, 2, 3, 4, 5, 6];
+    }
+
+</script>
+
+
+<!-- Fills in the scenarios -->
+<script>
+    <!-- Homeowner -->
+    function scenario1() {
+        document.getElementById('lat').value=37.219130837744444;
+        document.getElementById('lon').value=-121.99535666605864;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- City manager -->
+    function scenario2() {
+        document.getElementById('lat').value=37.116167969400465;
+        document.getElementById('lon').value=-121.64902701799252;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=200;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- Climate activist -->
+    function scenario3() {
+        document.getElementById('lat').value=37.120848099779735;
+        document.getElementById('lon').value=-122.00939705719645;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=0;
+        document.getElementById('tempVal').innerText="0";
+        document.getElementById('humiditySlider').value=0;
+        document.getElementById('humidVal').innerText="0";
+        document.getElementById('wndSpdSlider').value=0;
+        document.getElementById('wndSpdVal').innerText="0";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+
+    <!-- Climate activist w climate change -->
+    function scenario4() {
+        document.getElementById('lat').value=37.111487839021194;
+        document.getElementById('lon').value=-122.018757317955;
+        document.getElementById('climatologicalDate').value="04";
+        document.getElementById('tempSlider').value=22;
+        document.getElementById('tempVal').innerText="22";
+        document.getElementById('humiditySlider').value=17;
+        document.getElementById('humidVal').innerText="17";
+        document.getElementById('wndSpdSlider').value=20;
+        document.getElementById('wndSpdVal').innerText="20";
+        document.getElementById('duration').value=500;
+        document.getElementById('climatologicalRadio').checked=true;
+
+        document.getElementById('climatologicalLoad').click();
+
+    }
+</script>
+
+{% endblock %}
+

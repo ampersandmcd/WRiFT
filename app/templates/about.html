@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% set active_page = "about" %}
+{% set title = "About" %}
+
+{% block content %}
+<div class="container">
+    <h1>About</h1>
+    <br>
+    <p>
+        This application was created by a team of six Computer Science students at
+        <a href="https://msu.edu/">Michigan State University</a> in partnership with the
+        <a href="https://anthropoceneinstitute.com/">Anthropocene Institute</a> in spring 2022 for
+        <a href="https://capstone.cse.msu.edu">CSE 498: Collaborative Design</a>, the capstone course within the
+        <a href="https://reg.msu.edu/academicprograms/ProgramDetail.aspx?Program=2337">B.S. Computer Science and Engineering</a> degree program offered through the
+        <a href="https://cse.msu.edu/">Department of Computer Science and Engineering</a>.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/about-1.jpg" alt="Redwoods in a forest. Original source: https://unsplash.com/photos/KW8yCmtQPvs">
+    </div>
+    <p>
+        The Anthropocene Institute envisioned a
+        <a href="http://www.capstone.cse.msu.edu/2022-01/projects/anthropocene-institute/">Wildfire Risks Forecasting Tool</a>
+        to raise awareness, educate, and empower residents living in areas at risk of wildfires.
+        The tool needed to be accessible, accurate, and actionable, allowing a user to simulate a hypothetical wildfire
+        in their neighborhood while accounting for the potential effects of climate change on fire spread.
+        Over the course of the Spring 2022 semester, this vision became a reality as six MSU Computer Science
+        students explored potential use-cases, engineered a system architecture, and curated an aesthetic design.
+        The final application offers an intuitive tool allowing users from Michigan to California to Japan to
+        understand the risks posed by wildfire under climate change.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/about-2.jpg" alt="Redwoods in a forest. Original source: https://unsplash.com/photos/KW8yCmtQPvs">
+    </div>
+    <p>
+        As a nonprofit aiming to "connect entrepreneurs, investors, institutions, and thought leaders to solve our climate emergency,"
+        the Anthropocene Institute supports transparent, open science. The source code supporting this application
+        is availaible on <a href="https://github.com/andrewmcdonald27/CapstoneExploration">GitHub</a>.
+    </p>
+    <div class="divForFullWidthImage">
+        <img class="fullWidthImage" src="../static/images/about-3.jpg" alt="Redwoods in a forest. Original source: https://unsplash.com/photos/KW8yCmtQPvs">
+    </div>
+    <p>
+        Michigan State University students involved in the project include Jingxian Chen, Andrew Haas, Andrew McDonald, Ben Miller, Jamie Schmidt, and Nathan Woods.
+    </p>
+    <div class="divForCenterImage">
+        <img class="centerImage" width="40%" src="../static/images/about-team.jpg" alt="A photo of project authors Jingxian Chen, Andrew Haas, Andrew McDonald, Ben Miller, Jamie Schmidt, and Nathan Woods. Original source: http://www.capstone.cse.msu.edu/2022-01/projects/anthropocene-institute/">
+    </div>
+    <p>
+        Frank Ling, Joanna Reyes, Micah Brown, and Mike Villena from the Anthropocene Institute served as project advisors.
+    </p>
+    <p>
+        Professor Wayne Dyksen from Michigan State University led the capstone course, CSE 498: Collaborative Design, supported by James Mariani, Brenden Hein, and Luke Sperling.
+    </p>
+    <p>
+        Our team would like to dedicate this project to Richard Chan, Director of the Anthropocene Institute, who passed away unexpectedly during the creation of the project.
+        We are incredibly thankful to have had the opportunity to work with you, learn from you, and improve the world with you.
+        May you rest in peace.
+    </p>
+</div>
+{% endblock %}
